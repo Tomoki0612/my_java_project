@@ -1,8 +1,6 @@
 package main.java.tomoki;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +16,12 @@ public class Login extends JFrame {
     private JPasswordField passwordField;
     private JButton loginButton;
 
+    private boolean authenticate(String username, String password) {
+        // 注意: これは単なるデモです。実際のアプリケーションでは
+        // データベースを使用し、パスワードは暗号化して保存すべきです。
+        return username.equals("admin") && password.equals("password");
+    }
+   
     public Login() {
         setTitle("ログイン");
         setSize(300, 150);
@@ -33,21 +37,31 @@ public class Login extends JFrame {
 
         panel.add(new JLabel("パスワード:"));
         passwordField = new JPasswordField();
+        passwordField.addActionListener(e -> performLogin());
         panel.add(passwordField);
 
         loginButton = new JButton("ログイン");
-        loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
-                // ここでログイン処理を行う
-                JOptionPane.showMessageDialog(Login.this,
-                    "ユーザー名: " + username + "\nパスワード: " + password);
-            }
-        });
-        panel.add(loginButton);
+        loginButton.addActionListener(e -> performLogin());
+         panel.add(loginButton);
 
         add(panel);
+    }
+    
+    //ログイン時の処理
+    private void performLogin() {
+        String username = usernameField.getText();
+        String password = new String(passwordField.getPassword());
+        
+        if (authenticate(username, password)) {
+            JOptionPane.showMessageDialog(Login.this,
+                "ログイン成功！\nようこそ、" + username + "さん！",
+                "認証成功", JOptionPane.INFORMATION_MESSAGE);
+            // ここに成功後の処理を追加（例：メイン画面を開くなど）
+        } else {
+            JOptionPane.showMessageDialog(Login.this,
+                "ユーザー名またはパスワードが間違っています。",
+                "認証失敗", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public static void main(String[] args) {
