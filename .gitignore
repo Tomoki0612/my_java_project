@@ -9,3 +9,6 @@ __pycache__/
 *.pyc
 backups/
 effective-pom.xml
+.classpath
+.project
+.settings/
