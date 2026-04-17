@@ -9,10 +9,15 @@ Usage:
 import sys
 import json
 import os
+import shutil
 from datetime import date, timedelta
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROGRESS_FILE = os.path.join(PROJECT_ROOT, "src", "main", "java", "leetcode", "progress.json")
+SRC_ROOT = os.path.join(PROJECT_ROOT, "src", "main", "java", "leetcode")
+PROGRESS_FILE = os.path.join(SRC_ROOT, "progress.json")
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from new_problem import fetch_problem, build_solution
 
 
 def load_progress():
@@ -62,6 +67,28 @@ def main():
         entry["retries"] = entry.get("retries", 0) + 1
         print(f"[復習予定] #{number} {title} [{difficulty}]")
         print(f"  → {tomorrow} に復習 (次回で{entry['retries'] + 1}回目の挑戦)")
+        save_progress(progress)
+
+        # Solution.java をバックアップしてリセット
+        dir_path = os.path.join(SRC_ROOT, key)
+        solution_path = os.path.join(dir_path, "Solution.java")
+        if os.path.exists(solution_path):
+            backup_dir = os.path.join(PROJECT_ROOT, "backups", key)
+            os.makedirs(backup_dir, exist_ok=True)
+            backup_path = os.path.join(backup_dir, f"{today}.java")
+            shutil.copy2(solution_path, backup_path)
+            print(f"  バックアップ: backups/{key}/{today}.java")
+
+            slug = key[6:].replace("_", "-")
+            problem = fetch_problem(slug)
+            if problem:
+                _, template = build_solution(problem, translate=False)
+                with open(solution_path, "w", encoding="utf-8") as f:
+                    f.write(template)
+                print(f"  Solution.java をリセットしました")
+            else:
+                print(f"  ※ 問題情報の取得に失敗したためリセットをスキップしました")
+        return
     else:
         entry["status"] = "mastered"
         entry["next_review"] = None
@@ -70,7 +97,7 @@ def main():
         print(f"[習得！] #{number} {title} [{difficulty}]" + (f"  ({retries}回リトライ)" if retries else ""))
         print(f"  → 明日は新しい問題へ")
 
-    save_progress(progress)
+        save_progress(progress)
 
 
 if __name__ == "__main__":

@@ -32,7 +32,6 @@ def main():
             retries = v.get("retries", 0)
             retry_str = f"  (今日で{retries + 1}回目の挑戦)" if retries else ""
             print(f"  #{num} {v['title']} [{v['difficulty']}]{retry_str}")
-            print(f"       まず        → python3 scripts/review.py {num}")
             print(f"       自力で解けた → python3 scripts/done.py {num}")
             print(f"       また詰まった → python3 scripts/done.py {num} --helped")
         print()
