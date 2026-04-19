@@ -2,10 +2,25 @@
 """今日やることを表示する"""
 import json
 import os
+import subprocess
 from datetime import date
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROGRESS_FILE = os.path.join(PROJECT_ROOT, "src", "main", "java", "leetcode", "progress.json")
+
+
+def git_pull():
+    result = subprocess.run(
+        ["git", "pull", "--rebase"],
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode == 0:
+        msg = result.stdout.strip()
+        print(f"[git] {msg if msg else 'Already up to date.'}")
+    else:
+        print(f"[git] pull 失敗: {result.stderr.strip()}")
 
 
 def load_progress():
@@ -16,6 +31,7 @@ def load_progress():
 
 
 def main():
+    git_pull()
     progress = load_progress()
     today = date.today().isoformat()
 

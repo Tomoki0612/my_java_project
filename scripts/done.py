@@ -10,6 +10,7 @@ import sys
 import json
 import os
 import shutil
+import subprocess
 from datetime import date, timedelta
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,6 +31,16 @@ def load_progress():
 def save_progress(data):
     with open(PROGRESS_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def git_push(message):
+    subprocess.run(["git", "add", PROGRESS_FILE], cwd=PROJECT_ROOT, check=True)
+    result = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=PROJECT_ROOT)
+    if result.returncode == 0:
+        return  # 変更なし
+    subprocess.run(["git", "commit", "-m", message], cwd=PROJECT_ROOT, check=True)
+    subprocess.run(["git", "push"], cwd=PROJECT_ROOT, check=True)
+    print(f"  [git] push 完了")
 
 
 def find_key(progress, number):
@@ -88,6 +99,7 @@ def main():
                 print(f"  Solution.java をリセットしました")
             else:
                 print(f"  ※ 問題情報の取得に失敗したためリセットをスキップしました")
+        git_push(f"progress: #{number} {title} → review")
         return
     else:
         entry["status"] = "mastered"
@@ -98,6 +110,7 @@ def main():
         print(f"  → 明日は新しい問題へ")
 
         save_progress(progress)
+        git_push(f"progress: #{number} {title} → mastered")
 
 
 if __name__ == "__main__":
