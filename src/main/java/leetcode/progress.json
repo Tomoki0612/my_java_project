@@ -301,10 +301,10 @@
   "p0169_majority_element": {
     "title": "Majority Element",
     "difficulty": "Easy",
-    "status": "review",
+    "status": "mastered",
     "added_date": "2026-04-16",
-    "next_review": "2026-04-21",
-    "mastered_date": null,
+    "next_review": null,
+    "mastered_date": "2026-04-20",
     "retries": 4
   }
 }
