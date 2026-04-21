@@ -306,5 +306,13 @@
     "next_review": null,
     "mastered_date": "2026-04-20",
     "retries": 4
+  },
+  "p0171_excel_sheet_column_number": {
+    "title": "Excel Sheet Column Number",
+    "difficulty": "Easy",
+    "status": "mastered",
+    "added_date": "2026-04-21",
+    "next_review": null,
+    "mastered_date": "2026-04-21"
   }
 }
