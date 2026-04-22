@@ -314,5 +314,14 @@
     "added_date": "2026-04-21",
     "next_review": null,
     "mastered_date": "2026-04-21"
+  },
+  "p0190_reverse_bits": {
+    "title": "Reverse Bits",
+    "difficulty": "Easy",
+    "status": "review",
+    "added_date": "2026-04-22",
+    "next_review": "2026-04-23",
+    "mastered_date": null,
+    "retries": 1
   }
 }
