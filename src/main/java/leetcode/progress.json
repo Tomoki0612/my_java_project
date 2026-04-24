@@ -318,10 +318,10 @@
   "p0190_reverse_bits": {
     "title": "Reverse Bits",
     "difficulty": "Easy",
-    "status": "review",
+    "status": "mastered",
     "added_date": "2026-04-22",
-    "next_review": "2026-04-24",
-    "mastered_date": null,
+    "next_review": null,
+    "mastered_date": "2026-04-24",
     "retries": 2
   }
 }
