@@ -323,5 +323,13 @@
     "next_review": null,
     "mastered_date": "2026-04-24",
     "retries": 2
+  },
+  "p0191_number_of_1_bits": {
+    "title": "Number of 1 Bits",
+    "difficulty": "Easy",
+    "status": "mastered",
+    "added_date": "2026-04-25",
+    "next_review": null,
+    "mastered_date": "2026-04-25"
   }
 }
