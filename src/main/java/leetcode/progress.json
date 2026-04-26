@@ -331,5 +331,14 @@
     "added_date": "2026-04-25",
     "next_review": null,
     "mastered_date": "2026-04-25"
+  },
+  "p0202_happy_number": {
+    "title": "Happy Number",
+    "difficulty": "Easy",
+    "status": "review",
+    "added_date": "2026-04-26",
+    "next_review": "2026-04-27",
+    "mastered_date": null,
+    "retries": 1
   }
 }
