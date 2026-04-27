@@ -78,6 +78,9 @@ def fetch_problem(slug):
                 lang
                 code
             }
+            topicTags {
+                name
+            }
         }
     }
     """
@@ -414,6 +417,10 @@ def main():
         "added_date":   datetime.date.today().isoformat(),
         "next_review":  None,
         "mastered_date": None,
+        "stage":        None,
+        "retries":      0,
+        "topic_tags":   [t["name"] for t in (problem.get("topicTags") or [])],
+        "history":      [],
     }
     with open(progress_file, "w", encoding="utf-8") as f:
         json.dump(progress, f, ensure_ascii=False, indent=2)

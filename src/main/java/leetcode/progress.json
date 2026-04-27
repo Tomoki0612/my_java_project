@@ -4,333 +4,567 @@
     "difficulty": "Medium",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
+    "next_review": "2026-10-05",
     "mastered_date": "2026-04-08",
-    "retries": 2
+    "retries": 2,
+    "stage": 5,
+    "topic_tags": [
+      "Hash Table",
+      "Linked List"
+    ]
   },
   "p0001_two_sum": {
     "title": "Two Sum",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "Hash Table"
+    ]
   },
   "p0009_palindrome_number": {
     "title": "Palindrome Number",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Math"
+    ]
   },
   "p0013_roman_to_integer": {
     "title": "Roman to Integer",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Hash Table",
+      "Math",
+      "String"
+    ]
   },
   "p0014_longest_common_prefix": {
     "title": "Longest Common Prefix",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "String",
+      "Trie"
+    ]
   },
   "p0020_valid_parentheses": {
     "title": "Valid Parentheses",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "String",
+      "Stack"
+    ]
   },
   "p0021_merge_two_sorted_lists": {
     "title": "Merge Two Sorted Lists",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Linked List",
+      "Recursion"
+    ]
   },
   "p0026_remove_duplicates_from_sorted_array": {
     "title": "Remove Duplicates from Sorted Array",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "Two Pointers"
+    ]
   },
   "p0027_remove_element": {
     "title": "Remove Element",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "Two Pointers"
+    ]
   },
   "p0028_find_the_index_of_the_first_occurrence_in_a_string": {
     "title": "Find the Index of the First Occurrence in a String",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Two Pointers",
+      "String",
+      "String Matching"
+    ]
   },
   "p0035_search_insert_position": {
     "title": "Search Insert Position",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "Binary Search"
+    ]
   },
   "p0058_length_of_last_word": {
     "title": "Length of Last Word",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "String"
+    ]
   },
   "p0066_plus_one": {
     "title": "Plus One",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "Math"
+    ]
   },
   "p0067_add_binary": {
     "title": "Add Binary",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Math",
+      "String",
+      "Bit Manipulation",
+      "Simulation"
+    ]
   },
   "p0069_sqrtx": {
     "title": "Sqrt(x)",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Math",
+      "Binary Search"
+    ]
   },
   "p0070_climbing_stairs": {
     "title": "Climbing Stairs",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Math",
+      "Dynamic Programming",
+      "Memoization"
+    ]
   },
   "p0083_remove_duplicates_from_sorted_list": {
     "title": "Remove Duplicates from Sorted List",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Linked List"
+    ]
   },
   "p0088_merge_sorted_array": {
     "title": "Merge Sorted Array",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "Two Pointers",
+      "Sorting"
+    ]
   },
   "p0094_binary_tree_inorder_traversal": {
     "title": "Binary Tree Inorder Traversal",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Stack",
+      "Tree",
+      "Depth-First Search",
+      "Binary Tree"
+    ]
   },
   "p0100_same_tree": {
     "title": "Same Tree",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Tree",
+      "Depth-First Search",
+      "Breadth-First Search",
+      "Binary Tree"
+    ]
   },
   "p0101_symmetric_tree": {
     "title": "Symmetric Tree",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Tree",
+      "Depth-First Search",
+      "Breadth-First Search",
+      "Binary Tree"
+    ]
   },
   "p0104_maximum_depth_of_binary_tree": {
     "title": "Maximum Depth of Binary Tree",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Tree",
+      "Depth-First Search",
+      "Breadth-First Search",
+      "Binary Tree"
+    ]
   },
   "p0108_convert_sorted_array_to_binary_search_tree": {
     "title": "Convert Sorted Array to Binary Search Tree",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "Divide and Conquer",
+      "Tree",
+      "Binary Search Tree",
+      "Binary Tree"
+    ]
   },
   "p0110_balanced_binary_tree": {
     "title": "Balanced Binary Tree",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Tree",
+      "Depth-First Search",
+      "Binary Tree"
+    ]
   },
   "p0111_minimum_depth_of_binary_tree": {
     "title": "Minimum Depth of Binary Tree",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Tree",
+      "Depth-First Search",
+      "Breadth-First Search",
+      "Binary Tree"
+    ]
   },
   "p0112_path_sum": {
     "title": "Path Sum",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Tree",
+      "Depth-First Search",
+      "Breadth-First Search",
+      "Binary Tree"
+    ]
   },
   "p0118_pascals_triangle": {
     "title": "Pascal's Triangle",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "Dynamic Programming"
+    ]
   },
   "p0119_pascals_triangle_ii": {
     "title": "Pascal's Triangle II",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "Dynamic Programming"
+    ]
   },
   "p0121_best_time_to_buy_and_sell_stock": {
     "title": "Best Time to Buy and Sell Stock",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "Dynamic Programming"
+    ]
   },
   "p0125_valid_palindrome": {
     "title": "Valid Palindrome",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Two Pointers",
+      "String"
+    ]
   },
   "p0136_single_number": {
     "title": "Single Number",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "Bit Manipulation"
+    ]
   },
   "p0137_single_number_ii": {
     "title": "Single Number II",
     "difficulty": "Medium",
     "status": "mastered",
     "added_date": "2026-04-06",
-    "next_review": null,
-    "mastered_date": "2026-04-06"
+    "next_review": "2026-10-03",
+    "mastered_date": "2026-04-06",
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "Bit Manipulation"
+    ]
   },
   "p0141_linked_list_cycle": {
     "title": "Linked List Cycle",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-09",
-    "next_review": null,
-    "mastered_date": "2026-04-09"
+    "next_review": "2026-10-06",
+    "mastered_date": "2026-04-09",
+    "stage": 5,
+    "topic_tags": [
+      "Hash Table",
+      "Linked List",
+      "Two Pointers"
+    ]
   },
   "p0144_binary_tree_preorder_traversal": {
     "title": "Binary Tree Preorder Traversal",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-10",
-    "next_review": null,
+    "next_review": "2026-10-08",
     "mastered_date": "2026-04-11",
-    "retries": 1
+    "retries": 1,
+    "stage": 5,
+    "topic_tags": [
+      "Stack",
+      "Tree",
+      "Depth-First Search",
+      "Binary Tree"
+    ]
   },
   "p0145_binary_tree_postorder_traversal": {
     "title": "Binary Tree Postorder Traversal",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-12",
-    "next_review": null,
-    "mastered_date": "2026-04-12"
+    "next_review": "2026-10-09",
+    "mastered_date": "2026-04-12",
+    "stage": 5,
+    "topic_tags": [
+      "Stack",
+      "Tree",
+      "Depth-First Search",
+      "Binary Tree"
+    ]
   },
   "p0160_intersection_of_two_linked_lists": {
     "title": "Intersection of Two Linked Lists",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-13",
-    "next_review": null,
-    "mastered_date": "2026-04-13"
+    "next_review": "2026-10-10",
+    "mastered_date": "2026-04-13",
+    "stage": 5,
+    "topic_tags": [
+      "Hash Table",
+      "Linked List",
+      "Two Pointers"
+    ]
   },
   "p0168_excel_sheet_column_title": {
     "title": "Excel Sheet Column Title",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-14",
-    "next_review": null,
+    "next_review": "2026-10-12",
     "mastered_date": "2026-04-15",
-    "retries": 1
+    "retries": 1,
+    "stage": 5,
+    "topic_tags": [
+      "Math",
+      "String"
+    ]
   },
   "p0169_majority_element": {
     "title": "Majority Element",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-16",
-    "next_review": null,
+    "next_review": "2026-10-17",
     "mastered_date": "2026-04-20",
-    "retries": 4
+    "retries": 4,
+    "stage": 5,
+    "topic_tags": [
+      "Array",
+      "Hash Table",
+      "Divide and Conquer",
+      "Sorting",
+      "Counting"
+    ]
   },
   "p0171_excel_sheet_column_number": {
     "title": "Excel Sheet Column Number",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-21",
-    "next_review": null,
-    "mastered_date": "2026-04-21"
+    "next_review": "2026-10-18",
+    "mastered_date": "2026-04-21",
+    "stage": 5,
+    "topic_tags": [
+      "Math",
+      "String"
+    ]
   },
   "p0190_reverse_bits": {
     "title": "Reverse Bits",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-22",
-    "next_review": null,
+    "next_review": "2026-10-21",
     "mastered_date": "2026-04-24",
-    "retries": 2
+    "retries": 2,
+    "stage": 5,
+    "topic_tags": [
+      "Divide and Conquer",
+      "Bit Manipulation"
+    ]
   },
   "p0191_number_of_1_bits": {
     "title": "Number of 1 Bits",
     "difficulty": "Easy",
     "status": "mastered",
     "added_date": "2026-04-25",
-    "next_review": null,
-    "mastered_date": "2026-04-25"
+    "next_review": "2026-10-22",
+    "mastered_date": "2026-04-25",
+    "stage": 5,
+    "topic_tags": [
+      "Divide and Conquer",
+      "Bit Manipulation"
+    ]
   },
   "p0202_happy_number": {
     "title": "Happy Number",
@@ -339,6 +573,12 @@
     "added_date": "2026-04-26",
     "next_review": "2026-04-27",
     "mastered_date": null,
-    "retries": 1
+    "retries": 1,
+    "stage": 0,
+    "topic_tags": [
+      "Hash Table",
+      "Math",
+      "Two Pointers"
+    ]
   }
 }

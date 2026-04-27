@@ -10,11 +10,14 @@ import sys
 import json
 import urllib.request
 import os
-from datetime import date
+from datetime import date, timedelta
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC_ROOT     = os.path.join(PROJECT_ROOT, "src", "main", "java", "leetcode")
-PROGRESS_FILE = os.path.join(SRC_ROOT, "progress.json")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from progress_lib import (
+    PROGRESS_FILE, INTERVALS_DAYS, MAX_STAGE,
+    load_progress, save_progress,
+)
+
 GRAPHQL_URL  = "https://leetcode.com/graphql"
 
 
@@ -27,6 +30,9 @@ def fetch_problems_info(numbers):
                 title
                 titleSlug
                 difficulty
+                topicTags {
+                    name
+                }
             }
         }
     }
@@ -58,15 +64,14 @@ def main():
         sys.exit(1)
 
     numbers = [int(n) for n in sys.argv[1:]]
-    today   = date.today().isoformat()
+    today   = date.today()
+    today_iso = today.isoformat()
+    long_term_review = (today + timedelta(days=INTERVALS_DAYS[MAX_STAGE])).isoformat()
 
     print(f"{len(numbers)}問の情報を取得中...")
     info_map = fetch_problems_info(numbers)
 
-    progress = {}
-    if os.path.exists(PROGRESS_FILE):
-        with open(PROGRESS_FILE, encoding="utf-8") as f:
-            progress = json.load(f)
+    progress, _ = load_progress()
 
     added = 0
     for num in sorted(numbers):
@@ -81,16 +86,18 @@ def main():
             "title":        q["title"],
             "difficulty":   q["difficulty"],
             "status":       "mastered",
-            "added_date":   today,
-            "next_review":  None,
-            "mastered_date": today,
+            "added_date":   today_iso,
+            "next_review":  long_term_review,
+            "mastered_date": today_iso,
+            "stage":        MAX_STAGE,
+            "retries":      0,
+            "topic_tags":   [t["name"] for t in (q.get("topicTags") or [])],
+            "history":      [],
         }
         print(f"  [mastered] #{num} {q['title']} [{q['difficulty']}]")
         added += 1
 
-    with open(PROGRESS_FILE, "w", encoding="utf-8") as f:
-        json.dump(progress, f, ensure_ascii=False, indent=2)
-
+    save_progress(progress)
     print(f"\n{added}問を登録しました")
 
 

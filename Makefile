@@ -1,6 +1,9 @@
 today:
 	python3 scripts/today.py
 
+next:
+	@python3 scripts/next_action.py
+
 new:
 	python3 scripts/new_problem.py $(N) --ja
 
@@ -13,4 +16,4 @@ helped:
 review:
 	python3 scripts/review.py $(N)
 
-.PHONY: today new done helped review
+.PHONY: today next new done helped review

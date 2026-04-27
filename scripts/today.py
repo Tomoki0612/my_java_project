@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """今日やることを表示する"""
-import json
 import os
 import subprocess
+import sys
+from collections import Counter
 from datetime import date
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROGRESS_FILE = os.path.join(PROJECT_ROOT, "src", "main", "java", "leetcode", "progress.json")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from progress_lib import (
+    PROJECT_ROOT, load_progress, save_progress,
+    INTERVALS_DAYS, MAX_STAGE,
+)
+from next_action import pick_next, format_one_line
 
 
 def git_pull():
@@ -23,33 +28,66 @@ def git_pull():
         print(f"[git] pull 失敗: {result.stderr.strip()}")
 
 
-def load_progress():
-    if not os.path.exists(PROGRESS_FILE):
-        return {}
-    with open(PROGRESS_FILE, encoding="utf-8") as f:
-        return json.load(f)
+def weak_topics(progress, limit=3):
+    retries_by_topic = Counter()
+    count_by_topic = Counter()
+    for v in progress.values():
+        for t in v.get("topic_tags") or []:
+            count_by_topic[t] += 1
+            retries_by_topic[t] += v.get("retries", 0) or 0
+    weak = [(t, retries_by_topic[t], count_by_topic[t])
+            for t in retries_by_topic if retries_by_topic[t] > 0]
+    weak.sort(key=lambda x: x[1], reverse=True)
+    return weak[:limit]
 
 
 def main():
     git_pull()
-    progress = load_progress()
+    progress, dirty = load_progress()
+    if dirty:
+        save_progress(progress)
+        print("[migrate] progress.json を新スキーマ (stage/next_review) に補完しました")
+
     today = date.today().isoformat()
 
-    reviews  = [(k, v) for k, v in progress.items() if v["status"] == "review" and v.get("next_review", "") <= today]
-    in_prog  = [(k, v) for k, v in progress.items() if v["status"] == "in_progress"]
-    mastered = [v for v in progress.values() if v["status"] == "mastered"]
+    short_reviews = []
+    long_reviews = []
+    in_prog = []
+    for k, v in progress.items():
+        nr = v.get("next_review")
+        status = v.get("status")
+        if status == "in_progress":
+            in_prog.append((k, v))
+        elif nr and nr <= today:
+            if status == "mastered":
+                long_reviews.append((k, v))
+            else:
+                short_reviews.append((k, v))
 
     print(f"=== 今日のタスク ({today}) ===\n")
+    print(format_one_line(pick_next(progress, today)))
+    print()
 
-    if reviews:
+    if short_reviews:
         print("復習")
-        for k, v in reviews:
+        for k, v in short_reviews:
             num = int(k[1:5])
-            retries = v.get("retries", 0)
+            retries = v.get("retries", 0) or 0
+            stage = v.get("stage", 0) or 0
             retry_str = f"  (今日で{retries + 1}回目の挑戦)" if retries else ""
-            print(f"  #{num} {v['title']} [{v['difficulty']}]{retry_str}")
+            print(f"  #{num} {v['title']} [{v['difficulty']}] stage {stage}{retry_str}")
             print(f"       自力で解けた → python3 scripts/done.py {num}")
             print(f"       また詰まった → python3 scripts/done.py {num} --helped")
+        print()
+
+    if long_reviews:
+        print("長期復習（習得済みの再確認）")
+        for k, v in long_reviews:
+            num = int(k[1:5])
+            mastered_date = v.get("mastered_date") or "?"
+            print(f"  #{num} {v['title']} [{v['difficulty']}] 前回習得: {mastered_date}")
+            print(f"       自力で解けた → python3 scripts/done.py {num}")
+            print(f"       詰まった     → python3 scripts/done.py {num} --helped")
         print()
 
     if in_prog:
@@ -61,16 +99,21 @@ def main():
             print(f"       ヒントが必要 → python3 scripts/done.py {num} --helped")
         print()
 
-    if not reviews and not in_prog:
+    if not short_reviews and not long_reviews and not in_prog:
         print("新しい問題を追加しましょう")
         print("  python3 scripts/new_problem.py <番号> --ja\n")
 
+    weak = weak_topics(progress)
+    if weak:
+        print("弱点トピック (リトライ累計が多い順)")
+        for tag, retries, n in weak:
+            print(f"  {tag}: 累計 {retries} retries / 該当 {n}問")
+        print()
+
     total = len(progress)
-    review_count = len([v for v in progress.values() if v["status"] == "review"])
-    print(f"--- 進捗: 習得済み {len(mastered)}問 / 合計 {total}問", end="")
-    if review_count:
-        print(f" / 復習待ち {review_count}問", end="")
-    print()
+    mastered = sum(1 for v in progress.values() if v.get("status") == "mastered")
+    in_review = sum(1 for v in progress.values() if v.get("status") == "review")
+    print(f"--- 進捗: 習得済み {mastered}問 / 復習中 {in_review}問 / 合計 {total}問")
 
 
 if __name__ == "__main__":
