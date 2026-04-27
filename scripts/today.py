@@ -110,10 +110,15 @@ def main():
             print(f"  {tag}: 累計 {retries} retries / 該当 {n}問")
         print()
 
-    total = len(progress)
-    mastered = sum(1 for v in progress.values() if v.get("status") == "mastered")
-    in_review = sum(1 for v in progress.values() if v.get("status") == "review")
-    print(f"--- 進捗: 習得済み {mastered}問 / 復習中 {in_review}問 / 合計 {total}問")
+    counts = Counter(v.get("stage") for v in progress.values())
+    total = sum(counts.values())
+    print(f"--- 進捗: 合計 {total}問")
+    n = counts.get(None, 0)
+    print(f"  取り組み中       {'█' * n} {n}")
+    for s in range(MAX_STAGE + 1):
+        n = counts.get(s, 0)
+        days = INTERVALS_DAYS[s]
+        print(f"  stage {s} ({days:>3}日) {'█' * n} {n}")
 
 
 if __name__ == "__main__":
