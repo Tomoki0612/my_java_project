@@ -1,0 +1,26 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Run mastered solution tests
+        run: |
+          TESTS=$(python3 scripts/list_mastered_tests.py)
+          if [ -z "$TESTS" ]; then
+            echo "No mastered tests to run."
+            exit 0
+          fi
+          echo "Running: $TESTS"
+          mvn -B test -Dtest="$TESTS"
