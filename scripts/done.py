@@ -109,6 +109,11 @@ def main():
     # ローカルテストはタイポ検知用の参考情報。失敗してもブロックしない。
     # 真の合否は LeetCode の Submit で確認する前提。
     if not helped and not skip_test:
+        try:
+            input("  Solution.java を保存しましたか? [Enter で続行 / Ctrl+C で中止] ")
+        except KeyboardInterrupt:
+            print("\n  中止しました")
+            sys.exit(1)
         print(f"  ローカルテスト: leetcode.{key}.SolutionTest ...")
         ok, out = run_tests(key)
         if ok is None:
