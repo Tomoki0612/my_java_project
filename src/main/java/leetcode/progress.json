@@ -11,7 +11,8 @@
     "topic_tags": [
       "Hash Table",
       "Linked List"
-    ]
+    ],
+    "history": []
   },
   "p0001_two_sum": {
     "title": "Two Sum",
@@ -24,7 +25,8 @@
     "topic_tags": [
       "Array",
       "Hash Table"
-    ]
+    ],
+    "history": []
   },
   "p0009_palindrome_number": {
     "title": "Palindrome Number",
@@ -36,7 +38,8 @@
     "stage": 5,
     "topic_tags": [
       "Math"
-    ]
+    ],
+    "history": []
   },
   "p0013_roman_to_integer": {
     "title": "Roman to Integer",
@@ -50,7 +53,8 @@
       "Hash Table",
       "Math",
       "String"
-    ]
+    ],
+    "history": []
   },
   "p0014_longest_common_prefix": {
     "title": "Longest Common Prefix",
@@ -64,7 +68,8 @@
       "Array",
       "String",
       "Trie"
-    ]
+    ],
+    "history": []
   },
   "p0020_valid_parentheses": {
     "title": "Valid Parentheses",
@@ -77,7 +82,8 @@
     "topic_tags": [
       "String",
       "Stack"
-    ]
+    ],
+    "history": []
   },
   "p0021_merge_two_sorted_lists": {
     "title": "Merge Two Sorted Lists",
@@ -90,7 +96,8 @@
     "topic_tags": [
       "Linked List",
       "Recursion"
-    ]
+    ],
+    "history": []
   },
   "p0026_remove_duplicates_from_sorted_array": {
     "title": "Remove Duplicates from Sorted Array",
@@ -103,7 +110,8 @@
     "topic_tags": [
       "Array",
       "Two Pointers"
-    ]
+    ],
+    "history": []
   },
   "p0027_remove_element": {
     "title": "Remove Element",
@@ -116,7 +124,8 @@
     "topic_tags": [
       "Array",
       "Two Pointers"
-    ]
+    ],
+    "history": []
   },
   "p0028_find_the_index_of_the_first_occurrence_in_a_string": {
     "title": "Find the Index of the First Occurrence in a String",
@@ -130,7 +139,8 @@
       "Two Pointers",
       "String",
       "String Matching"
-    ]
+    ],
+    "history": []
   },
   "p0035_search_insert_position": {
     "title": "Search Insert Position",
@@ -143,7 +153,8 @@
     "topic_tags": [
       "Array",
       "Binary Search"
-    ]
+    ],
+    "history": []
   },
   "p0058_length_of_last_word": {
     "title": "Length of Last Word",
@@ -155,7 +166,8 @@
     "stage": 5,
     "topic_tags": [
       "String"
-    ]
+    ],
+    "history": []
   },
   "p0066_plus_one": {
     "title": "Plus One",
@@ -168,7 +180,8 @@
     "topic_tags": [
       "Array",
       "Math"
-    ]
+    ],
+    "history": []
   },
   "p0067_add_binary": {
     "title": "Add Binary",
@@ -183,7 +196,8 @@
       "String",
       "Bit Manipulation",
       "Simulation"
-    ]
+    ],
+    "history": []
   },
   "p0069_sqrtx": {
     "title": "Sqrt(x)",
@@ -196,7 +210,8 @@
     "topic_tags": [
       "Math",
       "Binary Search"
-    ]
+    ],
+    "history": []
   },
   "p0070_climbing_stairs": {
     "title": "Climbing Stairs",
@@ -210,7 +225,8 @@
       "Math",
       "Dynamic Programming",
       "Memoization"
-    ]
+    ],
+    "history": []
   },
   "p0083_remove_duplicates_from_sorted_list": {
     "title": "Remove Duplicates from Sorted List",
@@ -222,7 +238,8 @@
     "stage": 5,
     "topic_tags": [
       "Linked List"
-    ]
+    ],
+    "history": []
   },
   "p0088_merge_sorted_array": {
     "title": "Merge Sorted Array",
@@ -236,7 +253,8 @@
       "Array",
       "Two Pointers",
       "Sorting"
-    ]
+    ],
+    "history": []
   },
   "p0094_binary_tree_inorder_traversal": {
     "title": "Binary Tree Inorder Traversal",
@@ -251,7 +269,8 @@
       "Tree",
       "Depth-First Search",
       "Binary Tree"
-    ]
+    ],
+    "history": []
   },
   "p0100_same_tree": {
     "title": "Same Tree",
@@ -266,7 +285,8 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Binary Tree"
-    ]
+    ],
+    "history": []
   },
   "p0101_symmetric_tree": {
     "title": "Symmetric Tree",
@@ -281,7 +301,8 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Binary Tree"
-    ]
+    ],
+    "history": []
   },
   "p0104_maximum_depth_of_binary_tree": {
     "title": "Maximum Depth of Binary Tree",
@@ -296,7 +317,8 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Binary Tree"
-    ]
+    ],
+    "history": []
   },
   "p0108_convert_sorted_array_to_binary_search_tree": {
     "title": "Convert Sorted Array to Binary Search Tree",
@@ -312,7 +334,8 @@
       "Tree",
       "Binary Search Tree",
       "Binary Tree"
-    ]
+    ],
+    "history": []
   },
   "p0110_balanced_binary_tree": {
     "title": "Balanced Binary Tree",
@@ -326,7 +349,8 @@
       "Tree",
       "Depth-First Search",
       "Binary Tree"
-    ]
+    ],
+    "history": []
   },
   "p0111_minimum_depth_of_binary_tree": {
     "title": "Minimum Depth of Binary Tree",
@@ -341,7 +365,8 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Binary Tree"
-    ]
+    ],
+    "history": []
   },
   "p0112_path_sum": {
     "title": "Path Sum",
@@ -356,7 +381,8 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Binary Tree"
-    ]
+    ],
+    "history": []
   },
   "p0118_pascals_triangle": {
     "title": "Pascal's Triangle",
@@ -369,7 +395,8 @@
     "topic_tags": [
       "Array",
       "Dynamic Programming"
-    ]
+    ],
+    "history": []
   },
   "p0119_pascals_triangle_ii": {
     "title": "Pascal's Triangle II",
@@ -382,7 +409,8 @@
     "topic_tags": [
       "Array",
       "Dynamic Programming"
-    ]
+    ],
+    "history": []
   },
   "p0121_best_time_to_buy_and_sell_stock": {
     "title": "Best Time to Buy and Sell Stock",
@@ -395,7 +423,8 @@
     "topic_tags": [
       "Array",
       "Dynamic Programming"
-    ]
+    ],
+    "history": []
   },
   "p0125_valid_palindrome": {
     "title": "Valid Palindrome",
@@ -408,7 +437,8 @@
     "topic_tags": [
       "Two Pointers",
       "String"
-    ]
+    ],
+    "history": []
   },
   "p0136_single_number": {
     "title": "Single Number",
@@ -421,7 +451,8 @@
     "topic_tags": [
       "Array",
       "Bit Manipulation"
-    ]
+    ],
+    "history": []
   },
   "p0137_single_number_ii": {
     "title": "Single Number II",
@@ -434,7 +465,8 @@
     "topic_tags": [
       "Array",
       "Bit Manipulation"
-    ]
+    ],
+    "history": []
   },
   "p0141_linked_list_cycle": {
     "title": "Linked List Cycle",
@@ -448,7 +480,8 @@
       "Hash Table",
       "Linked List",
       "Two Pointers"
-    ]
+    ],
+    "history": []
   },
   "p0144_binary_tree_preorder_traversal": {
     "title": "Binary Tree Preorder Traversal",
@@ -464,7 +497,8 @@
       "Tree",
       "Depth-First Search",
       "Binary Tree"
-    ]
+    ],
+    "history": []
   },
   "p0145_binary_tree_postorder_traversal": {
     "title": "Binary Tree Postorder Traversal",
@@ -479,7 +513,8 @@
       "Tree",
       "Depth-First Search",
       "Binary Tree"
-    ]
+    ],
+    "history": []
   },
   "p0160_intersection_of_two_linked_lists": {
     "title": "Intersection of Two Linked Lists",
@@ -493,7 +528,8 @@
       "Hash Table",
       "Linked List",
       "Two Pointers"
-    ]
+    ],
+    "history": []
   },
   "p0168_excel_sheet_column_title": {
     "title": "Excel Sheet Column Title",
@@ -507,7 +543,8 @@
     "topic_tags": [
       "Math",
       "String"
-    ]
+    ],
+    "history": []
   },
   "p0169_majority_element": {
     "title": "Majority Element",
@@ -524,7 +561,8 @@
       "Divide and Conquer",
       "Sorting",
       "Counting"
-    ]
+    ],
+    "history": []
   },
   "p0171_excel_sheet_column_number": {
     "title": "Excel Sheet Column Number",
@@ -537,7 +575,8 @@
     "topic_tags": [
       "Math",
       "String"
-    ]
+    ],
+    "history": []
   },
   "p0190_reverse_bits": {
     "title": "Reverse Bits",
@@ -551,7 +590,8 @@
     "topic_tags": [
       "Divide and Conquer",
       "Bit Manipulation"
-    ]
+    ],
+    "history": []
   },
   "p0191_number_of_1_bits": {
     "title": "Number of 1 Bits",
@@ -564,21 +604,29 @@
     "topic_tags": [
       "Divide and Conquer",
       "Bit Manipulation"
-    ]
+    ],
+    "history": []
   },
   "p0202_happy_number": {
     "title": "Happy Number",
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-04-26",
-    "next_review": "2026-04-27",
+    "next_review": "2026-04-30",
     "mastered_date": null,
     "retries": 1,
-    "stage": 0,
+    "stage": 1,
     "topic_tags": [
       "Hash Table",
       "Math",
       "Two Pointers"
+    ],
+    "history": [
+      {
+        "date": "2026-04-27",
+        "result": "done",
+        "stage": 1
+      }
     ]
   }
 }

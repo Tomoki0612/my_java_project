@@ -42,8 +42,30 @@
  */
 package leetcode.p0202_happy_number;
 
+import java.util.*;
+
 class Solution {
     public boolean isHappy(int n) {
-        return false;
+        Set<Integer> set = new HashSet<>();
+        while (true) {
+            int tmp = helper(n);
+            if (tmp == 1) {
+                return true;
+            }
+            if (set.contains(tmp)) {
+                return false;
+            }
+            set.add(tmp);
+            }
+
+    }
+    private int helper(int n){
+        int sum = 0;
+        while (n > 0) {
+            int d = n % 10;
+            sum = d * d;
+            n /= 10;
+        }
+        return sum;
     }
 }
