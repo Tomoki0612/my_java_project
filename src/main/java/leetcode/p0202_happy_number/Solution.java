@@ -47,8 +47,9 @@ import java.util.*;
 class Solution {
     public boolean isHappy(int n) {
         Set<Integer> set = new HashSet<>();
+        int tmp= n;
         while (true) {
-            int tmp = helper(n);
+            tmp = helper(tmp);
             if (tmp == 1) {
                 return true;
             }
@@ -56,14 +57,14 @@ class Solution {
                 return false;
             }
             set.add(tmp);
-            }
+        }
 
     }
     private int helper(int n){
         int sum = 0;
         while (n > 0) {
             int d = n % 10;
-            sum = d * d;
+            sum += d * d;
             n /= 10;
         }
         return sum;
