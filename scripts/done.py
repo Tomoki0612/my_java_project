@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """
-解いた結果を記録する
+解いた結果を記録する。
+
+LeetCode で Accepted が出たことを確認してから実行すること。
+ローカルテストはサンプルケースのみなので「タイポ検知」用の参考情報扱い。
 
 Usage:
-  python3 scripts/done.py <問題番号>              # 自力 → テスト実行 → ステージ昇格
+  python3 scripts/done.py <問題番号>              # LeetCode Accepted を記録 → ステージ昇格
   python3 scripts/done.py <問題番号> --helped     # ヒントあり → ステージリセット
-  python3 scripts/done.py <問題番号> --no-test    # テストをスキップ（緊急用）
+  python3 scripts/done.py <問題番号> --no-test    # ローカルテスト実行もスキップ
 """
 import sys
 import os
@@ -103,21 +106,20 @@ def main():
     title = entry["title"]
     difficulty = entry["difficulty"]
 
-    # 自力成功時のみテスト実行（--helped はリセットするのでテスト不要）
+    # ローカルテストはタイポ検知用の参考情報。失敗してもブロックしない。
+    # 真の合否は LeetCode の Submit で確認する前提。
     if not helped and not skip_test:
-        print(f"  テスト実行: leetcode.{key}.SolutionTest ...")
+        print(f"  ローカルテスト: leetcode.{key}.SolutionTest ...")
         ok, out = run_tests(key)
         if ok is None:
             print(f"  [skip] {out}")
         elif not ok:
-            print("  テスト失敗。修正してから再実行してください。")
+            print("  [warn] ローカルテスト失敗。LeetCode で本当に Accepted が出たか再確認推奨。")
             print("  ----- mvn output -----")
             print(out)
             print("  ----------------------")
-            print("  どうしてもスキップしたい場合は --no-test を付けて再実行")
-            sys.exit(1)
         else:
-            print("  テスト OK")
+            print("  ローカルテスト OK")
 
     apply_transition(entry, helped=helped)
     save_progress(progress)

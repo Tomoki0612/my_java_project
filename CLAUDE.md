@@ -10,21 +10,22 @@ python3 scripts/next_action.py    # 次にやるべき1コマンドだけを1行
 ### 新問題の日
 ```bash
 python3 scripts/new_problem.py <番号> --ja   # 問題追加（日本語翻訳付き）
-# ... 解く ...
-python3 scripts/done.py <番号>               # mvn test → 通れば長期復習サイクルへ
+# ... 解く → LeetCode で Submit → Accepted を確認 ...
+python3 scripts/done.py <番号>               # 長期復習サイクルへ
 python3 scripts/done.py <番号> --helped      # ヒントが必要だった → 翌日復習
 ```
 
 ### 復習の日
 ```bash
 python3 scripts/review.py <番号>   # 前回答えをバックアップ → Solution.java をリセット
-# ... 解く ...
-python3 scripts/done.py <番号>     # mvn test → 通れば次のステージ
+# ... 解く → LeetCode で Submit → Accepted を確認 ...
+python3 scripts/done.py <番号>     # 次のステージへ
 python3 scripts/done.py <番号> --helped   # また詰まった → ステージリセット
 ```
 
-`done.py` は自動で該当パッケージの `mvn test` を実行し、グリーンでないと先へ進めない。
-緊急回避は `--no-test` を付与。
+`done.py` は **LeetCode で Accepted を取った後に実行する**。
+ローカルテストはサンプルケースしか抽出していないため、タイポ検知用の参考情報扱い
+（失敗してもブロックしない、警告のみ）。`--no-test` でローカル実行自体を省略可。
 
 ## 間隔反復 (Spaced Repetition)
 
