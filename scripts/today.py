@@ -99,10 +99,6 @@ def main():
             print(f"       ヒントが必要 → python3 scripts/done.py {num} --helped")
         print()
 
-    if not short_reviews and not long_reviews and not in_prog:
-        print("新しい問題を追加しましょう")
-        print("  python3 scripts/new_problem.py <番号> --ja\n")
-
     weak = weak_topics(progress)
     if weak:
         print("弱点トピック (リトライ累計が多い順)")
