@@ -93,6 +93,12 @@ def main():
         sys.exit(1)
 
     number = int(sys.argv[1])
+    known_flags = {"--helped", "--no-test"}
+    unknown = [a for a in sys.argv[2:] if a not in known_flags]
+    if unknown:
+        print(f"未知のオプション: {' '.join(unknown)}")
+        print(f"使えるオプション: {', '.join(sorted(known_flags))}")
+        sys.exit(1)
     helped = "--helped" in sys.argv
     skip_test = "--no-test" in sys.argv
 

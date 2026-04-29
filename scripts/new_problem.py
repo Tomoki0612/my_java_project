@@ -362,6 +362,12 @@ def main():
         sys.exit(1)
 
     arg = sys.argv[1]
+    known_flags = {"--ja"}
+    unknown = [a for a in sys.argv[2:] if a not in known_flags]
+    if unknown:
+        print(f"未知のオプション: {' '.join(unknown)}")
+        print(f"使えるオプション: {', '.join(sorted(known_flags))}")
+        sys.exit(1)
     if arg.isdigit():
         number = int(arg)
         print(f"#{number} の slug を検索中...")
