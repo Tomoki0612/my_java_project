@@ -633,5 +633,26 @@
         "stage": 2
       }
     ]
+  },
+  "p0203_remove_linked_list_elements": {
+    "title": "Remove Linked List Elements",
+    "difficulty": "Easy",
+    "status": "mastered",
+    "added_date": "2026-04-29",
+    "next_review": "2026-10-26",
+    "mastered_date": "2026-04-29",
+    "stage": 5,
+    "retries": 0,
+    "topic_tags": [
+      "Linked List",
+      "Recursion"
+    ],
+    "history": [
+      {
+        "date": "2026-04-29",
+        "result": "done",
+        "stage": 5
+      }
+    ]
   }
 }
