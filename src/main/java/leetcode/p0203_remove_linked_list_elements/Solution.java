@@ -3,40 +3,38 @@
  * Difficulty: Easy
  * https://leetcode.com/problems/remove-linked-list-elements/
  *
- * 連結リストの `head` と整数 `val` が与えられたとき、
- * `Node.val == val` を満たすすべてのノードを連結リストから削除し、
- * 新しい head を返してください。
+ * Given the `head` of a linked list and an integer `val`, remove all the
+ * nodes of the linked list that has `Node.val == val`, and return the new
+ * head.
  *
  *
  *
- * 例 1:
+ * Example 1:
  *
- * 入力: head = [1,2,6,3,4,5,6], val = 6
- * 出力: [1,2,3,4,5]
+ * Input: head = [1,2,6,3,4,5,6], val = 6
+ * Output: [1,2,3,4,5]
  *
- * 例 2:
+ * Example 2:
  *
- * 入力: head = [], val = 1
- * 出力: []
+ * Input: head = [], val = 1
+ * Output: []
  *
- * 例 3:
+ * Example 3:
  *
- * 入力: head = [7,7,7,7], val = 7
- * 出力: []
+ * Input: head = [7,7,7,7], val = 7
+ * Output: []
  *
  *
  *
- * 制約:
+ * Constraints:
  *
- * 	  - リスト内のノード数は `[0, 104]` の範囲。
+ * 	  - The number of nodes in the list is in the range `[0, 104]`.
  *
  * 	  - `1 <= Node.val <= 50`
  *
  * 	  - `0 <= val <= 50`
  */
 package leetcode.p0203_remove_linked_list_elements;
-
-import leetcode.common.ListNode;
 
 /**
  * Definition for singly-linked list.
@@ -50,20 +48,6 @@ import leetcode.common.ListNode;
  */
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
-        while (head != null && head.val == val) {
-            head = head.next;
-        }
-
-        ListNode cur = head;
-        
-        while (cur != null && cur.next != null) {
-            if (cur.next.val == val) {
-                cur.next = cur.next.next;
-            }else{
-                cur = cur.next;
-            }
-            
-        }
-        return head;
+        return null;
     }
 }
