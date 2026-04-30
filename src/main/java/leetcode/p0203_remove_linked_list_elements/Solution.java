@@ -36,6 +36,8 @@
  */
 package leetcode.p0203_remove_linked_list_elements;
 
+import leetcode.common.ListNode;
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -48,6 +50,17 @@ package leetcode.p0203_remove_linked_list_elements;
  */
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
-        return null;
+        while (head != null && head.val == val) {
+            head = head.next;
+        }
+        ListNode cur = head;
+        while (cur != null && cur.next != null) {
+            if (cur.next.val == val) {
+                cur.next = cur.next.next;
+            } else {
+                cur = cur.next;
+            }
+        }
+        return head;
     }
 }
