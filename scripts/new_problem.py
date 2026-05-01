@@ -159,6 +159,22 @@ def to_package_dir(fid, slug):
     return f"p{fid:04d}_{slug.replace('-', '_')}"
 
 
+def git_push_scaffold(pkg_dir, fid, title):
+    """新規 scaffold (Solution.java + SolutionTest.java + progress.json) を commit/push する。"""
+    sol_path = os.path.join(SRC_ROOT, pkg_dir, "Solution.java")
+    test_path = os.path.join(TEST_ROOT, pkg_dir, "SolutionTest.java")
+    progress_file = os.path.join(SRC_ROOT, "progress.json")
+    files = [sol_path, test_path, progress_file]
+    subprocess.run(["git", "add", "--"] + files, cwd=PROJECT_ROOT, check=True)
+    result = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=PROJECT_ROOT)
+    if result.returncode == 0:
+        return
+    message = f"scaffold: #{fid} {title}"
+    subprocess.run(["git", "commit", "-m", message], cwd=PROJECT_ROOT, check=True)
+    subprocess.run(["git", "push"], cwd=PROJECT_ROOT, check=True)
+    print(f"  [git] push 完了")
+
+
 # ---------- テスト生成 ----------
 
 def extract_examples(content_html):
@@ -434,6 +450,8 @@ def main():
     print(f"作成しました: [{problem['difficulty']}] {problem['title']}")
     print(f"  src/main/java/leetcode/{pkg_dir}/Solution.java")
     print(f"  src/test/java/leetcode/{pkg_dir}/SolutionTest.java")
+
+    git_push_scaffold(pkg_dir, int(problem["questionFrontendId"]), problem["title"])
 
 
 if __name__ == "__main__":

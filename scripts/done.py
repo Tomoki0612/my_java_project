@@ -51,11 +51,14 @@ def run_tests(pkg_dir):
 
 
 def git_push(message, key):
-    """progress.json と該当 Solution.java をまとめて commit/push する。"""
+    """progress.json と該当 Solution.java / SolutionTest.java をまとめて commit/push する。"""
     sol_path = os.path.join(SRC_ROOT, key, "Solution.java")
+    test_path = os.path.join(PROJECT_ROOT, "src", "test", "java", "leetcode", key, "SolutionTest.java")
     files = [PROGRESS_FILE]
     if os.path.exists(sol_path):
         files.append(sol_path)
+    if os.path.exists(test_path):
+        files.append(test_path)
     subprocess.run(["git", "add", "--"] + files, cwd=PROJECT_ROOT, check=True)
     result = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=PROJECT_ROOT)
     if result.returncode == 0:
