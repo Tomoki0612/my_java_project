@@ -658,5 +658,26 @@
         "stage": 1
       }
     ]
+  },
+  "p0205_isomorphic_strings": {
+    "title": "Isomorphic Strings",
+    "difficulty": "Easy",
+    "status": "mastered",
+    "added_date": "2026-05-01",
+    "next_review": "2026-10-28",
+    "mastered_date": "2026-05-01",
+    "stage": 5,
+    "retries": 0,
+    "topic_tags": [
+      "Hash Table",
+      "String"
+    ],
+    "history": [
+      {
+        "date": "2026-05-01",
+        "result": "done",
+        "stage": 5
+      }
+    ]
   }
 }
