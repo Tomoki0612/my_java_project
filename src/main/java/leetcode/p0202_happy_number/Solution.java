@@ -47,26 +47,24 @@ import java.util.*;
 class Solution {
     public boolean isHappy(int n) {
         Set<Integer> set = new HashSet<>();
-        int tmp= n;
         while (true) {
-            tmp = helper(tmp);
-            if (tmp == 1) {
+            if (n == 1) {
                 return true;
-            }
-            if (set.contains(tmp)) {
+            } else if (set.contains(n)) {
                 return false;
+            } else{
+                set.add(n);
+                n = helper(n);
             }
-            set.add(tmp);
         }
-
     }
-    private int helper(int n){
-        int sum = 0;
-        while (n > 0) {
-            int d = n % 10;
-            sum += d * d;
-            n /= 10;
+
+    private Integer helper(int n){
+        int tmp = 0;
+        while (n != 0) {
+            tmp += (n % 10) * (n % 10);
+            n /= 10;              
         }
-        return sum;
+        return tmp;
     }
 }
