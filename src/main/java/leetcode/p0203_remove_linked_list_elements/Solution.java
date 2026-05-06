@@ -35,8 +35,7 @@
  * 	  - `0 <= val <= 50`
  */
 package leetcode.p0203_remove_linked_list_elements;
-
-import leetcode.common.ListNode;
+import leetcode.common.*;
 
 /**
  * Definition for singly-linked list.
@@ -49,7 +48,7 @@ import leetcode.common.ListNode;
  * }
  */
 class Solution {
-    public ListNode removeElements(ListNode head, int val) {
+    public ListNode removeElements(ListNode head, int val) { 
         while (head != null && head.val == val) {
             head = head.next;
         }

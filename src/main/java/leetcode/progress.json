@@ -639,8 +639,8 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-04-29",
-    "next_review": "2026-05-03",
-    "stage": 1,
+    "next_review": "2026-05-13",
+    "stage": 2,
     "retries": 1,
     "topic_tags": [
       "Linked List",
@@ -656,6 +656,11 @@
         "date": "2026-04-30",
         "result": "done",
         "stage": 1
+      },
+      {
+        "date": "2026-05-06",
+        "result": "done",
+        "stage": 2
       }
     ]
   },
