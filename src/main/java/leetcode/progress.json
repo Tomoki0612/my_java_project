@@ -689,5 +689,20 @@
         "stage": 5
       }
     ]
+  },
+  "p0206_reverse_linked_list": {
+    "title": "Reverse Linked List",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-05-07",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "Linked List",
+      "Recursion"
+    ],
+    "history": []
   }
 }
