@@ -38,6 +38,10 @@
  */
 package leetcode.p0206_reverse_linked_list;
 
+import java.util.*;
+
+import leetcode.common.ListNode;
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -50,6 +54,26 @@ package leetcode.p0206_reverse_linked_list;
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
-        return null;
+        Deque<ListNode> list = new ArrayDeque<>();
+        return helper(head, list);
+    }
+
+    private ListNode helper(ListNode cur, Deque<ListNode> list){
+        if (cur == null) {
+            return null;
+        }
+        while (cur.next != null) {
+            list.push(cur);
+            cur = cur.next;
+        } 
+        
+        ListNode head = cur;
+        while (!list.isEmpty()) {
+            cur.next = list.pop();
+            cur = cur.next;
+        }
+
+        cur.next = null;
+        return head;
     }
 }
