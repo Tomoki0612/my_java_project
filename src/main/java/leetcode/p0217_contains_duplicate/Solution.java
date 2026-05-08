@@ -45,8 +45,18 @@
  */
 package leetcode.p0217_contains_duplicate;
 
+import java.util.*;
+
 class Solution {
     public boolean containsDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (Integer num : nums) {
+            if (set.contains(num)) {
+                return true;
+            } else {
+                set.add(num);
+            }           
+        }
         return false;
     }
 }
