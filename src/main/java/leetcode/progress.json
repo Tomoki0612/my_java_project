@@ -732,5 +732,21 @@
         "stage": 5
       }
     ]
+  },
+  "p0219_contains_duplicate_ii": {
+    "title": "Contains Duplicate II",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-05-09",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "Array",
+      "Hash Table",
+      "Sliding Window"
+    ],
+    "history": []
   }
 }
