@@ -349,6 +349,15 @@ def build_solution(problem, translate=False):
                 lambda m: f"{m.group(1)}\n{m.group(2)}{ret_stmt}\n{m.group(3)}",
                 java_snippet
             )
+        # leetcode.common の型と java.util を必要に応じて import
+        imports = []
+        for sym in ("TreeNode", "ListNode"):
+            if re.search(rf"\b{sym}\b", java_snippet):
+                imports.append(f"import leetcode.common.{sym};")
+        if re.search(r"\b(List|Map|Set|Deque|Queue|Stack|Arrays|Collections|HashMap|HashSet|ArrayList|LinkedList|PriorityQueue|ArrayDeque)\b", java_snippet):
+            imports.append("import java.util.*;")
+        if imports:
+            java_snippet = "\n".join(imports) + "\n\n" + java_snippet
         class_body = java_snippet
     else:
         # フォールバック: metaData から生成
@@ -363,7 +372,14 @@ def build_solution(problem, translate=False):
             body        = f"        {ret_stmt}" if ret_stmt else "        "
             method      = f"    public {ret_java} {method_name}({', '.join(params_java)}) {{\n{body}\n    }}"
             needs_list  = any("List<" in lc_type_to_java(p.get("type","")) for p in params) or "List<" in ret_java
-            import_line = "import java.util.*;\n\n" if needs_list else ""
+            sig_text    = " ".join(params_java) + " " + ret_java
+            imports     = []
+            for sym in ("TreeNode", "ListNode"):
+                if re.search(rf"\b{sym}\b", sig_text):
+                    imports.append(f"import leetcode.common.{sym};")
+            if needs_list:
+                imports.append("import java.util.*;")
+            import_line = ("\n".join(imports) + "\n\n") if imports else ""
             class_body  = f"{import_line}class Solution {{\n{method}\n}}"
         except Exception:
             class_body = "class Solution {\n    // TODO: implement\n}"

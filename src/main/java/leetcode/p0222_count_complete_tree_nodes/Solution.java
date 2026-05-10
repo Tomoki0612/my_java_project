@@ -42,6 +42,8 @@
  */
 package leetcode.p0222_count_complete_tree_nodes;
 
+import leetcode.common.TreeNode;
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
