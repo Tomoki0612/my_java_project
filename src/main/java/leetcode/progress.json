@@ -758,18 +758,24 @@
   "p0222_count_complete_tree_nodes": {
     "title": "Count Complete Tree Nodes",
     "difficulty": "Easy",
-    "status": "in_progress",
+    "status": "review",
     "added_date": "2026-05-10",
-    "next_review": null,
+    "next_review": "2026-05-11",
     "mastered_date": null,
-    "stage": null,
-    "retries": 0,
+    "stage": 0,
+    "retries": 1,
     "topic_tags": [
       "Binary Search",
       "Bit Manipulation",
       "Tree",
       "Binary Tree"
     ],
-    "history": []
+    "history": [
+      {
+        "date": "2026-05-10",
+        "result": "helped",
+        "stage": 0
+      }
+    ]
   }
 }
