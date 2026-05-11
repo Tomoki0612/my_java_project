@@ -760,10 +760,10 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-05-10",
-    "next_review": "2026-05-11",
+    "next_review": "2026-05-12",
     "mastered_date": null,
     "stage": 0,
-    "retries": 1,
+    "retries": 2,
     "topic_tags": [
       "Binary Search",
       "Bit Manipulation",
@@ -773,6 +773,11 @@
     "history": [
       {
         "date": "2026-05-10",
+        "result": "helped",
+        "stage": 0
+      },
+      {
+        "date": "2026-05-11",
         "result": "helped",
         "stage": 0
       }
