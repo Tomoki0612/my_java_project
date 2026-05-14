@@ -792,5 +792,21 @@
         "stage": 1
       }
     ]
+  },
+  "p0225_implement_stack_using_queues": {
+    "title": "Implement Stack using Queues",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-05-14",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "Stack",
+      "Design",
+      "Queue"
+    ],
+    "history": []
   }
 }
