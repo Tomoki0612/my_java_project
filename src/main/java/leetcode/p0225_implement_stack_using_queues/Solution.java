@@ -3,30 +3,30 @@
  * Difficulty: Easy
  * https://leetcode.com/problems/implement-stack-using-queues/
  *
- * 2つのキューだけを使って、後入れ先出し（LIFO）スタックを実装してください。
- * 実装するスタックは通常のスタックのすべての機能
- * （`push`、`top`、`pop`、`empty`）をサポートする必要があります。
+ * Implement a last-in-first-out (LIFO) stack using only two queues. The
+ * implemented stack should support all the functions of a normal stack
+ * (`push`, `top`, `pop`, and `empty`).
  *
- * `MyStack` クラスを実装してください：
+ * Implement the `MyStack` class:
  *
- * 	  - `void push(int x)` 要素 x をスタックの先頭にプッシュします。
+ * 	  - `void push(int x)` Pushes element x to the top of the stack.
  *
- * 	  - `int pop()` スタックの先頭の要素を取り除き、それを返します。
+ * 	  - `int pop()` Removes the element on the top of the stack and returns it.
  *
- * 	  - `int top()` スタックの先頭の要素を返します。
+ * 	  - `int top()` Returns the element on the top of the stack.
  *
- * 	  - `boolean empty()` スタックが空なら `true`、
- * 	    そうでなければ `false` を返します。
+ * 	  - `boolean empty()` Returns `true` if the stack is empty, `false`
+ * otherwise.
  *
- * 注意事項：
+ * Notes:
  *
- * 	  - キューの標準的な操作のみを使用しなければなりません。
- * 	    つまり、`push to back`、`peek/pop from front`、`size`、`is empty` の
- * 	    操作のみが有効です。
+ * 	  - You must use only standard operations of a queue, which means that
+ * only `push to back`, `peek/pop from front`, `size` and `is empty`
+ * operations are valid.
  *
- * 	  - 言語によっては、キューがネイティブにサポートされていない場合があります。
- * 	    キューの標準操作のみを使用する限り、
- * 	    リストや deque（両端キュー）を使ってキューをシミュレートしても構いません。
+ * 	  - Depending on your language, the queue may not be supported natively.
+ * You may simulate a queue using a list or deque (double-ended queue) as long
+ * as you use only a queue's standard operations.
  *
  *
  *
@@ -52,13 +52,13 @@
  *
  * 	  - `1 <= x <= 9`
  *
- * 	  - `push`、`pop`、`top`、`empty` への呼び出しは最大で `100` 回です。
+ * 	  - At most `100` calls will be made to `push`, `pop`, `top`, and `empty`.
  *
- * 	  - `pop` と `top` への呼び出しはすべて有効です。
+ * 	  - All the calls to `pop` and `top` are valid.
  *
  *
  *
- * Follow-up: 1つのキューだけを使ってスタックを実装できますか？
+ * Follow-up: Can you implement the stack using only one queue?
  */
 package leetcode.p0225_implement_stack_using_queues;
 
