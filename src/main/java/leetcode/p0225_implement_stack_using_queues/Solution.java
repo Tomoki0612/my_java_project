@@ -62,26 +62,33 @@
  */
 package leetcode.p0225_implement_stack_using_queues;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 class MyStack {
+    private Queue<Integer> q;
 
     public MyStack() {
-        return false;
+        q = new ArrayDeque<>();
     }
     
     public void push(int x) {
-        return false;
+        q.offer(x);
+        for (int i = 0; i < q.size() - 1; i++) {
+            q.offer(q.poll());
+        }
     }
     
     public int pop() {
-        return false;
+        return q.poll();
     }
     
     public int top() {
-        return false;
+        return q.peek();
     }
     
     public boolean empty() {
-        return false;
+        return q.isEmpty();
     }
 }
 
