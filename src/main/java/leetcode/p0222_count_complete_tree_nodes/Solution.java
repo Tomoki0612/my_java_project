@@ -61,6 +61,34 @@ import leetcode.common.TreeNode;
  */
 class Solution {
     public int countNodes(TreeNode root) {
-        return 0;
+        if (root == null) {
+            return 0;
+        }
+
+        int lh = leftHeight(root);
+        int rh = rightHeigiht(root);
+        if (lh == rh) {
+            return (1 << lh) - 1;  
+        } else {
+            return 1 + countNodes(root.left) + countNodes(root.right);
+        }
+    }
+
+    private int leftHeight(TreeNode node){
+        int lh = 0;
+        while (node != null) {
+            lh++;
+            node = node.left;
+        }
+        return lh;
+    }
+
+    private int rightHeigiht(TreeNode node){
+        int rh = 0;
+        while (node != null) {
+            rh++;
+            node = node.right;
+        }
+        return rh;
     }
 }
