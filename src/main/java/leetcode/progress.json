@@ -824,5 +824,22 @@
         "stage": 1
       }
     ]
+  },
+  "p0226_invert_binary_tree": {
+    "title": "Invert Binary Tree",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-05-18",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "Tree",
+      "Depth-First Search",
+      "Breadth-First Search",
+      "Binary Tree"
+    ],
+    "history": []
   }
 }
