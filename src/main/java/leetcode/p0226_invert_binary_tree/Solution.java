@@ -3,8 +3,7 @@
  * Difficulty: Easy
  * https://leetcode.com/problems/invert-binary-tree/
  *
- * 二分木の `root` が与えられたとき、その木を反転し、
- * そのルートを返してください。
+ * Given the `root` of a binary tree, invert the tree, and return its root.
  *
  *
  *
@@ -25,9 +24,9 @@
  *
  *
  *
- * 制約:
+ * Constraints:
  *
- * 	  - 木のノード数は `[0, 100]` の範囲内です。
+ * 	  - The number of nodes in the tree is in the range `[0, 100]`.
  *
  * 	  - `-100 <= Node.val <= 100`
  */
