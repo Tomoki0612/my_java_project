@@ -857,5 +857,19 @@
         "stage": 1
       }
     ]
+  },
+  "p0228_summary_ranges": {
+    "title": "Summary Ranges",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-05-21",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "Array"
+    ],
+    "history": []
   }
 }
