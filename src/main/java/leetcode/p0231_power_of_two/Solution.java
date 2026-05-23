@@ -3,12 +3,11 @@
  * Difficulty: Easy
  * https://leetcode.com/problems/power-of-two/
  *
- * 整数 `n` が与えられたとき、
- * それが2のべき乗であれば `true` を返してください。
- * そうでなければ `false` を返してください。
+ * Given an integer `n`, return `true` if it is a power of two. Otherwise,
+ * return `false`.
  *
- * 整数 `n` が2のべき乗であるとは、
- * ある整数 `x` が存在して `n == 2x` となることをいいます。
+ * An integer `n` is a power of two, if there exists an integer `x` such that
+ * `n == 2x`.
  *
  *
  *
@@ -37,7 +36,7 @@
  *
  *
  *
- * Follow up: ループや再帰を使わずに解けますか？
+ * Follow up: Could you solve it without loops/recursion?
  */
 package leetcode.p0231_power_of_two;
 

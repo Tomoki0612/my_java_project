@@ -891,17 +891,23 @@
   "p0231_power_of_two": {
     "title": "Power of Two",
     "difficulty": "Easy",
-    "status": "in_progress",
+    "status": "review",
     "added_date": "2026-05-23",
-    "next_review": null,
+    "next_review": "2026-05-24",
     "mastered_date": null,
-    "stage": null,
-    "retries": 0,
+    "stage": 0,
+    "retries": 1,
     "topic_tags": [
       "Math",
       "Bit Manipulation",
       "Recursion"
     ],
-    "history": []
+    "history": [
+      {
+        "date": "2026-05-23",
+        "result": "helped",
+        "stage": 0
+      }
+    ]
   }
 }
