@@ -898,9 +898,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-05-23",
-    "next_review": "2026-05-24",
+    "next_review": "2026-05-27",
     "mastered_date": null,
-    "stage": 0,
+    "stage": 1,
     "retries": 1,
     "topic_tags": [
       "Math",
@@ -912,6 +912,11 @@
         "date": "2026-05-23",
         "result": "helped",
         "stage": 0
+      },
+      {
+        "date": "2026-05-24",
+        "result": "done",
+        "stage": 1
       }
     ]
   }
