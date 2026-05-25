@@ -873,9 +873,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-05-21",
-    "next_review": "2026-05-25",
+    "next_review": "2026-06-01",
     "mastered_date": null,
-    "stage": 1,
+    "stage": 2,
     "retries": 1,
     "topic_tags": [
       "Array"
@@ -890,6 +890,11 @@
         "date": "2026-05-22",
         "result": "done",
         "stage": 1
+      },
+      {
+        "date": "2026-05-25",
+        "result": "done",
+        "stage": 2
       }
     ]
   },
