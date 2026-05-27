@@ -813,9 +813,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-05-14",
-    "next_review": "2026-05-27",
+    "next_review": "2026-06-17",
     "mastered_date": null,
-    "stage": 2,
+    "stage": 3,
     "retries": 1,
     "topic_tags": [
       "Stack",
@@ -837,6 +837,11 @@
         "date": "2026-05-20",
         "result": "done",
         "stage": 2
+      },
+      {
+        "date": "2026-05-27",
+        "result": "done",
+        "stage": 3
       }
     ]
   },
