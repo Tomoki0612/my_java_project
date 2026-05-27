@@ -945,9 +945,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-05-26",
-    "next_review": "2026-05-27",
+    "next_review": "2026-05-30",
     "mastered_date": null,
-    "stage": 0,
+    "stage": 1,
     "retries": 1,
     "topic_tags": [
       "Stack",
@@ -959,6 +959,11 @@
         "date": "2026-05-26",
         "result": "helped",
         "stage": 0
+      },
+      {
+        "date": "2026-05-27",
+        "result": "done",
+        "stage": 1
       }
     ]
   }

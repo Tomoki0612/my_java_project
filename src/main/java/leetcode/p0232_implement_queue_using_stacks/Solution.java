@@ -66,26 +66,37 @@
  */
 package leetcode.p0232_implement_queue_using_stacks;
 
-class MyQueue {
+import java.util.ArrayDeque;
+import java.util.Deque;
 
+class MyQueue {
+    private Deque<Integer> stack1;
+    private Deque<Integer> stack2;
     public MyQueue() {
-        return false;
+        stack1 = new ArrayDeque<>();
+        stack2 = new ArrayDeque<>();
     }
     
     public void push(int x) {
-        return false;
+        while (stack1.size() != 0) {
+            stack2.push(stack1.pop());
+        }
+        stack1.push(x);
+        while (stack2.size() != 0) {
+            stack1.push(stack2.pop());
+        }
     }
     
     public int pop() {
-        return false;
+        return stack1.pop();
     }
     
     public int peek() {
-        return false;
+        return stack1.peek();
     }
     
     public boolean empty() {
-        return false;
+        return stack1.isEmpty();
     }
 }
 
