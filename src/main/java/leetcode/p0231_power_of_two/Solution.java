@@ -42,6 +42,6 @@ package leetcode.p0231_power_of_two;
 
 class Solution {
     public boolean isPowerOfTwo(int n) {
-        return Integer.bitCount(n) == 1 && (n >>> 31 != 1);
+        return (n & (n - 1)) == 0 && n > 0;
     }
 }
