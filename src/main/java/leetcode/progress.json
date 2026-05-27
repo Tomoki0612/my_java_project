@@ -612,10 +612,10 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-04-26",
-    "next_review": "2026-05-27",
+    "next_review": "2026-07-26",
     "mastered_date": null,
     "retries": 1,
-    "stage": 3,
+    "stage": 4,
     "topic_tags": [
       "Hash Table",
       "Math",
@@ -636,6 +636,11 @@
         "date": "2026-05-06",
         "result": "done",
         "stage": 3
+      },
+      {
+        "date": "2026-05-27",
+        "result": "done",
+        "stage": 4
       }
     ]
   },
