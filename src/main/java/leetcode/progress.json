@@ -970,11 +970,11 @@
   "p0234_palindrome_linked_list": {
     "title": "Palindrome Linked List",
     "difficulty": "Easy",
-    "status": "in_progress",
+    "status": "mastered",
     "added_date": "2026-05-28",
-    "next_review": null,
-    "mastered_date": null,
-    "stage": null,
+    "next_review": "2026-11-24",
+    "mastered_date": "2026-05-28",
+    "stage": 5,
     "retries": 0,
     "topic_tags": [
       "Linked List",
@@ -982,6 +982,12 @@
       "Stack",
       "Recursion"
     ],
-    "history": []
+    "history": [
+      {
+        "date": "2026-05-28",
+        "result": "done",
+        "stage": 5
+      }
+    ]
   }
 }

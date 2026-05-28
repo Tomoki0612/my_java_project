@@ -32,6 +32,9 @@
  */
 package leetcode.p0234_palindrome_linked_list;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 import leetcode.common.ListNode;
 
 /**
@@ -46,6 +49,19 @@ import leetcode.common.ListNode;
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        return false;
+        ListNode cur = head;
+        Deque<Integer> stack = new ArrayDeque<>();
+        while (cur != null) {
+            stack.push(cur.val);
+            cur = cur.next;
+        }
+        cur = head;
+        while (!stack.isEmpty()) {
+            if (cur.val != stack.pop()) {
+                return false;
+            }
+            cur = cur.next;
+        }
+        return true;
     }
 }
