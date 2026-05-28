@@ -5,10 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 // Implement Queue using Stacks [Easy]
 class SolutionTest {
-    private final Solution solution = new Solution();
 
     @Test
     void example1() {
-        // TODO: add test cases
+        MyQueue queue = new MyQueue();
+        queue.push(1);
+        queue.push(2);
+        assertEquals(1, queue.peek());
+        assertEquals(1, queue.pop());
+        assertFalse(queue.empty());
     }
 }
