@@ -214,10 +214,38 @@ def raw_to_java(raw, lc_type):
     return None  # 複雑な型は手動で
 
 
-def build_test(problem, pkg_dir, examples):
+def detect_primary_class(class_body):
+    """Solution.java の本体からテスト対象のクラス名を検出する。
+
+    `Solution` があれば優先、無ければ最初に出現する `class XXX` を返す。
+    （design系問題では `MyQueue` 等のカスタムクラスになる）
+    """
+    if re.search(r"\bclass\s+Solution\b", class_body):
+        return "Solution"
+    m = re.search(r"\bclass\s+([A-Z]\w*)\b", class_body)
+    return m.group(1) if m else "Solution"
+
+
+def build_test(problem, pkg_dir, examples, class_name="Solution"):
     package = f"leetcode.{pkg_dir}"
     title = problem["title"]
     difficulty = problem["difficulty"]
+
+    # design 系（class_name != "Solution"）はインスタンスを使い回せないので、
+    # コンパイルが通る空テンプレだけを出す（手書きで埋める前提）。
+    if class_name != "Solution":
+        return (
+            f"package {package};\n\n"
+            f"import org.junit.jupiter.api.Test;\n"
+            f"import static org.junit.jupiter.api.Assertions.*;\n\n"
+            f"// {title} [{difficulty}]\n"
+            f"class SolutionTest {{\n\n"
+            f"    @Test\n"
+            f"    void example1() {{\n"
+            f"        // TODO: instantiate {class_name} and add test cases\n"
+            f"    }}\n"
+            f"}}\n"
+        )
 
     try:
         meta = json.loads(problem.get("metaData") or "{}")
@@ -419,6 +447,7 @@ def main():
 
     translate = "--ja" in sys.argv
     pkg_dir, solution_code = build_solution(problem, translate=translate)
+    class_name = detect_primary_class(solution_code)
 
     src_dir   = os.path.join(SRC_ROOT, pkg_dir)
     test_dir  = os.path.join(TEST_ROOT, pkg_dir)
@@ -436,7 +465,7 @@ def main():
 
     # SolutionTest.java
     examples  = extract_examples(problem.get("content") or "")
-    test_code = build_test(problem, pkg_dir, examples)
+    test_code = build_test(problem, pkg_dir, examples, class_name=class_name)
     os.makedirs(test_dir, exist_ok=True)
     with open(test_path, "w", encoding="utf-8") as f:
         f.write(test_code)
