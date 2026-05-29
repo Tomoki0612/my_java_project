@@ -850,9 +850,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-05-18",
-    "next_review": "2026-05-29",
+    "next_review": "2026-06-19",
     "mastered_date": null,
-    "stage": 2,
+    "stage": 3,
     "retries": 1,
     "topic_tags": [
       "Tree",
@@ -875,6 +875,11 @@
         "date": "2026-05-22",
         "result": "done",
         "stage": 2
+      },
+      {
+        "date": "2026-05-29",
+        "result": "done",
+        "stage": 3
       }
     ]
   },
