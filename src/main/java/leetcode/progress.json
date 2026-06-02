@@ -1008,17 +1008,23 @@
   "p0242_valid_anagram": {
     "title": "Valid Anagram",
     "difficulty": "Easy",
-    "status": "in_progress",
+    "status": "mastered",
     "added_date": "2026-06-02",
-    "next_review": null,
-    "mastered_date": null,
-    "stage": null,
+    "next_review": "2026-11-29",
+    "mastered_date": "2026-06-02",
+    "stage": 5,
     "retries": 0,
     "topic_tags": [
       "Hash Table",
       "String",
       "Sorting"
     ],
-    "history": []
+    "history": [
+      {
+        "date": "2026-06-02",
+        "result": "done",
+        "stage": 5
+      }
+    ]
   }
 }
