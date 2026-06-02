@@ -1004,5 +1004,21 @@
         "stage": 5
       }
     ]
+  },
+  "p0242_valid_anagram": {
+    "title": "Valid Anagram",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-06-02",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "Hash Table",
+      "String",
+      "Sorting"
+    ],
+    "history": []
   }
 }
