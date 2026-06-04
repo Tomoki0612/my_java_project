@@ -1040,12 +1040,12 @@
   "p0257_binary_tree_paths": {
     "title": "Binary Tree Paths",
     "difficulty": "Easy",
-    "status": "in_progress",
+    "status": "review",
     "added_date": "2026-06-04",
-    "next_review": null,
+    "next_review": "2026-06-05",
     "mastered_date": null,
-    "stage": null,
-    "retries": 0,
+    "stage": 0,
+    "retries": 1,
     "topic_tags": [
       "String",
       "Backtracking",
@@ -1053,6 +1053,12 @@
       "Depth-First Search",
       "Binary Tree"
     ],
-    "history": []
+    "history": [
+      {
+        "date": "2026-06-04",
+        "result": "helped",
+        "stage": 0
+      }
+    ]
   }
 }
