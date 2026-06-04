@@ -1036,5 +1036,23 @@
         "stage": 5
       }
     ]
+  },
+  "p0257_binary_tree_paths": {
+    "title": "Binary Tree Paths",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-06-04",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "String",
+      "Backtracking",
+      "Tree",
+      "Depth-First Search",
+      "Binary Tree"
+    ],
+    "history": []
   }
 }
