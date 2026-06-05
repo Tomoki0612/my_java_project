@@ -50,6 +50,23 @@ import java.util.*;
  */
 class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
-        return null;
+        List<String> result = new ArrayList<>();
+        dfs(root, result, "");
+        return result;
+    }
+
+    private void dfs(TreeNode node, List<String> list, String path){
+        path += node.val;
+        if (node.left == null && node.right == null) {
+            list.add(path);
+        }
+
+        if (node.left != null) {
+            dfs(node.left, list, path + "->");
+        }
+
+        if (node.right != null) {
+            dfs(node.right, list, path + "->");
+        }
     }
 }

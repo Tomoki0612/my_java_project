@@ -1042,9 +1042,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-06-04",
-    "next_review": "2026-06-05",
+    "next_review": "2026-06-08",
     "mastered_date": null,
-    "stage": 0,
+    "stage": 1,
     "retries": 1,
     "topic_tags": [
       "String",
@@ -1058,6 +1058,11 @@
         "date": "2026-06-04",
         "result": "helped",
         "stage": 0
+      },
+      {
+        "date": "2026-06-05",
+        "result": "done",
+        "stage": 1
       }
     ]
   }
