@@ -55,8 +55,9 @@ class Solution {
         return result;
     }
 
-    private void dfs(TreeNode node, List<String> list, String path){
+    private void dfs(TreeNode node, List<String> list, String path) {
         path += node.val;
+
         if (node.left == null && node.right == null) {
             list.add(path);
         }
