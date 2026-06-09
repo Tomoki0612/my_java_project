@@ -1075,5 +1075,21 @@
         "stage": 2
       }
     ]
+  },
+  "p0258_add_digits": {
+    "title": "Add Digits",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-06-09",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "Math",
+      "Simulation",
+      "Number Theory"
+    ],
+    "history": []
   }
 }
