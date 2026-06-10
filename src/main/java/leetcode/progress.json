@@ -1101,15 +1101,21 @@
   "p0263_ugly_number": {
     "title": "Ugly Number",
     "difficulty": "Easy",
-    "status": "in_progress",
+    "status": "mastered",
     "added_date": "2026-06-10",
-    "next_review": null,
-    "mastered_date": null,
-    "stage": null,
+    "next_review": "2026-12-07",
+    "mastered_date": "2026-06-10",
+    "stage": 5,
     "retries": 0,
     "topic_tags": [
       "Math"
     ],
-    "history": []
+    "history": [
+      {
+        "date": "2026-06-10",
+        "result": "done",
+        "stage": 5
+      }
+    ]
   }
 }
