@@ -1097,5 +1097,19 @@
         "stage": 5
       }
     ]
+  },
+  "p0263_ugly_number": {
+    "title": "Ugly Number",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-06-10",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "Math"
+    ],
+    "history": []
   }
 }
