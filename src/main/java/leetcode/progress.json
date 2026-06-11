@@ -1117,5 +1117,24 @@
         "stage": 5
       }
     ]
+  },
+  "p0268_missing_number": {
+    "title": "Missing Number",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-06-11",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "Array",
+      "Hash Table",
+      "Math",
+      "Binary Search",
+      "Bit Manipulation",
+      "Sorting"
+    ],
+    "history": []
   }
 }
