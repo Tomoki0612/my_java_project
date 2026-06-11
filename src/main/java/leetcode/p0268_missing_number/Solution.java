@@ -70,6 +70,15 @@ package leetcode.p0268_missing_number;
 
 class Solution {
     public int missingNumber(int[] nums) {
-        return 0;
+        for (int i = 0; i <= nums.length; i++) {
+            for (int j = 0; j < nums.length; j++) {
+                if (nums[j] == i) {
+                    break;
+                } else if (j == nums.length - 1) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 }
