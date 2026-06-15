@@ -69,26 +69,29 @@ class Solution {
         int rh = rightHeight(root);
         if (lh == rh) {
             return (1 << lh) - 1;
-        } else {
-            return 1 + countNodes(root.left) + countNodes(root.right); 
         }
+
+        if (lh != rh) {
+            return 1 + countNodes(root.left) + countNodes(root.right);
+        }
+        return 0;
     }
 
     private int leftHeight(TreeNode node) {
-        int lh = 0;
-        while(node != null){
-            lh++;
+        int count = 0;
+        while (node != null) {
+            count++;
             node = node.left;
         }
-        return lh;
+        return count;
     }
 
-    private int rightHeight(TreeNode node) {
-        int rh = 0;
+    private int rightHeight(TreeNode node){
+        int count = 0;
         while (node != null) {
-            rh++;
+            count++;
             node = node.right;
         }
-        return rh;
+        return count;
     }
 }
