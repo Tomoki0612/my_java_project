@@ -50,12 +50,12 @@ import java.util.*;
  */
 class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
-        List<String> result = new ArrayList<>();
-        dfs(root, result, "");
-        return result;
+        List<String> list = new ArrayList<>();
+        dfs(root, list, ""); 
+        return list;
     }
 
-    private void dfs(TreeNode node, List<String> list, String path) {
+    private void dfs(TreeNode node, List<String> list, String path){
         path += node.val;
 
         if (node.left == null && node.right == null) {
