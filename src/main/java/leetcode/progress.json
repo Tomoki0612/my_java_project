@@ -1157,5 +1157,20 @@
         "stage": 5
       }
     ]
+  },
+  "p0278_first_bad_version": {
+    "title": "First Bad Version",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-06-18",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "Binary Search",
+      "Interactive"
+    ],
+    "history": []
   }
 }

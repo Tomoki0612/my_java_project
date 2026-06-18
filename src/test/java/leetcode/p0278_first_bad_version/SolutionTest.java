@@ -1,0 +1,23 @@
+package leetcode.p0278_first_bad_version;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+// First Bad Version [Easy]
+class SolutionTest {
+    private final Solution solution = new Solution();
+
+    @Test
+    void example1() {
+        // Input:  n = 5, bad = 4
+        // Output: 4
+        assertEquals(4, solution.firstBadVersion(5, 4));
+    }
+
+    @Test
+    void example2() {
+        // Input:  n = 1, bad = 1
+        // Output: 1
+        assertEquals(1, solution.firstBadVersion(1, 1));
+    }
+}
