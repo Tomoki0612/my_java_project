@@ -1161,16 +1161,22 @@
   "p0278_first_bad_version": {
     "title": "First Bad Version",
     "difficulty": "Easy",
-    "status": "in_progress",
+    "status": "review",
     "added_date": "2026-06-18",
-    "next_review": null,
+    "next_review": "2026-06-19",
     "mastered_date": null,
-    "stage": null,
-    "retries": 0,
+    "stage": 0,
+    "retries": 1,
     "topic_tags": [
       "Binary Search",
       "Interactive"
     ],
-    "history": []
+    "history": [
+      {
+        "date": "2026-06-18",
+        "result": "helped",
+        "stage": 0
+      }
+    ]
   }
 }
