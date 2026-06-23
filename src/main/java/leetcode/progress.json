@@ -908,10 +908,10 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-05-21",
-    "next_review": "2026-06-22",
+    "next_review": "2026-06-24",
     "mastered_date": null,
-    "stage": 3,
-    "retries": 1,
+    "stage": 0,
+    "retries": 2,
     "topic_tags": [
       "Array"
     ],
@@ -935,6 +935,11 @@
         "date": "2026-06-01",
         "result": "done",
         "stage": 3
+      },
+      {
+        "date": "2026-06-23",
+        "result": "helped",
+        "stage": 0
       }
     ]
   },

@@ -57,26 +57,6 @@ import java.util.*;
 
 class Solution {
     public List<String> summaryRanges(int[] nums) {
-        int k = 0;
-        List<String> result = new ArrayList<>();
-        if (nums.length == 0) {
-            return result;
-        }
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] != nums[i - 1] + 1) {
-                if (k == i - 1) {
-                    result.add(Integer.toString(nums[k]));
-                } else {
-                    result.add(Integer.toString(nums[k]) + "->" + Integer.toString(nums[i - 1]));
-                }
-                k = i;
-            }
-        }
-        if (nums[k] == nums[nums.length - 1]) {
-            result.add(Integer.toString(nums[k]));
-        } else {
-            result.add(Integer.toString(nums[k]) + "->" + Integer.toString(nums[nums.length - 1]));
-        }
-        return result;
+        return null;
     }
 }
