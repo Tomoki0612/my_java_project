@@ -45,6 +45,21 @@ package leetcode.p0278_first_bad_version;
 
 public class Solution extends VersionControl {
     public int firstBadVersion(int n) {
-        return 0;
+        int left = 0;
+        int right = n;
+        while (left < right) {
+            int mid =  (right - left) / 2 + left;
+            if (isBadVersion(mid)) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+
+    int isBadVersion(int n, int bad) {
+        this.bad = bad;
+        return firstBadVersion(n);
     }
 }

@@ -1168,9 +1168,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-06-18",
-    "next_review": "2026-06-19",
+    "next_review": "2026-06-26",
     "mastered_date": null,
-    "stage": 0,
+    "stage": 1,
     "retries": 1,
     "topic_tags": [
       "Binary Search",
@@ -1181,6 +1181,11 @@
         "date": "2026-06-18",
         "result": "helped",
         "stage": 0
+      },
+      {
+        "date": "2026-06-23",
+        "result": "done",
+        "stage": 1
       }
     ]
   }
