@@ -54,9 +54,8 @@ class Solution {
         if (root == null) {
             return null;
         }
-
-        TreeNode tmp;
         if (root.left != null || root.right != null) {
+            TreeNode tmp;
             tmp = root.left;
             root.left = root.right;
             root.right = tmp;
