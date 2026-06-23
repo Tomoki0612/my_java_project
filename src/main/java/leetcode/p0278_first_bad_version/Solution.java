@@ -58,7 +58,7 @@ public class Solution extends VersionControl {
         return left;
     }
 
-    int isBadVersion(int n, int bad) {
+    int firstBadVersion(int n, int bad) {
         this.bad = bad;
         return firstBadVersion(n);
     }
