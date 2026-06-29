@@ -48,7 +48,7 @@ public class Solution extends VersionControl {
         int left = 0;
         int right = n;
         while (left < right) {
-            int mid =  (right - left) / 2 + left;
+            int mid = left + (right - left)/2 ;
             if (isBadVersion(mid)) {
                 right = mid;
             } else {
@@ -56,10 +56,5 @@ public class Solution extends VersionControl {
             }
         }
         return left;
-    }
-
-    int firstBadVersion(int n, int bad) {
-        this.bad = bad;
-        return firstBadVersion(n);
     }
 }
