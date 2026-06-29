@@ -66,12 +66,13 @@
  */
 package leetcode.p0232_implement_queue_using_stacks;
 
-import java.util.Deque;
 import java.util.ArrayDeque;
+import java.util.Deque;
 
 class MyQueue {
     private Deque<Integer> stack1;
     private Deque<Integer> stack2;
+
 
     public MyQueue() {
         stack1 = new ArrayDeque<>();
