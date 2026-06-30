@@ -2,6 +2,7 @@ package leetcode.p0222_count_complete_tree_nodes;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static leetcode.common.TestNodes.tree;
 
 // Count Complete Tree Nodes [Easy]
 class SolutionTest {
@@ -9,22 +10,16 @@ class SolutionTest {
 
     @Test
     void example1() {
-        // Input:  root = [1,2,3,4,5,6]
-        // Output: 6
-        // assertEquals(expected, solution.countNodes(...));
+        assertEquals(6, solution.countNodes(tree(1, 2, 3, 4, 5, 6)));
     }
 
     @Test
     void example2() {
-        // Input:  root = []
-        // Output: 0
-        // assertEquals(expected, solution.countNodes(...));
+        assertEquals(0, solution.countNodes(tree()));
     }
 
     @Test
     void example3() {
-        // Input:  root = [1]
-        // Output: 1
-        // assertEquals(expected, solution.countNodes(...));
+        assertEquals(1, solution.countNodes(tree(1)));
     }
 }

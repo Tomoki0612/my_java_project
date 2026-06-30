@@ -9,6 +9,16 @@ class SolutionTest {
 
     @Test
     void example1() {
-        // TODO: add test cases
+        assertEquals(3, solution.hammingWeight(11));
+    }
+
+    @Test
+    void example2() {
+        assertEquals(1, solution.hammingWeight(128));
+    }
+
+    @Test
+    void example3() {
+        assertEquals(30, solution.hammingWeight(2147483645));
     }
 }

@@ -9,6 +9,21 @@ class SolutionTest {
 
     @Test
     void example1() {
-        // TODO: add test cases
+        assertTrue(solution.isIsomorphic("egg", "add"));
+    }
+
+    @Test
+    void example2() {
+        assertFalse(solution.isIsomorphic("foo", "bar"));
+    }
+
+    @Test
+    void example3() {
+        assertTrue(solution.isIsomorphic("paper", "title"));
+    }
+
+    @Test
+    void rejectsManyToOneMapping() {
+        assertFalse(solution.isIsomorphic("badc", "baba"));
     }
 }

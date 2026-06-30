@@ -9,6 +9,16 @@ class SolutionTest {
 
     @Test
     void example1() {
-        // TODO: add test cases
+        assertEquals(964176192, solution.reverseBits(43261596));
+    }
+
+    @Test
+    void example2() {
+        assertEquals(1073741822, solution.reverseBits(2147483644));
+    }
+
+    @Test
+    void zero() {
+        assertEquals(0, solution.reverseBits(0));
     }
 }

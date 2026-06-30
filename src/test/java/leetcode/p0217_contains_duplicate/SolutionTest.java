@@ -9,6 +9,16 @@ class SolutionTest {
 
     @Test
     void example1() {
-        // TODO: add test cases
+        assertTrue(solution.containsDuplicate(new int[]{1, 2, 3, 1}));
+    }
+
+    @Test
+    void example2() {
+        assertFalse(solution.containsDuplicate(new int[]{1, 2, 3, 4}));
+    }
+
+    @Test
+    void example3() {
+        assertTrue(solution.containsDuplicate(new int[]{1, 1, 1, 3, 3, 4, 3, 2, 4, 2}));
     }
 }

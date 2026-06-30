@@ -2,6 +2,7 @@ package leetcode.p0141_linked_list_cycle;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static leetcode.common.TestNodes.listWithCycle;
 
 // Linked List Cycle [Easy]
 class SolutionTest {
@@ -9,22 +10,16 @@ class SolutionTest {
 
     @Test
     void example1() {
-        // Input:  head = [3,2,0,-4], pos = 1
-        // Output: true
-        // assertEquals(expected, solution.hasCycle(...));
+        assertTrue(solution.hasCycle(listWithCycle(new int[]{3, 2, 0, -4}, 1)));
     }
 
     @Test
     void example2() {
-        // Input:  head = [1,2], pos = 0
-        // Output: true
-        // assertEquals(expected, solution.hasCycle(...));
+        assertTrue(solution.hasCycle(listWithCycle(new int[]{1, 2}, 0)));
     }
 
     @Test
     void example3() {
-        // Input:  head = [1], pos = -1
-        // Output: false
-        // assertEquals(expected, solution.hasCycle(...));
+        assertFalse(solution.hasCycle(listWithCycle(new int[]{1}, -1)));
     }
 }

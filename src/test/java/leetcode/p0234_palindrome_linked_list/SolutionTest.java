@@ -2,6 +2,7 @@ package leetcode.p0234_palindrome_linked_list;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static leetcode.common.TestNodes.list;
 
 // Palindrome Linked List [Easy]
 class SolutionTest {
@@ -9,15 +10,16 @@ class SolutionTest {
 
     @Test
     void example1() {
-        // Input:  head = [1,2,2,1]
-        // Output: true
-        // assertEquals(expected, solution.isPalindrome(...));
+        assertTrue(solution.isPalindrome(list(1, 2, 2, 1)));
     }
 
     @Test
     void example2() {
-        // Input:  head = [1,2]
-        // Output: false
-        // assertEquals(expected, solution.isPalindrome(...));
+        assertFalse(solution.isPalindrome(list(1, 2)));
+    }
+
+    @Test
+    void oddLengthPalindrome() {
+        assertTrue(solution.isPalindrome(list(1, 2, 3, 2, 1)));
     }
 }

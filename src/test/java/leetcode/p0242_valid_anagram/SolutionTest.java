@@ -9,6 +9,16 @@ class SolutionTest {
 
     @Test
     void example1() {
-        // TODO: add test cases
+        assertTrue(solution.isAnagram("anagram", "nagaram"));
+    }
+
+    @Test
+    void example2() {
+        assertFalse(solution.isAnagram("rat", "car"));
+    }
+
+    @Test
+    void differentLengths() {
+        assertFalse(solution.isAnagram("a", "ab"));
     }
 }
