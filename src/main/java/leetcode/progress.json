@@ -1222,16 +1222,22 @@
   "p0283_move_zeroes": {
     "title": "Move Zeroes",
     "difficulty": "Easy",
-    "status": "in_progress",
+    "status": "mastered",
     "added_date": "2026-06-30",
-    "next_review": null,
-    "mastered_date": null,
-    "stage": null,
+    "next_review": "2026-12-27",
+    "mastered_date": "2026-06-30",
+    "stage": 5,
     "retries": 0,
     "topic_tags": [
       "Array",
       "Two Pointers"
     ],
-    "history": []
+    "history": [
+      {
+        "date": "2026-06-30",
+        "result": "done",
+        "stage": 5
+      }
+    ]
   }
 }
