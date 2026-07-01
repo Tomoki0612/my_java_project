@@ -5,7 +5,7 @@ next:
 	@python3 scripts/next_action.py
 
 new:
-	python3 scripts/new_problem.py $(N) --ja
+	python3 scripts/new_problem.py $(N)
 
 recommend:
 	python3 scripts/recommend_new.py

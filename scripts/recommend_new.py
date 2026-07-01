@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""弱点トピックから未登録の新規問題候補を表示する。"""
+"""弱点トピックから今日解く新規問題を1問決める。"""
 import argparse
 import os
 import re
@@ -136,8 +136,16 @@ def pick_candidates(tag, registered, already_shown, per_topic, difficulty):
     return candidates
 
 
+def print_question(q, indent="  "):
+    number = int(q["questionFrontendId"])
+    tags = ", ".join(t["name"] for t in q.get("topicTags") or [])
+    print(f"{indent}#{number} {q['title']} [{q['difficulty']}]")
+    print(f"{indent}   tags: {tags}")
+    print(f"{indent}   add: python3 scripts/new_problem.py {number}")
+
+
 def main():
-    parser = argparse.ArgumentParser(description="弱点トピックから新規問題候補を表示する")
+    parser = argparse.ArgumentParser(description="弱点トピックから今日解く新規問題を1問決める")
     parser.add_argument("--topics", type=int, default=3, help="見る弱点トピック数")
     parser.add_argument("--per-topic", type=int, default=3, help="各トピックの候補数")
     parser.add_argument(
@@ -152,15 +160,13 @@ def main():
     topics = weak_topics(progress, args.topics)
     if not topics:
         print("弱点トピックがまだありません。まずは復習で --helped の記録を貯めてください。")
-        print("通常の新規追加: python3 scripts/new_problem.py <番号> --ja")
+        print("通常の新規追加: python3 scripts/new_problem.py <番号>")
         return
 
     registered = registered_numbers(progress)
     difficulty_label = "Auto" if args.difficulty == "auto" else args.difficulty.capitalize()
-    print(f"新規問題候補 ({difficulty_label} / 未登録 / 無料問題)")
-    print()
 
-    any_candidate = False
+    recommendations = []
     already_shown = set()
     for tag, retries, solved_count in topics:
         if args.difficulty == "auto":
@@ -168,30 +174,62 @@ def main():
         else:
             difficulty, reason = args.difficulty, "手動指定"
 
-        print(f"{tag}  (累計 {retries} retries / 該当 {solved_count}問)")
-        print(f"  推奨難易度: {difficulty.capitalize()} - {reason}")
         try:
             candidates = pick_candidates(tag, registered, already_shown, args.per_topic, difficulty)
         except Exception as exc:
-            print(f"  候補取得に失敗: {exc}")
-            print()
+            recommendations.append({
+                "tag": tag,
+                "retries": retries,
+                "solved_count": solved_count,
+                "difficulty": difficulty,
+                "reason": reason,
+                "error": str(exc),
+                "candidates": [],
+            })
             continue
 
-        if not candidates:
+        recommendations.append({
+            "tag": tag,
+            "retries": retries,
+            "solved_count": solved_count,
+            "difficulty": difficulty,
+            "reason": reason,
+            "error": None,
+            "candidates": candidates,
+        })
+
+    today = next(
+        (rec["candidates"][0] for rec in recommendations if rec["candidates"]),
+        None,
+    )
+
+    print(f"今日の1問 ({difficulty_label} / 未登録 / 無料問題)")
+    print()
+    if today:
+        print_question(today, indent="  ")
+        print()
+    else:
+        print("  候補なし")
+        print()
+
+    print("候補一覧")
+    print()
+    for rec in recommendations:
+        print(f"{rec['tag']}  (累計 {rec['retries']} retries / 該当 {rec['solved_count']}問)")
+        print(f"  推奨難易度: {rec['difficulty'].capitalize()} - {rec['reason']}")
+        if rec["error"]:
+            print(f"  候補取得に失敗: {rec['error']}")
+            print()
+            continue
+        if not rec["candidates"]:
             print("  候補なし")
             print()
             continue
-
-        any_candidate = True
-        for q in candidates:
-            number = int(q["questionFrontendId"])
-            tags = ", ".join(t["name"] for t in q.get("topicTags") or [])
-            print(f"  #{number} {q['title']} [{q['difficulty']}]")
-            print(f"     tags: {tags}")
-            print(f"     add: python3 scripts/new_problem.py {number} --ja")
+        for q in rec["candidates"]:
+            print_question(q)
         print()
 
-    if not any_candidate:
+    if today is None:
         print("候補が出ない場合は難易度を変えてください。例:")
         print("  python3 scripts/recommend_new.py --difficulty medium")
 

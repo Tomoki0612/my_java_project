@@ -9,22 +9,22 @@ class SolutionTest {
 
     @Test
     void example1() {
-        // Input:  s = &quot;YazaAay&quot;
-        // Output: &quot;aAa&quot;
-        assertEquals(&quot;aAa&quot;, solution.longestNiceSubstring("YazaAay"));
+        // Input:  s = "YazaAay"
+        // Output: "aAa"
+        assertEquals("aAa", solution.longestNiceSubstring("YazaAay"));
     }
 
     @Test
     void example2() {
-        // Input:  s = &quot;Bb&quot;
-        // Output: &quot;Bb&quot;
-        assertEquals(&quot;Bb&quot;, solution.longestNiceSubstring("Bb"));
+        // Input:  s = "Bb"
+        // Output: "Bb"
+        assertEquals("Bb", solution.longestNiceSubstring("Bb"));
     }
 
     @Test
     void example3() {
-        // Input:  s = &quot;c&quot;
-        // Output: &quot;&quot;
-        assertEquals(&quot;&quot;, solution.longestNiceSubstring("c"));
+        // Input:  s = "c"
+        // Output: ""
+        assertEquals("", solution.longestNiceSubstring("c"));
     }
 }

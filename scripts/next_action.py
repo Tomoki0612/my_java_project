@@ -81,14 +81,14 @@ def pick_next(progress, today_iso=None):
             "number": None,
             "title": None,
             "command": "python3 scripts/recommend_new.py",
-            "hint": "弱点トピックから新しい問題候補を選びましょう",
+            "hint": "弱点トピックから今日の1問を決めましょう",
         }
 
     return {
         "kind": "new_problem",
         "number": None,
         "title": None,
-        "command": "python3 scripts/new_problem.py <番号> --ja",
+        "command": "python3 scripts/new_problem.py <番号>",
         "hint": "新しい問題を追加しましょう",
     }
 

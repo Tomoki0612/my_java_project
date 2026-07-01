@@ -8,7 +8,7 @@ Usage:
 
 Example:
   python3 scripts/new_problem.py 1
-  python3 scripts/new_problem.py two-sum --ja
+  python3 scripts/new_problem.py two-sum
 """
 
 import sys
@@ -108,24 +108,6 @@ def html_to_text(html):
     return html.strip()
 
 
-def translate_to_japanese(text):
-    prompt = (
-        "以下のLeetCode問題文を日本語に翻訳してください。\n"
-        "- コード例・変数名・数値はそのまま残す\n"
-        "- 翻訳文のみ出力し、前置きや説明は不要\n"
-        "- 1行が長くなる場合は、文の意味の区切り（句点・読点・接続詞など）で改行する\n"
-        "- 1行の目安は全角60文字程度\n\n"
-        + text
-    )
-    result = subprocess.run(
-        ["claude", "-p", prompt],
-        capture_output=True, text=True, timeout=60
-    )
-    if result.returncode != 0:
-        return text
-    return result.stdout.strip()
-
-
 def wrap_line(line, max_width=76):
     """1行が長すぎる場合に折り返す"""
     if len(line) <= max_width:
@@ -192,7 +174,14 @@ def extract_examples(content_html):
     examples = []
     for block in pre_blocks:
         text = re.sub(r"<[^>]+>", "", block)
-        for ent, ch in {"&lt;": "<", "&gt;": ">", "&amp;": "&", "&nbsp;": " "}.items():
+        for ent, ch in {
+            "&lt;": "<",
+            "&gt;": ">",
+            "&amp;": "&",
+            "&quot;": '"',
+            "&#39;": "'",
+            "&nbsp;": " ",
+        }.items():
             text = text.replace(ent, ch)
         input_m  = re.search(r"Input:\s*(.+?)(?=\nOutput:)", text, re.DOTALL)
         output_m = re.search(r"Output:\s*(.+?)(?=\nExplanation:|\nInput:|$)", text, re.DOTALL)
@@ -351,16 +340,12 @@ def default_return(java_type):
     return stmts.get(java_type, "return null;")
 
 
-def build_solution(problem, translate=False):
+def build_solution(problem):
     fid        = int(problem["questionFrontendId"])
     slug       = problem["titleSlug"]
     title      = problem["title"]
     difficulty = problem["difficulty"]
     content    = html_to_text(problem.get("content") or "")
-
-    if translate:
-        print("日本語に翻訳中...")
-        content = translate_to_japanese(content)
 
     pkg_dir = to_package_dir(fid, slug)
     header  = f"{title}\nDifficulty: {difficulty}\nhttps://leetcode.com/problems/{slug}/\n\n{content}"
@@ -427,15 +412,12 @@ def build_solution(problem, translate=False):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python3 scripts/new_problem.py <問題番号またはslug> [--ja]")
+        print("Usage: python3 scripts/new_problem.py <問題番号またはslug>")
         sys.exit(1)
 
     arg = sys.argv[1]
-    known_flags = {"--ja"}
-    unknown = [a for a in sys.argv[2:] if a not in known_flags]
-    if unknown:
-        print(f"未知のオプション: {' '.join(unknown)}")
-        print(f"使えるオプション: {', '.join(sorted(known_flags))}")
+    if len(sys.argv) > 2:
+        print(f"未知のオプション: {' '.join(sys.argv[2:])}")
         sys.exit(1)
     if arg.isdigit():
         number = int(arg)
@@ -454,8 +436,7 @@ def main():
         print(f"問題が見つかりませんでした: {slug}")
         sys.exit(1)
 
-    translate = "--ja" in sys.argv
-    pkg_dir, solution_code = build_solution(problem, translate=translate)
+    pkg_dir, solution_code = build_solution(problem)
     class_name = detect_primary_class(solution_code)
 
     src_dir   = os.path.join(SRC_ROOT, pkg_dir)

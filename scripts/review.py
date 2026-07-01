@@ -59,7 +59,7 @@ def main():
         print(f"問題情報の取得に失敗しました: {slug}")
         sys.exit(1)
 
-    _, template = build_solution(problem, translate=False)
+    _, template = build_solution(problem)
     with open(solution_path, "w", encoding="utf-8") as f:
         f.write(template)
 

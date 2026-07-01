@@ -84,7 +84,7 @@ def reset_solution(key):
     if not problem:
         print(f"  ※ 問題情報の取得に失敗したためリセットをスキップしました")
         return
-    _, template = build_solution(problem, translate=False)
+    _, template = build_solution(problem)
     with open(solution_path, "w", encoding="utf-8") as f:
         f.write(template)
     print(f"  Solution.java をリセットしました")
