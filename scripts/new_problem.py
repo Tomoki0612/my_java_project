@@ -166,6 +166,17 @@ def print_next_steps(fid):
     print(f"     ヒントあり/詰まったら: python3 scripts/done.py {fid} --helped")
 
 
+def verify_scaffold_compiles():
+    print("生成物のコンパイル確認中: mvn test-compile")
+    result = subprocess.run(["mvn", "test-compile"], cwd=PROJECT_ROOT)
+    if result.returncode != 0:
+        print()
+        print("生成した scaffold のコンパイル確認に失敗しました。")
+        print("自動 commit/push はスキップします。エラーを直してから再実行してください。")
+        sys.exit(result.returncode)
+    print("  [mvn] test-compile OK")
+
+
 # ---------- テスト生成 ----------
 
 def extract_examples(content_html):
@@ -488,6 +499,7 @@ def main():
     print(f"作成しました: [{problem['difficulty']}] {problem['title']}")
     print(f"  src/main/java/leetcode/{pkg_dir}/Solution.java")
     print(f"  src/test/java/leetcode/{pkg_dir}/SolutionTest.java")
+    verify_scaffold_compiles()
     print_next_steps(fid)
 
     git_push_scaffold(pkg_dir, fid, problem["title"])
