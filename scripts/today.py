@@ -41,6 +41,84 @@ def weak_topics(progress, limit=3):
     return weak[:limit]
 
 
+def find_entry_by_number(progress, number):
+    prefix = f"p{number:04d}_"
+    for key, entry in progress.items():
+        if key.startswith(prefix):
+            return key, entry
+    return None, None
+
+
+def build_daily_coach(progress, today_iso):
+    action = pick_next(progress, today_iso)
+    if not action:
+        return [
+            "今日の方針: 追加タスクなし",
+            "理由: 期限の来た復習・未完了・弱点推薦がありません。",
+        ]
+
+    kind = action["kind"]
+    number = action["number"]
+    _, entry = find_entry_by_number(progress, number) if number else (None, None)
+
+    if kind == "review" and entry:
+        retries = entry.get("retries", 0) or 0
+        stage = entry.get("stage", 0) or 0
+        lines = [
+            f"今日の方針: 復習を最優先。#{number} {entry['title']} を解き直す。",
+            f"理由: next_review が {entry.get('next_review')} で、stage {stage} の定着確認日です。",
+        ]
+        if retries:
+            lines.append(f"注意: helped 記録が {retries} 回あります。実装前に解法の入口を一言で言語化する。")
+        else:
+            lines.append("注意: 記憶だけで進めず、制約と例外ケースを先に確認する。")
+        lines.append(f"次: {action['command']}")
+        return lines
+
+    if kind == "in_progress" and entry:
+        return [
+            f"今日の方針: 未完了の #{number} {entry['title']} を閉じる。",
+            "理由: 新規追加より、今の問題を完了または復習サイクルへ戻す方が優先です。",
+            "注意: Accepted なら done、詰まったなら --helped で翌日復習へ回す。",
+            f"次: {action['command']}",
+        ]
+
+    if kind == "long_review" and entry:
+        mastered_date = entry.get("mastered_date") or "?"
+        return [
+            f"今日の方針: 長期復習で #{number} {entry['title']} を再確認する。",
+            f"理由: mastered ({mastered_date}) から時間を置いた忘却チェックです。",
+            "注意: 迷った箇所があれば --helped で stage 0 に戻して鍛え直す。",
+            f"次: {action['command']}",
+        ]
+
+    if kind == "recommend_new":
+        weak = weak_topics(progress, limit=1)
+        lines = [
+            "今日の方針: 新規問題を1問追加する。",
+            "理由: 期限の来た復習と未完了問題がないため、弱点補強に進めます。",
+        ]
+        if weak:
+            tag, retries, _ = weak[0]
+            lines.append(f"注意: 最上位弱点は {tag} ({retries} retries)。推薦された1問だけに絞る。")
+        lines.append(f"次: {action['command']}")
+        return lines
+
+    return [
+        "今日の方針: 新しい問題を1問追加する。",
+        "理由: 進行中タスクと期限復習がありません。",
+        "注意: 追加後は LeetCode Accepted までやってから done する。",
+        f"次: {action['command']}",
+    ]
+
+
+def print_daily_coach(progress, today_iso):
+    print("日次コーチ")
+    for line in build_daily_coach(progress, today_iso):
+        print(f"  {line}")
+    print()
+
+
 def main():
     git_pull()
     progress, dirty = load_progress()
@@ -65,6 +143,7 @@ def main():
                 short_reviews.append((k, v))
 
     print(f"=== 今日のタスク ({today}) ===\n")
+    print_daily_coach(progress, today)
     print(format_one_line(pick_next(progress, today)))
     print()
 
