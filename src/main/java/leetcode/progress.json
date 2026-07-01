@@ -1239,5 +1239,23 @@
         "stage": 5
       }
     ]
+  },
+  "p1763_longest_nice_substring": {
+    "title": "Longest Nice Substring",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-07-01",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "Hash Table",
+      "String",
+      "Divide and Conquer",
+      "Bit Manipulation",
+      "Sliding Window"
+    ],
+    "history": []
   }
 }
