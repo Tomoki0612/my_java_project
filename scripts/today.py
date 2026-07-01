@@ -104,6 +104,7 @@ def main():
         print("弱点トピック (リトライ累計が多い順)")
         for tag, retries, n in weak:
             print(f"  {tag}: 累計 {retries} retries / 該当 {n}問")
+        print("  新規候補を見る → python3 scripts/recommend_new.py")
         print()
 
     counts = Counter(v.get("stage") for v in progress.values())

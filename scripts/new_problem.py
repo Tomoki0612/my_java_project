@@ -175,6 +175,15 @@ def git_push_scaffold(pkg_dir, fid, title):
     print(f"  [git] push 完了")
 
 
+def print_next_steps(fid):
+    print()
+    print("次の手順:")
+    print("  1. Solution.java を解く")
+    print("  2. LeetCode で Submit して Accepted を確認")
+    print(f"  3. 自力で解けたら: python3 scripts/done.py {fid}")
+    print(f"     ヒントあり/詰まったら: python3 scripts/done.py {fid} --helped")
+
+
 # ---------- テスト生成 ----------
 
 def extract_examples(content_html):
@@ -454,8 +463,11 @@ def main():
     sol_path  = os.path.join(src_dir, "Solution.java")
     test_path = os.path.join(test_dir, "SolutionTest.java")
 
+    fid = int(problem["questionFrontendId"])
+
     if os.path.exists(sol_path):
         print(f"既に存在します: {sol_path}")
+        print_next_steps(fid)
         sys.exit(1)
 
     # Solution.java
@@ -495,8 +507,9 @@ def main():
     print(f"作成しました: [{problem['difficulty']}] {problem['title']}")
     print(f"  src/main/java/leetcode/{pkg_dir}/Solution.java")
     print(f"  src/test/java/leetcode/{pkg_dir}/SolutionTest.java")
+    print_next_steps(fid)
 
-    git_push_scaffold(pkg_dir, int(problem["questionFrontendId"]), problem["title"])
+    git_push_scaffold(pkg_dir, fid, problem["title"])
 
 
 if __name__ == "__main__":

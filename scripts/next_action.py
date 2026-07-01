@@ -1,10 +1,19 @@
 """次にやるべき1アクションを決める共通ロジック"""
 import os
 import sys
+from collections import Counter
 from datetime import date
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from progress_lib import load_progress
+
+
+def has_weak_topics(progress):
+    retries_by_topic = Counter()
+    for v in progress.values():
+        for tag in v.get("topic_tags") or []:
+            retries_by_topic[tag] += v.get("retries", 0) or 0
+    return any(retries > 0 for retries in retries_by_topic.values())
 
 
 def pick_next(progress, today_iso=None):
@@ -64,6 +73,15 @@ def pick_next(progress, today_iso=None):
             "title": v["title"],
             "command": f"python3 scripts/review.py {num}",
             "hint": f"長期復習: #{num} {v['title']} [{v['difficulty']}] (前回習得 {v.get('mastered_date', '?')})",
+        }
+
+    if has_weak_topics(progress):
+        return {
+            "kind": "recommend_new",
+            "number": None,
+            "title": None,
+            "command": "python3 scripts/recommend_new.py",
+            "hint": "弱点トピックから新しい問題候補を選びましょう",
         }
 
     return {
