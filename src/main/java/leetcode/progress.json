@@ -1245,9 +1245,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-07-01",
-    "next_review": "2026-07-02",
+    "next_review": "2026-07-05",
     "mastered_date": null,
-    "stage": 0,
+    "stage": 1,
     "retries": 1,
     "topic_tags": [
       "Hash Table",
@@ -1261,6 +1261,11 @@
         "date": "2026-07-01",
         "result": "helped",
         "stage": 0
+      },
+      {
+        "date": "2026-07-02",
+        "result": "done",
+        "stage": 1
       }
     ]
   }
