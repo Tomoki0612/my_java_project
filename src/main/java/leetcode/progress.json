@@ -1268,5 +1268,23 @@
         "stage": 1
       }
     ]
+  },
+  "p0349_intersection_of_two_arrays": {
+    "title": "Intersection of Two Arrays",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-07-03",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "Array",
+      "Hash Table",
+      "Two Pointers",
+      "Binary Search",
+      "Sorting"
+    ],
+    "history": []
   }
 }
