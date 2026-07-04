@@ -1296,11 +1296,11 @@
   "p0350_intersection_of_two_arrays_ii": {
     "title": "Intersection of Two Arrays II",
     "difficulty": "Easy",
-    "status": "in_progress",
+    "status": "mastered",
     "added_date": "2026-07-04",
-    "next_review": null,
-    "mastered_date": null,
-    "stage": null,
+    "next_review": "2026-12-31",
+    "mastered_date": "2026-07-04",
+    "stage": 5,
     "retries": 0,
     "topic_tags": [
       "Array",
@@ -1309,6 +1309,12 @@
       "Binary Search",
       "Sorting"
     ],
-    "history": []
+    "history": [
+      {
+        "date": "2026-07-04",
+        "result": "done",
+        "stage": 5
+      }
+    ]
   }
 }
