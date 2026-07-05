@@ -1245,10 +1245,10 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-07-01",
-    "next_review": "2026-07-05",
+    "next_review": "2026-07-06",
     "mastered_date": null,
-    "stage": 1,
-    "retries": 1,
+    "stage": 0,
+    "retries": 2,
     "topic_tags": [
       "Hash Table",
       "String",
@@ -1266,6 +1266,11 @@
         "date": "2026-07-02",
         "result": "done",
         "stage": 1
+      },
+      {
+        "date": "2026-07-05",
+        "result": "helped",
+        "stage": 0
       }
     ]
   },
