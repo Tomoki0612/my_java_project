@@ -51,7 +51,8 @@ import java.util.*;
 class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> list = new ArrayList<>();
-        dfs(root, list, ""); 
+        String path = "";
+        dfs(root, list, path);
         return list;
     }
 
