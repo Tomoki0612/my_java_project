@@ -1345,18 +1345,24 @@
   "p0389_find_the_difference": {
     "title": "Find the Difference",
     "difficulty": "Easy",
-    "status": "in_progress",
+    "status": "review",
     "added_date": "2026-07-09",
-    "next_review": null,
+    "next_review": "2026-07-10",
     "mastered_date": null,
-    "stage": null,
-    "retries": 0,
+    "stage": 0,
+    "retries": 1,
     "topic_tags": [
       "Hash Table",
       "String",
       "Bit Manipulation",
       "Sorting"
     ],
-    "history": []
+    "history": [
+      {
+        "date": "2026-07-09",
+        "result": "helped",
+        "stage": 0
+      }
+    ]
   }
 }
