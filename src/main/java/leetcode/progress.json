@@ -1341,5 +1341,22 @@
         "stage": 5
       }
     ]
+  },
+  "p0389_find_the_difference": {
+    "title": "Find the Difference",
+    "difficulty": "Easy",
+    "status": "in_progress",
+    "added_date": "2026-07-09",
+    "next_review": null,
+    "mastered_date": null,
+    "stage": null,
+    "retries": 0,
+    "topic_tags": [
+      "Hash Table",
+      "String",
+      "Bit Manipulation",
+      "Sorting"
+    ],
+    "history": []
   }
 }
