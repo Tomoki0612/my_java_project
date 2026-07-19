@@ -1352,10 +1352,10 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-07-09",
-    "next_review": "2026-07-10",
+    "next_review": "2026-07-20",
     "mastered_date": null,
     "stage": 0,
-    "retries": 1,
+    "retries": 2,
     "topic_tags": [
       "Hash Table",
       "String",
@@ -1365,6 +1365,11 @@
     "history": [
       {
         "date": "2026-07-09",
+        "result": "helped",
+        "stage": 0
+      },
+      {
+        "date": "2026-07-19",
         "result": "helped",
         "stage": 0
       }
