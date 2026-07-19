@@ -45,25 +45,27 @@
  */
 package leetcode.p1763_longest_nice_substring;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 class Solution {
     public String longestNiceSubstring(String s) {
         String ans = "";
-        for (int i = 0; i < s.length() ; i++) {
-            Set<Character> set = new HashSet<>(); 
+        for (int i = 0; i < s.length() - 1; i++) {
+            Set<Character> set = new HashSet<>();
             for (int j = i; j < s.length(); j++) {
                 set.add(s.charAt(j));
-                boolean nice = true;
+                boolean nice = true;              
                 for (Character c : set) {
                     if (!set.contains(Character.toUpperCase(c)) || !set.contains(Character.toLowerCase(c))) {
-                        nice = false;
+                        nice = false; 
                     }
                 }
-                if (nice && (j - i + 1) > ans.length()) {
+                if (nice && ans.length() < j - i + 1) {
                     ans = s.substring(i, j + 1);
                 }
             }
+
         }
         return ans;
     }
