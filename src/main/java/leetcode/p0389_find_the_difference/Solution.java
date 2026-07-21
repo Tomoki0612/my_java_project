@@ -37,6 +37,13 @@ package leetcode.p0389_find_the_difference;
 
 class Solution {
     public char findTheDifference(String s, String t) {
-        return '\0';
+        char result = 0;
+        for (int i = 0; i < s.length(); i++) {
+            result ^= s.charAt(i);
+        }
+        for (int i = 0; i < t.length(); i++) {
+            result ^= t.charAt(i);
+        }
+        return result;
     }
 }
