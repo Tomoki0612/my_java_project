@@ -1,43 +1,25 @@
 #!/usr/bin/env python3
 """今日やることを表示する"""
 import os
-import subprocess
 import sys
 from collections import Counter
 from datetime import date
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from progress_lib import (
-    PROJECT_ROOT, load_progress, save_progress,
+    load_progress, save_progress,
     INTERVALS_DAYS, MAX_STAGE,
 )
 from next_action import pick_next, format_one_line
-
-
-def git_pull():
-    result = subprocess.run(
-        ["git", "pull", "--rebase"],
-        cwd=PROJECT_ROOT,
-        capture_output=True,
-        text=True,
-    )
-    if result.returncode == 0:
-        msg = result.stdout.strip()
-        print(f"[git] {msg if msg else 'Already up to date.'}")
-    else:
-        print(f"[git] pull 失敗: {result.stderr.strip()}")
+from interview_lib import CORE_PATTERNS, entry_patterns, readiness_summary, needs_easy, weakness_score
 
 
 def weak_topics(progress, limit=3):
-    retries_by_topic = Counter()
-    count_by_topic = Counter()
-    for v in progress.values():
-        for t in v.get("topic_tags") or []:
-            count_by_topic[t] += 1
-            retries_by_topic[t] += v.get("retries", 0) or 0
-    weak = [(t, retries_by_topic[t], count_by_topic[t])
-            for t in retries_by_topic if retries_by_topic[t] > 0]
-    weak.sort(key=lambda x: x[1], reverse=True)
+    weak = []
+    for pattern in CORE_PATTERNS:
+        count = sum(pattern in entry_patterns(entry) for entry in progress.values())
+        weak.append((pattern, weakness_score(progress, pattern), count))
+    weak.sort(key=lambda item: (-item[1], item[0]))
     return weak[:limit]
 
 
@@ -100,7 +82,7 @@ def build_daily_coach(progress, today_iso):
         ]
         if weak:
             tag, retries, _ = weak[0]
-            lines.append(f"注意: 最上位弱点は {tag} ({retries} retries)。推薦された1問だけに絞る。")
+            lines.append(f"注意: 最上位弱点は {tag} (score {retries})。推薦された1問だけに絞る。")
         lines.append(f"次: {action['command']}")
         return lines
 
@@ -120,7 +102,6 @@ def print_daily_coach(progress, today_iso):
 
 
 def main():
-    git_pull()
     progress, dirty = load_progress()
     if dirty:
         save_progress(progress)
@@ -142,6 +123,9 @@ def main():
             else:
                 short_reviews.append((k, v))
 
+    short_reviews.sort(key=lambda item: (item[1].get("next_review", ""), item[1].get("stage", 0)))
+    long_reviews.sort(key=lambda item: item[1].get("next_review", ""))
+
     print(f"=== 今日のタスク ({today}) ===\n")
     print_daily_coach(progress, today)
     print(format_one_line(pick_next(progress, today)))
@@ -155,8 +139,10 @@ def main():
             stage = v.get("stage", 0) or 0
             retry_str = f"  (今日で{retries + 1}回目の挑戦)" if retries else ""
             print(f"  #{num} {v['title']} [{v['difficulty']}] stage {stage}{retry_str}")
-            print(f"       自力で解けた → python3 scripts/done.py {num}")
-            print(f"       また詰まった → python3 scripts/done.py {num} --helped")
+            overdue = (date.today() - date.fromisoformat(v["next_review"])).days
+            overdue_text = f" / {overdue}日超過" if overdue else ""
+            print(f"       期限: {v['next_review']}{overdue_text} / 前回: {v.get('last_rating') or '未記録'}")
+            print(f"       開始 → python3 scripts/review.py {num}")
         print()
 
     if long_reviews:
@@ -165,8 +151,7 @@ def main():
             num = int(k[1:5])
             mastered_date = v.get("mastered_date") or "?"
             print(f"  #{num} {v['title']} [{v['difficulty']}] 前回習得: {mastered_date}")
-            print(f"       自力で解けた → python3 scripts/done.py {num}")
-            print(f"       詰まった     → python3 scripts/done.py {num} --helped")
+            print(f"       開始 → python3 scripts/review.py {num}")
         print()
 
     if in_prog:
@@ -174,15 +159,14 @@ def main():
         for k, v in in_prog:
             num = int(k[1:5])
             print(f"  #{num} {v['title']} [{v['difficulty']}]")
-            print(f"       自力で解けた → python3 scripts/done.py {num}")
-            print(f"       ヒントが必要 → python3 scripts/done.py {num} --helped")
+            print(f"       解答後に評価 → python3 scripts/done.py {num}")
         print()
 
     weak = weak_topics(progress)
     if weak:
-        print("弱点トピック (リトライ累計が多い順)")
+        print("弱点パターン (直近評価・未確認・stageから算出)")
         for tag, retries, n in weak:
-            print(f"  {tag}: 累計 {retries} retries / 該当 {n}問")
+            print(f"  {tag}: score {retries} / 該当 {n}問")
         print("  新規候補を見る → python3 scripts/recommend_new.py")
         print()
 
@@ -195,6 +179,23 @@ def main():
         n = counts.get(s, 0)
         days = INTERVALS_DAYS[s]
         print(f"  stage {s} ({days:>3}日) {'█' * n} {n}")
+
+    summary = readiness_summary(progress)
+    print("\n--- 面接準備度")
+    for pattern in CORE_PATTERNS:
+        stats = summary["patterns"][pattern]
+        easy_needed, _ = needs_easy(progress, pattern)
+        next_level = "Easy" if easy_needed else "Medium"
+        print(
+            f"  {pattern:<24} Easy確認 {stats['verified_easy']:>2} / "
+            f"Medium成功 {stats['verified_medium']:>2} / 次: {next_level}"
+        )
+    rate = "記録なし" if summary["good_rate"] is None else f"{summary['good_rate']:.0f}%"
+    easy_median = "-" if summary["easy_median"] is None else f"{summary['easy_median']:.0f}分"
+    medium_median = "-" if summary["medium_median"] is None else f"{summary['medium_median']:.0f}分"
+    print(f"  直近10回 Good以上: {rate}")
+    print(f"  所要時間中央値: Easy {easy_median} / Medium {medium_median}")
+    print(f"  Medium定着パターン: {summary['medium_ready']} / {len(CORE_PATTERNS)}")
 
 
 if __name__ == "__main__":

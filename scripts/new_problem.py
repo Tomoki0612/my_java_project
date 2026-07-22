@@ -142,29 +142,13 @@ def to_package_dir(fid, slug):
     return f"p{fid:04d}_{slug.replace('-', '_')}"
 
 
-def git_push_scaffold(pkg_dir, fid, title):
-    """新規 scaffold (Solution.java + SolutionTest.java + progress.json) を commit/push する。"""
-    sol_path = os.path.join(SRC_ROOT, pkg_dir, "Solution.java")
-    test_path = os.path.join(TEST_ROOT, pkg_dir, "SolutionTest.java")
-    progress_file = os.path.join(SRC_ROOT, "progress.json")
-    files = [sol_path, test_path, progress_file]
-    subprocess.run(["git", "add", "--"] + files, cwd=PROJECT_ROOT, check=True)
-    result = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=PROJECT_ROOT)
-    if result.returncode == 0:
-        return
-    message = f"scaffold: #{fid} {title}"
-    subprocess.run(["git", "commit", "-m", message], cwd=PROJECT_ROOT, check=True)
-    subprocess.run(["git", "push"], cwd=PROJECT_ROOT, check=True)
-    print(f"  [git] push 完了")
-
-
 def print_next_steps(fid):
     print()
     print("次の手順:")
-    print("  1. Solution.java を解く")
-    print("  2. LeetCode で Submit して Accepted を確認")
-    print(f"  3. 自力で解けたら: python3 scripts/done.py {fid}")
-    print(f"     ヒントあり/詰まったら: python3 scripts/done.py {fid} --helped")
+    print("  1. 制約・境界値・方針を声に出す")
+    print("  2. Solution.java を解く（Easy 25分 / Medium 40分を目安）")
+    print("  3. LeetCodeでSubmitし、結果を4段階評価する")
+    print(f"     python3 scripts/done.py {fid}")
 
 
 def verify_scaffold_compiles():
@@ -497,6 +481,8 @@ def main():
         "retries":      0,
         "topic_tags":   [t["name"] for t in (problem.get("topicTags") or [])],
         "history":      [],
+        "last_rating":  None,
+        "verified":     False,
     }
     with open(progress_file, "w", encoding="utf-8") as f:
         json.dump(progress, f, ensure_ascii=False, indent=2)
@@ -507,7 +493,7 @@ def main():
     verify_scaffold_compiles()
     print_next_steps(fid)
 
-    git_push_scaffold(pkg_dir, fid, problem["title"])
+    print("  ※ Git同期は必要なときに make sync を実行してください")
 
 
 if __name__ == "__main__":

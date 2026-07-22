@@ -93,6 +93,8 @@ def main():
             "retries":      0,
             "topic_tags":   [t["name"] for t in (q.get("topicTags") or [])],
             "history":      [],
+            "last_rating":  None,
+            "verified":     False,
         }
         print(f"  [mastered] #{num} {q['title']} [{q['difficulty']}]")
         added += 1

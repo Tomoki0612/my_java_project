@@ -19,4 +19,13 @@ helped:
 review:
 	python3 scripts/review.py $(N)
 
-.PHONY: today next new recommend done helped review
+doctor:
+	python3 scripts/doctor.py
+
+sync:
+	python3 scripts/sync.py $(if $(M),-m "$(M)",)
+
+test-scripts:
+	python3 -m unittest discover -s scripts -p 'test_*.py'
+
+.PHONY: today next new recommend done helped review doctor sync test-scripts
