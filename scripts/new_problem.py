@@ -18,6 +18,7 @@ import urllib.error
 import re
 import os
 import subprocess
+import html
 
 GRAPHQL_URL = "https://leetcode.com/graphql"
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -180,27 +181,31 @@ def verify_scaffold_compiles():
 # ---------- テスト生成 ----------
 
 def extract_examples(content_html):
-    """HTML から (input行, output値) のリストを抽出する"""
-    pre_blocks = re.findall(r"<pre>(.*?)</pre>", content_html, re.DOTALL)
+    """新旧どちらの LeetCode HTML からも入出力例を抽出する。"""
+    # 以前は <pre> だけを対象にしていたが、現在は例題が div/p で配信される
+    # 問題もある。ブロック要素を改行に変換してから一括して解析する。
+    text = re.sub(
+        r"</?(?:pre|div|p|li|ul|ol|br|h[1-6])\b[^>]*>",
+        "\n",
+        content_html,
+        flags=re.IGNORECASE,
+    )
+    text = re.sub(r"<[^>]+>", "", text)
+    text = html.unescape(text).replace("\xa0", " ")
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+
     examples = []
-    for block in pre_blocks:
-        text = re.sub(r"<[^>]+>", "", block)
-        for ent, ch in {
-            "&lt;": "<",
-            "&gt;": ">",
-            "&amp;": "&",
-            "&quot;": '"',
-            "&#39;": "'",
-            "&nbsp;": " ",
-        }.items():
-            text = text.replace(ent, ch)
-        input_m  = re.search(r"Input:\s*(.+?)(?=\nOutput:)", text, re.DOTALL)
-        output_m = re.search(r"Output:\s*(.+?)(?=\nExplanation:|\nInput:|$)", text, re.DOTALL)
-        if input_m and output_m:
-            examples.append({
-                "input":  input_m.group(1).strip().replace("\n", " / "),
-                "output": output_m.group(1).strip(),
-            })
+    pattern = re.compile(
+        r"(?:^|\n)\s*Input:\s*(.+?)\s*"
+        r"(?:\n\s*)?Output:\s*(.+?)"
+        r"(?=(?:\n\s*)?(?:Explanation:|Example\s+\d+\s*:|Constraints:|Input:)|\Z)",
+        re.IGNORECASE | re.DOTALL,
+    )
+    for input_text, output_text in pattern.findall(text):
+        examples.append({
+            "input": re.sub(r"\s*\n\s*", " / ", input_text.strip()),
+            "output": re.sub(r"\s*\n\s*", " ", output_text.strip()),
+        })
     return examples
 
 
