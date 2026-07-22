@@ -1379,5 +1379,26 @@
         "stage": 1
       }
     ]
+  },
+  "p0290_word_pattern": {
+    "title": "Word Pattern",
+    "difficulty": "Easy",
+    "status": "review",
+    "added_date": "2026-07-22",
+    "next_review": "2026-07-23",
+    "mastered_date": null,
+    "stage": 0,
+    "retries": 1,
+    "topic_tags": [
+      "Hash Table",
+      "String"
+    ],
+    "history": [
+      {
+        "date": "2026-07-22",
+        "result": "helped",
+        "stage": 0
+      }
+    ]
   }
 }
