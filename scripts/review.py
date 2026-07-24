@@ -24,13 +24,8 @@ def print_previous_attempt(entry):
         print("前回記録: なし（既存データのため今回から確認）")
         return
     attempt = history[-1]
-    reflection = attempt.get("reflection") or {}
-    print("前回の振り返り")
-    print(f"  評価: {attempt.get('rating', '?')} / 所要時間: {attempt.get('duration_minutes') or '?'}分")
-    print(f"  パターン: {reflection.get('pattern') or '未記録'}")
-    print(f"  計算量: {reflection.get('complexity') or '未記録'}")
-    print(f"  注意点: {reflection.get('lesson') or '未記録'}")
-    print("  今回は上の要点を自分の言葉で説明してから実装してください。")
+    print("前回の評価")
+    print(f"  評価: {attempt.get('rating', '?')}")
 
 
 def main():

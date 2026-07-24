@@ -1,9 +1,4 @@
 """コーディング面接向けのパターン分類と習熟度集計。"""
-from statistics import median
-
-from progress_lib import validate_complexity
-
-
 PATTERN_TAGS = {
     "Array/String": {"Array", "String", "Matrix", "Simulation"},
     "Hash Map/Set": {"Hash Table", "Counting"},
@@ -32,13 +27,7 @@ def patterns_for_tags(tags):
 
 
 def entry_patterns(entry):
-    reflected = []
-    for attempt in entry.get("history") or []:
-        value = (attempt.get("reflection") or {}).get("pattern")
-        if value in PATTERN_TAGS and value not in reflected:
-            reflected.append(value)
-    tagged = patterns_for_tags(entry.get("topic_tags"))
-    return reflected + [pattern for pattern in tagged if pattern not in reflected]
+    return patterns_for_tags(entry.get("topic_tags"))
 
 
 def latest_attempt(entry):
@@ -57,13 +46,9 @@ def pattern_stats(progress, pattern):
     verified_medium = [entry for entry in entries if entry.get("difficulty") == "Medium" and _successful(entry)]
 
     recent = []
-    durations = {"Easy": [], "Medium": []}
     for entry in entries:
         for attempt in entry.get("history") or []:
             recent.append((attempt.get("date", ""), attempt))
-            duration = attempt.get("duration_minutes")
-            if duration is not None and entry.get("difficulty") in durations:
-                durations[entry["difficulty"]].append(duration)
     recent_attempts = [
         attempt for _, attempt in sorted(recent, key=lambda item: item[0], reverse=True)[:3]
     ]
@@ -73,8 +58,6 @@ def pattern_stats(progress, pattern):
         "verified_easy": len(verified_easy),
         "verified_medium": len(verified_medium),
         "recent": recent_attempts,
-        "easy_median": median(durations["Easy"]) if durations["Easy"] else None,
-        "medium_median": median(durations["Medium"]) if durations["Medium"] else None,
     }
 
 
@@ -87,12 +70,6 @@ def needs_easy(progress, pattern):
         return True, "直近3回にAgainあり"
     if ratings and ratings[0] == "hard":
         return True, "直近評価がHard"
-    if stats["recent"]:
-        complexity = (stats["recent"][0].get("reflection") or {}).get("complexity")
-        if not validate_complexity(complexity):
-            return True, "直近で計算量を説明できていない"
-    if stats["easy_median"] is not None and stats["easy_median"] > 25:
-        return True, "Easyの中央値が25分超"
     return False, "Easy基礎を確認済み"
 
 
@@ -119,19 +96,13 @@ def weakness_score(progress, pattern):
 def readiness_summary(progress):
     per_pattern = {pattern: pattern_stats(progress, pattern) for pattern in CORE_PATTERNS}
     recent = []
-    durations = {"Easy": [], "Medium": []}
     for entry in progress.values():
         for attempt in entry.get("history") or []:
             recent.append((attempt.get("date", ""), attempt, entry.get("difficulty")))
-            duration = attempt.get("duration_minutes")
-            if duration is not None and entry.get("difficulty") in durations:
-                durations[entry["difficulty"]].append(duration)
     recent_ten = sorted(recent, key=lambda item: item[0], reverse=True)[:10]
     good = sum(attempt.get("rating") in ("good", "easy") for _, attempt, _ in recent_ten)
     return {
         "patterns": per_pattern,
         "good_rate": (good / len(recent_ten) * 100) if recent_ten else None,
-        "easy_median": median(durations["Easy"]) if durations["Easy"] else None,
-        "medium_median": median(durations["Medium"]) if durations["Medium"] else None,
         "medium_ready": sum(stats["verified_medium"] >= 3 for stats in per_pattern.values()),
     }

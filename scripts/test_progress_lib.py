@@ -6,7 +6,6 @@ from scripts.progress_lib import (
     apply_transition,
     choose_review_date,
     next_stage,
-    validate_complexity,
 )
 
 
@@ -24,7 +23,7 @@ class StageTransitionTest(unittest.TestCase):
         self.assertEqual(5, next_stage(4, "good"))
         self.assertEqual(5, next_stage(4, "easy"))
 
-    def test_apply_transition_records_reflection(self):
+    def test_apply_transition_records_rating(self):
         entry = {
             "status": "in_progress",
             "stage": None,
@@ -37,17 +36,13 @@ class StageTransitionTest(unittest.TestCase):
             "good",
             today=date(2026, 1, 1),
             progress=progress,
-            duration_minutes=20,
-            pattern="Hash Map/Set",
-            complexity="時間 O(n) / 空間 O(n)",
-            lesson="補数を先に確認",
         )
         self.assertEqual(1, entry["stage"])
         self.assertEqual("review", entry["status"])
         self.assertTrue(entry["verified"])
         self.assertEqual("2026-01-04", entry["next_review"])
         self.assertEqual("good", entry["history"][-1]["rating"])
-        self.assertEqual("Hash Map/Set", entry["history"][-1]["reflection"]["pattern"])
+        self.assertNotIn("reflection", entry["history"][-1])
 
     def test_again_increments_retries_and_resets(self):
         entry = {"status": "review", "stage": 3, "history": [], "retries": 1}
@@ -87,12 +82,6 @@ class SchedulingAndMigrationTest(unittest.TestCase):
         _migrate_entry(old, date(2026, 1, 2))
         self.assertEqual("again", old["history"][0]["rating"])
         self.assertFalse(old["verified"])
-
-    def test_complexity_requires_single_line_big_o(self):
-        self.assertTrue(validate_complexity("時間 O(n) / 空間 O(1) — 1回走査"))
-        self.assertFalse(validate_complexity("線形時間"))
-        self.assertFalse(validate_complexity("時間 O(n)\n空間 O(1)"))
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -8,7 +8,7 @@ from scripts.interview_lib import (
 )
 
 
-def solved_entry(number, difficulty="Easy", rating="good", minutes=20):
+def solved_entry(number, difficulty="Easy", rating="good"):
     return {
         "title": str(number),
         "difficulty": difficulty,
@@ -20,12 +20,6 @@ def solved_entry(number, difficulty="Easy", rating="good", minutes=20):
             {
                 "date": f"2026-01-{number:02d}",
                 "rating": rating,
-                "duration_minutes": minutes,
-                "reflection": {
-                    "pattern": "Hash Map/Set",
-                    "complexity": "時間 O(n) / 空間 O(n)",
-                    "lesson": "なし",
-                },
             }
         ],
     }
@@ -47,18 +41,13 @@ class InterviewCurriculumTest(unittest.TestCase):
         progress = {
             "one": solved_entry(1),
             "two": solved_entry(2),
-            "three": solved_entry(3, difficulty="Medium", rating="again", minutes=40),
+            "three": solved_entry(3, difficulty="Medium", rating="again"),
         }
         self.assertTrue(needs_easy(progress, "Hash Map/Set")[0])
 
-    def test_slow_easy_stays_on_easy(self):
-        progress = {"one": solved_entry(1, minutes=30), "two": solved_entry(2, minutes=28)}
-        self.assertTrue(needs_easy(progress, "Hash Map/Set")[0])
-
-    def test_readiness_reports_medians_and_good_rate(self):
-        progress = {"one": solved_entry(1, minutes=18), "two": solved_entry(2, minutes=22)}
+    def test_readiness_reports_good_rate(self):
+        progress = {"one": solved_entry(1), "two": solved_entry(2)}
         summary = readiness_summary(progress)
-        self.assertEqual(20, summary["easy_median"])
         self.assertEqual(100, summary["good_rate"])
 
 

@@ -162,10 +162,16 @@ def choose_difficulty(entries):
     easy_mastered = mastered.get("Easy", 0)
     medium_mastered = mastered.get("Medium", 0)
     recent = recent_topic_results(entries)
-    recent_done_count = sum(1 for item in recent if item.get("result") == "done")
+    recent_done_count = sum(
+        1 for item in recent
+        if item.get("rating") in ("good", "easy") or item.get("result") == "done"
+    )
 
-    if any(item.get("result") == "helped" for item in recent):
-        return "easy", "直近でhelpedがあり、基礎固めを優先"
+    if any(
+        item.get("rating") == "again" or item.get("result") == "helped"
+        for item in recent
+    ):
+        return "easy", "直近でAgainがあり、基礎固めを優先"
 
     if medium_mastered >= 5 and retry_rate <= 0.3 and recent_done_count >= 3:
         return "hard", "Mediumを十分習得済みで、直近も安定している"

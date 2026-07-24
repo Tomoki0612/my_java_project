@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""解答結果を4段階評価し、短い面接向け振り返りを記録する。"""
+"""解答結果を4段階評価して記録する。"""
 import argparse
 import os
 import shutil
@@ -12,6 +12,7 @@ from new_problem import build_solution, fetch_problem
 from progress_lib import (
     INTERVALS_DAYS,
     MAX_STAGE,
+    PROGRESS_FILE,
     PROJECT_ROOT,
     RATINGS,
     SRC_ROOT,
@@ -20,8 +21,59 @@ from progress_lib import (
     load_progress,
     normalize_rating,
     save_progress,
-    validate_complexity,
 )
+
+
+def run_git(*args):
+    return subprocess.run(
+        ["git", *args],
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+    )
+
+
+def auto_commit_and_push(key, number, title, rating):
+    """今回の解答と進捗だけをcommitし、現在のブランチへpushする。"""
+    staged = run_git("diff", "--cached", "--name-only")
+    if staged.returncode != 0:
+        print(f"  [warn] Gitの確認に失敗しました: {staged.stderr.strip()}")
+        return False
+    if staged.stdout.strip():
+        print("  [warn] 既にstage済みの変更があるため、自動commitを中止しました:")
+        print(staged.stdout.strip())
+        return False
+
+    solution_path = os.path.join(SRC_ROOT, key, "Solution.java")
+    paths = [
+        os.path.relpath(solution_path, PROJECT_ROOT),
+        os.path.relpath(PROGRESS_FILE, PROJECT_ROOT),
+    ]
+    added = run_git("add", "--", *paths)
+    if added.returncode != 0:
+        print(f"  [warn] Git stageに失敗しました: {added.stderr.strip()}")
+        return False
+
+    changed = run_git("diff", "--cached", "--name-only")
+    if changed.returncode != 0 or not changed.stdout.strip():
+        print("  [warn] commit対象の変更がありません。")
+        return False
+
+    message = f"progress: #{number} {title} ({rating})"
+    committed = run_git("commit", "-m", message)
+    if committed.returncode != 0:
+        print(f"  [warn] Git commitに失敗しました: {committed.stderr.strip()}")
+        run_git("restore", "--staged", "--", *paths)
+        return False
+
+    pushed = run_git("push")
+    if pushed.returncode != 0:
+        print("  [warn] Git pushに失敗しました。commitはローカルに残っています。")
+        print(f"  {pushed.stderr.strip()}")
+        return False
+
+    print(f"  Git同期完了: {message}")
+    return True
 
 
 def run_tests(pkg_dir):
@@ -84,52 +136,16 @@ def prompt_rating():
             print(f"  {exc}")
 
 
-def prompt_minutes(value):
-    while value is None or value <= 0:
-        if value is not None:
-            print("  1以上の整数で入力してください")
-        try:
-            value = int(input("所要時間（分）: ").strip())
-        except ValueError:
-            value = None
-    return value
-
-
-def prompt_required(label, value):
-    while not (value or "").strip():
-        value = input(label).strip()
-        if not value:
-            print("  1行で入力してください")
-    return value.strip()
-
-
 def parse_args(argv=None):
-    parser = argparse.ArgumentParser(description="解答結果と短い振り返りを記録する")
+    parser = argparse.ArgumentParser(description="解答結果を4段階評価して記録する")
     parser.add_argument("number", type=int, help="LeetCode問題番号")
     parser.add_argument("--rating", choices=RATINGS)
-    parser.add_argument("--minutes", type=int)
-    parser.add_argument("--pattern")
-    parser.add_argument("--complexity")
-    parser.add_argument("--lesson")
-    parser.add_argument("--helped", action="store_true", help="--rating again の互換指定")
     parser.add_argument("--no-test", action="store_true")
     return parser.parse_args(argv)
 
 
-def collect_reflection(args):
-    rating = "again" if args.helped else args.rating
-    if args.helped and args.rating and args.rating != "again":
-        raise ValueError("--helped と --rating は同時指定できません（againを除く）")
-    rating = normalize_rating(rating) if rating else prompt_rating()
-    minutes = prompt_minutes(args.minutes)
-    pattern = prompt_required("解法パターンと選択理由: ", args.pattern)
-    complexity = args.complexity
-    while not validate_complexity(complexity):
-        complexity = input("計算量（例: 時間 O(n) / 空間 O(n) — HashSetに最大n件）: ").strip()
-        if not validate_complexity(complexity):
-            print("  O(...) を含む1行で入力してください")
-    lesson = prompt_required("詰まり原因または次回の注意点（なければ「なし」）: ", args.lesson)
-    return rating, minutes, pattern, complexity, lesson
+def collect_rating(args):
+    return normalize_rating(args.rating) if args.rating else prompt_rating()
 
 
 def main(argv=None):
@@ -140,7 +156,7 @@ def main(argv=None):
         print(f"問題 #{args.number} は未登録です。先に new_problem.py で追加してください。")
         return 1
     try:
-        rating, minutes, pattern, complexity, lesson = collect_reflection(args)
+        rating = collect_rating(args)
     except ValueError as exc:
         print(exc)
         return 1
@@ -167,10 +183,6 @@ def main(argv=None):
         entry,
         rating=rating,
         progress=progress,
-        duration_minutes=minutes,
-        pattern=pattern,
-        complexity=complexity,
-        lesson=lesson,
     )
     save_progress(progress)
 
@@ -186,8 +198,7 @@ def main(argv=None):
     else:
         print(f"[{rating.capitalize()}] #{args.number} {title} [{difficulty}] → stage {stage}")
     print(f"  → 次回復習: {next_review} ({INTERVALS_DAYS[stage]}日を基準に調整)")
-    print("  ※ Git同期は必要なときに make sync を実行してください")
-    return 0
+    return 0 if auto_commit_and_push(key, args.number, title, rating) else 1
 
 
 if __name__ == "__main__":

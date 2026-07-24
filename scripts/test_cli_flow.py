@@ -1,40 +1,52 @@
 import unittest
+from unittest.mock import Mock, call, patch
 
-from scripts.done import collect_reflection, parse_args
+from scripts.done import auto_commit_and_push, collect_rating, parse_args
 from scripts.next_action import pick_next
 
 
 class DoneCliTest(unittest.TestCase):
-    def test_non_interactive_reflection(self):
-        args = parse_args(
-            [
-                "203",
-                "--rating",
+    def test_non_interactive_rating(self):
+        args = parse_args(["203", "--rating", "good"])
+        self.assertEqual("good", collect_rating(args))
+
+    @patch("scripts.done.run_git")
+    def test_auto_commit_and_push_only_targets_solution_and_progress(self, run_git):
+        run_git.side_effect = [
+            _git_result(),
+            _git_result(),
+            _git_result("src/main/java/leetcode/p0203_remove_linked_list_elements/Solution.java\n"
+                        "src/main/java/leetcode/progress.json\n"),
+            _git_result(),
+            _git_result(),
+        ]
+
+        self.assertTrue(
+            auto_commit_and_push(
+                "p0203_remove_linked_list_elements",
+                203,
+                "Remove Linked List Elements",
                 "good",
-                "--minutes",
-                "20",
-                "--pattern",
-                "Linked List",
-                "--complexity",
-                "時間 O(n) / 空間 O(1)",
-                "--lesson",
-                "sentinelを使う",
-            ]
+            )
         )
         self.assertEqual(
-            ("good", 20, "Linked List", "時間 O(n) / 空間 O(1)", "sentinelを使う"),
-            collect_reflection(args),
+            call(
+                "add",
+                "--",
+                "src/main/java/leetcode/p0203_remove_linked_list_elements/Solution.java",
+                "src/main/java/leetcode/progress.json",
+            ),
+            run_git.call_args_list[1],
         )
+        self.assertEqual(call("push"), run_git.call_args_list[-1])
 
-    def test_helped_conflicts_with_other_rating(self):
-        args = parse_args(
-            [
-                "203", "--helped", "--rating", "easy", "--minutes", "10",
-                "--pattern", "x", "--complexity", "O(n)", "--lesson", "x",
-            ]
-        )
-        with self.assertRaises(ValueError):
-            collect_reflection(args)
+
+def _git_result(stdout="", stderr="", returncode=0):
+    result = Mock()
+    result.stdout = stdout
+    result.stderr = stderr
+    result.returncode = returncode
+    return result
 
 
 class DailyQueueTest(unittest.TestCase):

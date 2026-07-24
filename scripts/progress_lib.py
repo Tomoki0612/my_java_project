@@ -1,7 +1,6 @@
 """progress.json の読み書き・マイグレーション・学習評価を扱う共通モジュール。"""
 import json
 import os
-import re
 from collections import Counter
 from datetime import date, timedelta
 
@@ -38,16 +37,6 @@ def _migrate_history(entry):
             dirty = True
         if "stage_after" not in item:
             item["stage_after"] = item.get("stage")
-            dirty = True
-        if "duration_minutes" not in item:
-            item["duration_minutes"] = None
-            dirty = True
-        if "reflection" not in item:
-            item["reflection"] = {
-                "pattern": None,
-                "complexity": None,
-                "lesson": None,
-            }
             dirty = True
         previous_stage = item.get("stage_after")
     return dirty
@@ -166,28 +155,15 @@ def next_stage(current_stage, rating):
     return min(MAX_STAGE, current_stage + step)
 
 
-def validate_complexity(value):
-    """計算量メモは厳密採点せず、Big-Oを含む一行だけ要求する。"""
-    text = (value or "").strip()
-    return bool(text and "\n" not in text and re.search(r"O\s*\([^)]*\)", text))
-
-
 def apply_transition(
     entry,
     rating=None,
     today=None,
     progress=None,
-    duration_minutes=None,
-    pattern=None,
-    complexity=None,
-    lesson=None,
-    helped=False,
 ):
-    """4段階評価と振り返りをエントリへ反映する。"""
+    """4段階評価をエントリへ反映する。"""
     if today is None:
         today = date.today()
-    if helped:
-        rating = "again"
     rating = normalize_rating(rating)
 
     cur_stage = entry.get("stage")
@@ -214,11 +190,5 @@ def apply_transition(
         "rating": rating,
         "stage_before": cur_stage,
         "stage_after": new_stage,
-        "duration_minutes": duration_minutes,
-        "reflection": {
-            "pattern": pattern,
-            "complexity": complexity,
-            "lesson": lesson,
-        },
     })
     return new_stage

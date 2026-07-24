@@ -13,9 +13,6 @@ recommend:
 done:
 	python3 scripts/done.py $(N)
 
-helped:
-	python3 scripts/done.py $(N) --helped
-
 review:
 	python3 scripts/review.py $(N)
 
@@ -28,4 +25,4 @@ sync:
 test-scripts:
 	python3 -m unittest discover -s scripts -p 'test_*.py'
 
-.PHONY: today next new recommend done helped review doctor sync test-scripts
+.PHONY: today next new recommend done review doctor sync test-scripts

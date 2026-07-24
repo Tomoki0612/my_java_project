@@ -2163,9 +2163,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-07-22",
-    "next_review": "2026-07-23",
+    "next_review": "2026-07-27",
     "mastered_date": null,
-    "stage": 0,
+    "stage": 1,
     "retries": 1,
     "topic_tags": [
       "Hash Table",
@@ -2185,9 +2185,21 @@
           "complexity": null,
           "lesson": null
         }
+      },
+      {
+        "date": "2026-07-24",
+        "rating": "good",
+        "stage_before": 0,
+        "stage_after": 1,
+        "duration_minutes": 30,
+        "reflection": {
+          "pattern": "特になし",
+          "complexity": "O(n)",
+          "lesson": "なし"
+        }
       }
     ],
-    "last_rating": "again",
-    "verified": false
+    "last_rating": "good",
+    "verified": true
   }
 }

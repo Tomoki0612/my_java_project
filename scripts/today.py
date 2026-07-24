@@ -51,7 +51,7 @@ def build_daily_coach(progress, today_iso):
             f"理由: next_review が {entry.get('next_review')} で、stage {stage} の定着確認日です。",
         ]
         if retries:
-            lines.append(f"注意: helped 記録が {retries} 回あります。実装前に解法の入口を一言で言語化する。")
+            lines.append(f"注意: Again記録が {retries} 回あります。実装前に解法の入口を一言で言語化する。")
         else:
             lines.append("注意: 記憶だけで進めず、制約と例外ケースを先に確認する。")
         lines.append(f"次: {action['command']}")
@@ -61,7 +61,7 @@ def build_daily_coach(progress, today_iso):
         return [
             f"今日の方針: 未完了の #{number} {entry['title']} を閉じる。",
             "理由: 新規追加より、今の問題を完了または復習サイクルへ戻す方が優先です。",
-            "注意: Accepted なら done、詰まったなら --helped で翌日復習へ回す。",
+            "注意: Accepted なら done、詰まったなら --rating again で翌日復習へ回す。",
             f"次: {action['command']}",
         ]
 
@@ -70,7 +70,7 @@ def build_daily_coach(progress, today_iso):
         return [
             f"今日の方針: 長期復習で #{number} {entry['title']} を再確認する。",
             f"理由: mastered ({mastered_date}) から時間を置いた忘却チェックです。",
-            "注意: 迷った箇所があれば --helped で stage 0 に戻して鍛え直す。",
+            "注意: 迷った箇所があれば --rating again で stage 0 に戻して鍛え直す。",
             f"次: {action['command']}",
         ]
 
@@ -191,10 +191,7 @@ def main():
             f"Medium成功 {stats['verified_medium']:>2} / 次: {next_level}"
         )
     rate = "記録なし" if summary["good_rate"] is None else f"{summary['good_rate']:.0f}%"
-    easy_median = "-" if summary["easy_median"] is None else f"{summary['easy_median']:.0f}分"
-    medium_median = "-" if summary["medium_median"] is None else f"{summary['medium_median']:.0f}分"
     print(f"  直近10回 Good以上: {rate}")
-    print(f"  所要時間中央値: Easy {easy_median} / Medium {medium_median}")
     print(f"  Medium定着パターン: {summary['medium_ready']} / {len(CORE_PATTERNS)}")
 
 
