@@ -1,19 +1,10 @@
 """次にやるべき1アクションを決める共通ロジック"""
 import os
 import sys
-from collections import Counter
 from datetime import date
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from progress_lib import load_progress
-
-
-def has_weak_topics(progress):
-    retries_by_topic = Counter()
-    for v in progress.values():
-        for tag in v.get("topic_tags") or []:
-            retries_by_topic[tag] += v.get("retries", 0) or 0
-    return any(retries > 0 for retries in retries_by_topic.values())
 
 
 def pick_next(progress, today_iso=None):
@@ -38,18 +29,20 @@ def pick_next(progress, today_iso=None):
             else:
                 short_reviews.append((k, v))
 
-    # 優先度: 復習中 > 取り組み中 > 長期復習 > 新規問題追加
-    # 復習中はリトライ多い順 → next_review 古い順 で弱点優先
-    if short_reviews:
-        short_reviews.sort(key=lambda x: (-x[1].get("retries", 0), x[1].get("next_review", "")))
-        k, v = short_reviews[0]
+    # 優先度: 期限復習（短期・長期） > 取り組み中 > 新規問題追加。
+    if short_reviews or long_reviews:
+        due = [(k, v, "review") for k, v in short_reviews]
+        due += [(k, v, "long_review") for k, v in long_reviews]
+        due.sort(key=lambda x: (x[1].get("next_review", ""), x[1].get("stage", 0)))
+        k, v, kind = due[0]
         num = int(k[1:5])
+        label = "長期復習" if kind == "long_review" else "復習"
         return {
-            "kind": "review",
+            "kind": kind,
             "number": num,
             "title": v["title"],
             "command": f"python3 scripts/review.py {num}",
-            "hint": f"復習: #{num} {v['title']} [{v['difficulty']}] stage {v.get('stage', 0)}",
+            "hint": f"{label}: #{num} {v['title']} [{v['difficulty']}] stage {v.get('stage', 0)}",
         }
 
     if in_prog:
@@ -60,36 +53,15 @@ def pick_next(progress, today_iso=None):
             "number": num,
             "title": v["title"],
             "command": f"python3 scripts/done.py {num}",
-            "hint": f"取り組み中: #{num} {v['title']} [{v['difficulty']}] — 解けたら done / 詰まったら done --helped",
-        }
-
-    if long_reviews:
-        long_reviews.sort(key=lambda x: x[1].get("next_review", ""))
-        k, v = long_reviews[0]
-        num = int(k[1:5])
-        return {
-            "kind": "long_review",
-            "number": num,
-            "title": v["title"],
-            "command": f"python3 scripts/review.py {num}",
-            "hint": f"長期復習: #{num} {v['title']} [{v['difficulty']}] (前回習得 {v.get('mastered_date', '?')})",
-        }
-
-    if has_weak_topics(progress):
-        return {
-            "kind": "recommend_new",
-            "number": None,
-            "title": None,
-            "command": "python3 scripts/recommend_new.py",
-            "hint": "弱点トピックから今日の1問を決めましょう",
+            "hint": f"取り組み中: #{num} {v['title']} [{v['difficulty']}] — 解答後に4段階評価",
         }
 
     return {
-        "kind": "new_problem",
+        "kind": "recommend_new",
         "number": None,
         "title": None,
-        "command": "python3 scripts/new_problem.py <番号>",
-        "hint": "新しい問題を追加しましょう",
+        "command": "python3 scripts/recommend_new.py",
+        "hint": "面接パターン別の実力から今日の1問を決めましょう",
     }
 
 
