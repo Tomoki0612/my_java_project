@@ -2101,9 +2101,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-07-09",
-    "next_review": "2026-07-24",
+    "next_review": "2026-08-12",
     "mastered_date": null,
-    "stage": 1,
+    "stage": 3,
     "retries": 2,
     "topic_tags": [
       "Hash Table",
@@ -2153,9 +2153,15 @@
           "complexity": null,
           "lesson": null
         }
+      },
+      {
+        "date": "2026-07-24",
+        "rating": "easy",
+        "stage_before": 1,
+        "stage_after": 3
       }
     ],
-    "last_rating": "good",
+    "last_rating": "easy",
     "verified": true
   },
   "p0290_word_pattern": {
