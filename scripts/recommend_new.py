@@ -118,22 +118,6 @@ def weak_topic_scores(topics):
     return scores
 
 
-def topic_entries(progress, tag):
-    return [
-        entry for entry in progress.values()
-        if tag in entry_patterns(entry)
-    ]
-
-
-def recent_topic_results(entries, limit=5):
-    history = []
-    for entry in entries:
-        for item in entry.get("history") or []:
-            history.append(item)
-    history.sort(key=lambda item: item.get("date", ""), reverse=True)
-    return history[:limit]
-
-
 def recent_topic_counts(progress, limit=8):
     recent = []
     for entry in progress.values():
@@ -148,41 +132,6 @@ def recent_topic_counts(progress, limit=8):
         for tag in tags:
             counts[tag] += 1
     return counts
-
-
-def choose_difficulty(entries):
-    mastered = Counter(
-        entry.get("difficulty")
-        for entry in entries
-        if entry.get("status") == "mastered"
-    )
-    retries = sum(entry.get("retries", 0) or 0 for entry in entries)
-    retry_rate = retries / max(1, len(entries))
-
-    easy_mastered = mastered.get("Easy", 0)
-    medium_mastered = mastered.get("Medium", 0)
-    recent = recent_topic_results(entries)
-    recent_done_count = sum(
-        1 for item in recent
-        if item.get("rating") in ("good", "easy") or item.get("result") == "done"
-    )
-
-    if any(
-        item.get("rating") == "again" or item.get("result") == "helped"
-        for item in recent
-    ):
-        return "easy", "直近でAgainがあり、基礎固めを優先"
-
-    if medium_mastered >= 5 and retry_rate <= 0.3 and recent_done_count >= 3:
-        return "hard", "Mediumを十分習得済みで、直近も安定している"
-
-    if easy_mastered >= 8 and retry_rate <= 0.8:
-        return "medium", "Easyを十分こなしていて、次は少し負荷を上げたい"
-
-    if easy_mastered >= 5 and retry_rate <= 0.5:
-        return "medium", "Easyの基礎量があり、リトライ率も低め"
-
-    return "easy", "リトライ率が高め、または基礎量がまだ少ない"
 
 
 def fetch_candidates(tag, difficulty, limit):

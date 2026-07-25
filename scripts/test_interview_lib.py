@@ -45,6 +45,29 @@ class InterviewCurriculumTest(unittest.TestCase):
         }
         self.assertTrue(needs_easy(progress, "Hash Map/Set")[0])
 
+    def test_five_verified_medium_with_stable_recent_results_unlock_hard(self):
+        progress = {
+            "easy-one": solved_entry(1),
+            "easy-two": solved_entry(2),
+            **{
+                f"medium-{number}": solved_entry(number, difficulty="Medium")
+                for number in range(3, 8)
+            },
+        }
+        self.assertEqual("hard", recommended_difficulty(progress, "Hash Map/Set")[0])
+
+    def test_five_verified_medium_with_too_many_retries_stays_medium(self):
+        progress = {
+            "easy-one": solved_entry(1),
+            "easy-two": solved_entry(2),
+            **{
+                f"medium-{number}": solved_entry(number, difficulty="Medium")
+                for number in range(3, 8)
+            },
+        }
+        progress["medium-3"]["retries"] = 3
+        self.assertEqual("medium", recommended_difficulty(progress, "Hash Map/Set")[0])
+
     def test_readiness_reports_good_rate(self):
         progress = {"one": solved_entry(1), "two": solved_entry(2)}
         summary = readiness_summary(progress)

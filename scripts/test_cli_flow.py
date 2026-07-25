@@ -11,11 +11,12 @@ class DoneCliTest(unittest.TestCase):
         self.assertEqual("good", collect_rating(args))
 
     @patch("scripts.done.run_git")
-    def test_auto_commit_and_push_only_targets_solution_and_progress(self, run_git):
+    def test_auto_commit_and_push_only_targets_solution_test_and_progress(self, run_git):
         run_git.side_effect = [
             _git_result(),
             _git_result(),
             _git_result("src/main/java/leetcode/p0203_remove_linked_list_elements/Solution.java\n"
+                        "src/test/java/leetcode/p0203_remove_linked_list_elements/SolutionTest.java\n"
                         "src/main/java/leetcode/progress.json\n"),
             _git_result(),
             _git_result(),
@@ -34,6 +35,7 @@ class DoneCliTest(unittest.TestCase):
                 "add",
                 "--",
                 "src/main/java/leetcode/p0203_remove_linked_list_elements/Solution.java",
+                "src/test/java/leetcode/p0203_remove_linked_list_elements/SolutionTest.java",
                 "src/main/java/leetcode/progress.json",
             ),
             run_git.call_args_list[1],

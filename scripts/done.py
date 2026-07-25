@@ -45,10 +45,15 @@ def auto_commit_and_push(key, number, title, rating):
         return False
 
     solution_path = os.path.join(SRC_ROOT, key, "Solution.java")
+    test_path = os.path.join(
+        PROJECT_ROOT, "src", "test", "java", "leetcode", key, "SolutionTest.java"
+    )
     paths = [
         os.path.relpath(solution_path, PROJECT_ROOT),
-        os.path.relpath(PROGRESS_FILE, PROJECT_ROOT),
     ]
+    if os.path.exists(test_path):
+        paths.append(os.path.relpath(test_path, PROJECT_ROOT))
+    paths.append(os.path.relpath(PROGRESS_FILE, PROJECT_ROOT))
     added = run_git("add", "--", *paths)
     if added.returncode != 0:
         print(f"  [warn] Git stageに失敗しました: {added.stderr.strip()}")

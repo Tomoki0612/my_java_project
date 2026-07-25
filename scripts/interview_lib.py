@@ -75,7 +75,22 @@ def needs_easy(progress, pattern):
 
 def recommended_difficulty(progress, pattern):
     easy, reason = needs_easy(progress, pattern)
-    return ("easy", reason) if easy else ("medium", reason)
+    if easy:
+        return "easy", reason
+
+    stats = pattern_stats(progress, pattern)
+    recent_ratings = [attempt.get("rating") for attempt in stats["recent"]]
+    retries = sum(entry.get("retries", 0) or 0 for entry in stats["entries"])
+    retry_rate = retries / max(1, len(stats["entries"]))
+    if (
+        stats["verified_medium"] >= 5
+        and retry_rate <= 0.3
+        and len(recent_ratings) >= 3
+        and all(rating in ("good", "easy") for rating in recent_ratings)
+    ):
+        return "hard", "確認済みMediumが5問以上で、直近3回も安定"
+
+    return "medium", reason
 
 
 def weakness_score(progress, pattern):

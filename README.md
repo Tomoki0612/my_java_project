@@ -1,7 +1,7 @@
 # Java Coding Interview Practice
 
 国内大手Web企業のコーディング面接を想定した、Java + LeetCodeの学習リポジトリです。
-期限復習を優先し、復習がなければ実力に合うEasyまたはMediumを1問推薦します。
+期限復習を優先し、復習がなければ実力に合う難易度の問題を1問推薦します。
 
 ## 最初に
 
@@ -67,6 +67,7 @@ python3 scripts/done.py 203 --rating good
 - 異なるEasy 2問をGood以上で解けたらMedium
 - MediumでAgainが続けば同じパターンのEasyへ戻る
 - 異なるMedium 3問をGood以上で解けたら、そのパターンは面接基礎定着
+- 確認済みMediumが5問以上、リトライ率30%以下、直近3回がGood以上ならHard
 
 既存の履歴なしmastered問題は消去せず `unverified` として扱い、次の復習で現在の実力を確認します。
 
@@ -86,7 +87,8 @@ stage 2以降は復習が同日に集中しないよう、基準日の前後で�
 
 ## Git同期
 
-`done` で評価を記録すると、その問題の `Solution.java` と `progress.json` を自動でcommit、pushします。
+`done` で評価を記録すると、その問題の `Solution.java`、`SolutionTest.java` と
+`progress.json` を自動でcommit、pushします。
 ほかの学習スクリプトや設定も同期したい場合は、次を実行します。
 
 ```bash
