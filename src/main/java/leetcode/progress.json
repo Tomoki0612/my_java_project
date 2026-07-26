@@ -1940,9 +1940,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-07-01",
-    "next_review": "2026-07-26",
+    "next_review": "2026-09-20",
     "mastered_date": null,
-    "stage": 2,
+    "stage": 4,
     "retries": 2,
     "topic_tags": [
       "Hash Table",
@@ -2021,9 +2021,15 @@
           "complexity": null,
           "lesson": null
         }
+      },
+      {
+        "date": "2026-07-26",
+        "rating": "easy",
+        "stage_before": 2,
+        "stage_after": 4
       }
     ],
-    "last_rating": "good",
+    "last_rating": "easy",
     "verified": true
   },
   "p0349_intersection_of_two_arrays": {
