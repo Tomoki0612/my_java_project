@@ -694,10 +694,10 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-04-26",
-    "next_review": "2026-07-26",
+    "next_review": "2026-08-15",
     "mastered_date": null,
     "retries": 1,
-    "stage": 4,
+    "stage": 3,
     "topic_tags": [
       "Hash Table",
       "Math",
@@ -759,9 +759,15 @@
           "complexity": null,
           "lesson": null
         }
+      },
+      {
+        "date": "2026-07-26",
+        "rating": "hard",
+        "stage_before": 4,
+        "stage_after": 3
       }
     ],
-    "last_rating": "good",
+    "last_rating": "hard",
     "verified": true
   },
   "p0203_remove_linked_list_elements": {

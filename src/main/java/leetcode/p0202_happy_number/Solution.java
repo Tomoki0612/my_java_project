@@ -42,31 +42,29 @@
  */
 package leetcode.p0202_happy_number;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 class Solution {
     public boolean isHappy(int n) {
-        HashSet<Integer> set = new HashSet<>();
-        int k = n;
+        int sum = 0;
+        Set<Integer> set = new HashSet<>();
         while (true) {
-            int sum = 0;
-            while(k != 0) {
-                sum += (k % 10) * (k % 10);
-                k /= 10;
+            //各桁の、2乗の和を計算
+            while (n >= 1) {
+                sum += (n % 10) * (n % 10);
+                n /= 10; 
             }
             if (sum == 1) {
                 return true;
-            } else if(set.contains(sum)) {
-                break;
-            } else {
+            } else if (!set.contains(sum)){
                 set.add(sum);
-                k = sum;
+                n = sum;
+                sum = 0;
+            } else {
+                return false;
             }
+
         }
-        return false;
     }
 }
