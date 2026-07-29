@@ -2181,9 +2181,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-07-22",
-    "next_review": "2026-07-27",
+    "next_review": "2026-08-04",
     "mastered_date": null,
-    "stage": 1,
+    "stage": 2,
     "retries": 1,
     "topic_tags": [
       "Hash Table",
@@ -2215,6 +2215,12 @@
           "complexity": "O(n)",
           "lesson": "なし"
         }
+      },
+      {
+        "date": "2026-07-29",
+        "rating": "good",
+        "stage_before": 1,
+        "stage_after": 2
       }
     ],
     "last_rating": "good",
