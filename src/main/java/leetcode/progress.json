@@ -1273,11 +1273,11 @@
   "p0228_summary_ranges": {
     "title": "Summary Ranges",
     "difficulty": "Easy",
-    "status": "review",
+    "status": "mastered",
     "added_date": "2026-05-21",
-    "next_review": "2026-07-27",
-    "mastered_date": null,
-    "stage": 3,
+    "next_review": "2027-01-19",
+    "mastered_date": "2026-07-30",
+    "stage": 5,
     "retries": 2,
     "topic_tags": [
       "Array"
@@ -1394,9 +1394,15 @@
           "complexity": null,
           "lesson": null
         }
+      },
+      {
+        "date": "2026-07-30",
+        "rating": "easy",
+        "stage_before": 3,
+        "stage_after": 5
       }
     ],
-    "last_rating": "good",
+    "last_rating": "easy",
     "verified": true
   },
   "p0231_power_of_two": {
