@@ -7,6 +7,8 @@
  * each `i` (`0 <= i <= n`), `ans[i]` is the number of `1`'s in the binary
  * representation of `i`.
  *
+ * Do not solve it with built-in functions (i.e., like `__builtin_popcount` in
+ * C++).
  *
  *
  * Example 1:
@@ -42,9 +44,6 @@
  *
  * 	  - It is very easy to come up with a solution with a runtime of `O(n log
  * n)`. Can you do it in linear time `O(n)` and possibly in a single pass?
- *
- * 	  - Can you do it without using any built-in function (i.e., like
- * `__builtin_popcount` in C++)?
  */
 package leetcode.p0338_counting_bits;
 
@@ -54,8 +53,8 @@ class Solution {
         for (int i = 0; i <= n; i++) {
             int k = i;
             int count = 0;
-            while (k != 0) {
-                if ((k & 1)  == 1) {
+            while (k >= 1) {
+                if ((k & 1) == 1) {
                     count++;
                 }
                 k >>= 1;

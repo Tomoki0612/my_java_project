@@ -2243,9 +2243,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-07-25",
-    "next_review": "2026-07-31",
+    "next_review": "2026-09-26",
     "mastered_date": null,
-    "stage": 2,
+    "stage": 4,
     "retries": 0,
     "topic_tags": [
       "Dynamic Programming",
@@ -2257,6 +2257,12 @@
         "rating": "easy",
         "stage_before": null,
         "stage_after": 2
+      },
+      {
+        "date": "2026-08-01",
+        "rating": "easy",
+        "stage_before": 2,
+        "stage_after": 4
       }
     ],
     "last_rating": "easy",
