@@ -773,10 +773,10 @@
   "p0203_remove_linked_list_elements": {
     "title": "Remove Linked List Elements",
     "difficulty": "Easy",
-    "status": "review",
+    "status": "mastered",
     "added_date": "2026-04-29",
-    "next_review": "2026-08-02",
-    "stage": 4,
+    "next_review": "2027-01-22",
+    "stage": 5,
     "retries": 1,
     "topic_tags": [
       "Linked List",
@@ -852,10 +852,17 @@
           "complexity": null,
           "lesson": null
         }
+      },
+      {
+        "date": "2026-08-02",
+        "rating": "easy",
+        "stage_before": 4,
+        "stage_after": 5
       }
     ],
-    "last_rating": "good",
-    "verified": true
+    "last_rating": "easy",
+    "verified": true,
+    "mastered_date": "2026-08-02"
   },
   "p0205_isomorphic_strings": {
     "title": "Isomorphic Strings",
