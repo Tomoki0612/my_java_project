@@ -2200,10 +2200,10 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-07-22",
-    "next_review": "2026-08-04",
+    "next_review": "2026-08-12",
     "mastered_date": null,
-    "stage": 2,
-    "retries": 1,
+    "stage": 0,
+    "retries": 2,
     "topic_tags": [
       "Hash Table",
       "String"
@@ -2240,9 +2240,15 @@
         "rating": "good",
         "stage_before": 1,
         "stage_after": 2
+      },
+      {
+        "date": "2026-08-11",
+        "rating": "again",
+        "stage_before": 2,
+        "stage_after": 0
       }
     ],
-    "last_rating": "good",
+    "last_rating": "again",
     "verified": true
   },
   "p0338_counting_bits": {
