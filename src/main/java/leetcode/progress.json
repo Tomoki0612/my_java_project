@@ -2130,11 +2130,11 @@
   "p0389_find_the_difference": {
     "title": "Find the Difference",
     "difficulty": "Easy",
-    "status": "review",
+    "status": "mastered",
     "added_date": "2026-07-09",
-    "next_review": "2026-08-12",
-    "mastered_date": null,
-    "stage": 3,
+    "next_review": "2027-02-01",
+    "mastered_date": "2026-08-12",
+    "stage": 5,
     "retries": 2,
     "topic_tags": [
       "Hash Table",
@@ -2190,6 +2190,12 @@
         "rating": "easy",
         "stage_before": 1,
         "stage_after": 3
+      },
+      {
+        "date": "2026-08-12",
+        "rating": "easy",
+        "stage_before": 3,
+        "stage_after": 5
       }
     ],
     "last_rating": "easy",
