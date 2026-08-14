@@ -997,11 +997,11 @@
   "p0222_count_complete_tree_nodes": {
     "title": "Count Complete Tree Nodes",
     "difficulty": "Easy",
-    "status": "review",
+    "status": "mastered",
     "added_date": "2026-05-10",
-    "next_review": "2026-08-14",
-    "mastered_date": null,
-    "stage": 4,
+    "next_review": "2027-02-03",
+    "mastered_date": "2026-08-14",
+    "stage": 5,
     "retries": 2,
     "topic_tags": [
       "Binary Search",
@@ -1093,6 +1093,12 @@
           "complexity": null,
           "lesson": null
         }
+      },
+      {
+        "date": "2026-08-14",
+        "rating": "good",
+        "stage_before": 4,
+        "stage_after": 5
       }
     ],
     "last_rating": "good",
