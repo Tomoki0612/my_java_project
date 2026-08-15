@@ -692,12 +692,12 @@
   "p0202_happy_number": {
     "title": "Happy Number",
     "difficulty": "Easy",
-    "status": "review",
+    "status": "mastered",
     "added_date": "2026-04-26",
-    "next_review": "2026-08-15",
-    "mastered_date": null,
+    "next_review": "2027-02-04",
+    "mastered_date": "2026-08-15",
     "retries": 1,
-    "stage": 3,
+    "stage": 5,
     "topic_tags": [
       "Hash Table",
       "Math",
@@ -765,9 +765,15 @@
         "rating": "hard",
         "stage_before": 4,
         "stage_after": 3
+      },
+      {
+        "date": "2026-08-15",
+        "rating": "easy",
+        "stage_before": 3,
+        "stage_after": 5
       }
     ],
-    "last_rating": "hard",
+    "last_rating": "easy",
     "verified": true
   },
   "p0203_remove_linked_list_elements": {

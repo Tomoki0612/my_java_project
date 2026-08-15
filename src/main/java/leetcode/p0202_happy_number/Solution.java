@@ -50,21 +50,20 @@ class Solution {
         int sum = 0;
         Set<Integer> set = new HashSet<>();
         while (true) {
-            //各桁の、2乗の和を計算
             while (n >= 1) {
                 sum += (n % 10) * (n % 10);
-                n /= 10; 
+                n /= 10;
             }
+
             if (sum == 1) {
                 return true;
-            } else if (!set.contains(sum)){
+            } else if (set.contains(sum)) {
+                return false;
+            } else {
                 set.add(sum);
                 n = sum;
                 sum = 0;
-            } else {
-                return false;
             }
-
         }
     }
 }
