@@ -1,6 +1,6 @@
 import unittest
 
-from scripts.interview_lib import (
+from scripts.problem_pattern_lib import (
     needs_easy,
     patterns_for_tags,
     readiness_summary,
@@ -25,8 +25,8 @@ def solved_entry(number, difficulty="Easy", rating="good"):
     }
 
 
-class InterviewCurriculumTest(unittest.TestCase):
-    def test_topic_tags_map_to_interview_patterns(self):
+class ProblemPatternCurriculumTest(unittest.TestCase):
+    def test_topic_tags_map_to_problem_patterns(self):
         patterns = patterns_for_tags(["Array", "Hash Table", "Two Pointers"])
         self.assertIn("Array/String", patterns)
         self.assertIn("Hash Map/Set", patterns)

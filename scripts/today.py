@@ -11,7 +11,7 @@ from progress_lib import (
     INTERVALS_DAYS, MAX_STAGE,
 )
 from next_action import pick_next, format_one_line
-from interview_lib import CORE_PATTERNS, entry_patterns, readiness_summary, needs_easy, weakness_score
+from problem_pattern_lib import CORE_PATTERNS, entry_patterns, readiness_summary, needs_easy, weakness_score
 
 
 def weak_topics(progress, limit=3):
@@ -181,7 +181,7 @@ def main():
         print(f"  stage {s} ({days:>3}日) {'█' * n} {n}")
 
     summary = readiness_summary(progress)
-    print("\n--- 面接準備度")
+    print("\n--- 問題パターン別の習熟度")
     for pattern in CORE_PATTERNS:
         stats = summary["patterns"][pattern]
         easy_needed, _ = needs_easy(progress, pattern)

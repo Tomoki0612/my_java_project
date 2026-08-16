@@ -1,6 +1,6 @@
-# Java Coding Interview Practice
+# Java Problem Pattern Practice
 
-国内大手Web企業のコーディング面接を想定した、Java + LeetCodeの学習リポジトリです。
+Java + LeetCodeで、問題パターンごとの解法を身につけるための学習リポジトリです。
 期限復習を優先し、復習がなければ実力に合う難易度の問題を1問推薦します。
 
 ## 最初に
@@ -61,12 +61,12 @@ python3 scripts/done.py 203 --rating good
 
 ## 難易度の決まり方
 
-難易度は全体の問題数ではなく、面接頻出パターンごとに判断します。
+難易度は全体の問題数ではなく、問題パターンごとに判断します。
 
 - 確認済みEasyが2問未満、または直近にAgain/HardがあればEasy
 - 異なるEasy 2問をGood以上で解けたらMedium
 - MediumでAgainが続けば同じパターンのEasyへ戻る
-- 異なるMedium 3問をGood以上で解けたら、そのパターンは面接基礎定着
+- 異なるMedium 3問をGood以上で解けたら、そのパターンは基礎定着
 - 確認済みMediumが5問以上、リトライ率30%以下、直近3回がGood以上ならHard
 
 既存の履歴なしmastered問題は消去せず `unverified` として扱い、次の復習で現在の実力を確認します。

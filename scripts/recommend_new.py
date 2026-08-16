@@ -9,7 +9,7 @@ from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from new_problem import graphql_request
 from progress_lib import load_progress
-from interview_lib import (
+from problem_pattern_lib import (
     CORE_PATTERNS,
     entry_patterns,
     patterns_for_tags,

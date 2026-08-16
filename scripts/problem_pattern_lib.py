@@ -1,4 +1,4 @@
-"""コーディング面接向けのパターン分類と習熟度集計。"""
+"""問題パターンの分類と習熟度集計。"""
 PATTERN_TAGS = {
     "Array/String": {"Array", "String", "Matrix", "Simulation"},
     "Hash Map/Set": {"Hash Table", "Counting"},

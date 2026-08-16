@@ -7,6 +7,40 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from progress_lib import load_progress
 
 
+def due_review_actions(progress, today_iso=None):
+    """期限が来ている復習を優先順に返す。"""
+    if today_iso is None:
+        today_iso = date.today().isoformat()
+
+    short_reviews = []
+    long_reviews = []
+    for k, v in progress.items():
+        nr = v.get("next_review")
+        status = v.get("status")
+        if status != "in_progress" and nr and nr <= today_iso:
+            if status == "mastered":
+                long_reviews.append((k, v))
+            else:
+                short_reviews.append((k, v))
+
+    due = [(k, v, "review") for k, v in short_reviews]
+    due += [(k, v, "long_review") for k, v in long_reviews]
+    due.sort(key=lambda x: (x[1].get("next_review", ""), x[1].get("stage", 0)))
+
+    actions = []
+    for k, v, kind in due:
+        num = int(k[1:5])
+        label = "長期復習" if kind == "long_review" else "復習"
+        actions.append({
+            "kind": kind,
+            "number": num,
+            "title": v["title"],
+            "command": f"python3 scripts/review.py {num}",
+            "hint": f"{label}: #{num} {v['title']} [{v['difficulty']}] stage {v.get('stage', 0)}",
+        })
+    return actions
+
+
 def pick_next(progress, today_iso=None):
     """進捗から「次の1アクション」を返す。
 
@@ -15,36 +49,15 @@ def pick_next(progress, today_iso=None):
     if today_iso is None:
         today_iso = date.today().isoformat()
 
-    short_reviews = []
-    long_reviews = []
+    # 優先度: 期限復習（短期・長期） > 取り組み中 > 新規問題追加。
+    due = due_review_actions(progress, today_iso)
+    if due:
+        return due[0]
+
     in_prog = []
     for k, v in progress.items():
-        nr = v.get("next_review")
-        status = v.get("status")
-        if status == "in_progress":
+        if v.get("status") == "in_progress":
             in_prog.append((k, v))
-        elif nr and nr <= today_iso:
-            if status == "mastered":
-                long_reviews.append((k, v))
-            else:
-                short_reviews.append((k, v))
-
-    # 優先度: 期限復習（短期・長期） > 取り組み中 > 新規問題追加。
-    if short_reviews or long_reviews:
-        due = [(k, v, "review") for k, v in short_reviews]
-        due += [(k, v, "long_review") for k, v in long_reviews]
-        due.sort(key=lambda x: (x[1].get("next_review", ""), x[1].get("stage", 0)))
-        k, v, kind = due[0]
-        num = int(k[1:5])
-        label = "長期復習" if kind == "long_review" else "復習"
-        return {
-            "kind": kind,
-            "number": num,
-            "title": v["title"],
-            "command": f"python3 scripts/review.py {num}",
-            "hint": f"{label}: #{num} {v['title']} [{v['difficulty']}] stage {v.get('stage', 0)}",
-        }
-
     if in_prog:
         k, v = in_prog[0]
         num = int(k[1:5])
@@ -61,7 +74,7 @@ def pick_next(progress, today_iso=None):
         "number": None,
         "title": None,
         "command": "python3 scripts/recommend_new.py",
-        "hint": "面接パターン別の実力から今日の1問を決めましょう",
+        "hint": "問題パターン別の実力から今日の1問を決めましょう",
     }
 
 

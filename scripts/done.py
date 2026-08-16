@@ -9,6 +9,7 @@ from datetime import date
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from new_problem import build_solution, fetch_problem
+from next_action import due_review_actions, format_one_line, pick_next
 from progress_lib import (
     INTERVALS_DAYS,
     MAX_STAGE,
@@ -22,6 +23,39 @@ from progress_lib import (
     normalize_rating,
     save_progress,
 )
+
+
+def build_completion_guidance(progress, completed_was_review, today_iso=None):
+    """1問の記録後に、今日続けるべき内容を案内する。"""
+    due = due_review_actions(progress, today_iso)
+    if due:
+        return [
+            f"今日の期限復習はあと {len(due)}問です。",
+            format_one_line(due[0]),
+        ]
+
+    if completed_was_review:
+        return [
+            "今日の期限復習はすべて完了しました。",
+            "今日の学習は終了です。お疲れさまでした！",
+        ]
+
+    action = pick_next(progress, today_iso)
+    if action and action["kind"] == "in_progress":
+        return [
+            "取り組み中の問題が残っています。",
+            format_one_line(action),
+        ]
+    return [
+        "今日の新規問題1問は完了しました。",
+        "今日の学習は終了です。お疲れさまでした！",
+    ]
+
+
+def print_completion_guidance(progress, completed_was_review):
+    print("\n次にやること")
+    for line in build_completion_guidance(progress, completed_was_review):
+        print(f"  {line}")
 
 
 def run_git(*args):
@@ -167,6 +201,7 @@ def main(argv=None):
         return 1
 
     entry = progress[key]
+    completed_was_review = entry.get("status") in ("review", "mastered")
 
     if rating != "again" and not args.no_test:
         try:
@@ -203,7 +238,9 @@ def main(argv=None):
     else:
         print(f"[{rating.capitalize()}] #{args.number} {title} [{difficulty}] → stage {stage}")
     print(f"  → 次回復習: {next_review} ({INTERVALS_DAYS[stage]}日を基準に調整)")
-    return 0 if auto_commit_and_push(key, args.number, title, rating) else 1
+    synced = auto_commit_and_push(key, args.number, title, rating)
+    print_completion_guidance(progress, completed_was_review)
+    return 0 if synced else 1
 
 
 if __name__ == "__main__":
