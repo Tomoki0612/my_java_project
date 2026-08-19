@@ -68,8 +68,8 @@ import java.util.Map;
 
 class Solution {
     public boolean wordPattern(String pattern, String s) {
-        StringBuilder sb = new StringBuilder();
         List<String> list = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == ' ') {
                 list.add(sb.toString());
@@ -81,11 +81,11 @@ class Solution {
 
         list.add(sb.toString());
 
+        Map<Character, String> map = new HashMap<>();
         if (pattern.length() != list.size()) {
             return false;
         }
 
-        Map<Character, String> map = new HashMap<>();
         for (int i = 0; i < pattern.length(); i++) {
             if (map.containsKey(pattern.charAt(i))) {
                 if (!map.get(pattern.charAt(i)).equals(list.get(i))) {
