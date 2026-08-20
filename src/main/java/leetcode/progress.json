@@ -2316,5 +2316,30 @@
     ],
     "last_rating": "easy",
     "verified": true
+  },
+  "p0409_longest_palindrome": {
+    "title": "Longest Palindrome",
+    "difficulty": "Easy",
+    "status": "review",
+    "added_date": "2026-08-20",
+    "next_review": "2026-08-21",
+    "mastered_date": null,
+    "stage": 0,
+    "retries": 0,
+    "topic_tags": [
+      "Hash Table",
+      "String",
+      "Greedy"
+    ],
+    "history": [
+      {
+        "date": "2026-08-20",
+        "rating": "hard",
+        "stage_before": null,
+        "stage_after": 0
+      }
+    ],
+    "last_rating": "hard",
+    "verified": false
   }
 }
