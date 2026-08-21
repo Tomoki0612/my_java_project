@@ -40,21 +40,23 @@ import java.util.Map;
 
 class Solution {
     public int longestPalindrome(String s) {
+        int count = 0;
+        boolean flg = false;
         Map<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
             map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
         }
-        int count = 0;
-        int flg = 0;
+
         for (Character key : map.keySet()) {
             if (map.get(key) % 2 == 0) {
                 count += map.get(key);
             } else {
                 count += map.get(key) - 1;
-                flg++;
+                flg = true;
             }
         }
-        if (flg >= 1) {
+
+        if (flg) {
             return count + 1;
         } else {
             return count;
