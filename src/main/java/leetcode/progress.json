@@ -2224,9 +2224,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-07-22",
-    "next_review": "2026-08-22",
+    "next_review": "2026-09-10",
     "mastered_date": null,
-    "stage": 1,
+    "stage": 3,
     "retries": 2,
     "topic_tags": [
       "Hash Table",
@@ -2282,9 +2282,15 @@
         "rating": "hard",
         "stage_before": 2,
         "stage_after": 1
+      },
+      {
+        "date": "2026-08-22",
+        "rating": "easy",
+        "stage_before": 1,
+        "stage_after": 3
       }
     ],
-    "last_rating": "hard",
+    "last_rating": "easy",
     "verified": true
   },
   "p0338_counting_bits": {

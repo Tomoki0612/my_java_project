@@ -78,14 +78,13 @@ class Solution {
                 sb.append(s.charAt(i));
             }
         }
-
         list.add(sb.toString());
 
-        Map<Character, String> map = new HashMap<>();
         if (pattern.length() != list.size()) {
             return false;
         }
 
+        Map<Character, String> map = new HashMap<>();
         for (int i = 0; i < pattern.length(); i++) {
             if (map.containsKey(pattern.charAt(i))) {
                 if (!map.get(pattern.charAt(i)).equals(list.get(i))) {
@@ -99,6 +98,7 @@ class Solution {
                 }
             }
         }
+
         return true;
     }
 }
