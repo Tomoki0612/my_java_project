@@ -52,10 +52,11 @@ import leetcode.common.TreeNode;
 class Solution {
     public TreeNode invertTree(TreeNode root) {
         if (root == null) {
-            return null;
+            return root;
         }
+
+        TreeNode tmp;
         if (root.left != null || root.right != null) {
-            TreeNode tmp;
             tmp = root.left;
             root.left = root.right;
             root.right = tmp;

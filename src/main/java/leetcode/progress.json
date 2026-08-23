@@ -1208,11 +1208,11 @@
   "p0226_invert_binary_tree": {
     "title": "Invert Binary Tree",
     "difficulty": "Easy",
-    "status": "review",
+    "status": "mastered",
     "added_date": "2026-05-18",
-    "next_review": "2026-08-22",
-    "mastered_date": null,
-    "stage": 4,
+    "next_review": "2027-02-12",
+    "mastered_date": "2026-08-23",
+    "stage": 5,
     "retries": 1,
     "topic_tags": [
       "Tree",
@@ -1290,9 +1290,15 @@
           "complexity": null,
           "lesson": null
         }
+      },
+      {
+        "date": "2026-08-23",
+        "rating": "easy",
+        "stage_before": 4,
+        "stage_after": 5
       }
     ],
-    "last_rating": "good",
+    "last_rating": "easy",
     "verified": true
   },
   "p0228_summary_ranges": {
