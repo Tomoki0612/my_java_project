@@ -1439,11 +1439,11 @@
   "p0231_power_of_two": {
     "title": "Power of Two",
     "difficulty": "Easy",
-    "status": "review",
+    "status": "mastered",
     "added_date": "2026-05-23",
-    "next_review": "2026-08-23",
-    "mastered_date": null,
-    "stage": 4,
+    "next_review": "2027-02-13",
+    "mastered_date": "2026-08-24",
+    "stage": 5,
     "retries": 1,
     "topic_tags": [
       "Math",
@@ -1520,9 +1520,15 @@
           "complexity": null,
           "lesson": null
         }
+      },
+      {
+        "date": "2026-08-24",
+        "rating": "easy",
+        "stage_before": 4,
+        "stage_after": 5
       }
     ],
-    "last_rating": "good",
+    "last_rating": "easy",
     "verified": true
   },
   "p0232_implement_queue_using_stacks": {
