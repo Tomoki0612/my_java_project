@@ -1534,11 +1534,11 @@
   "p0232_implement_queue_using_stacks": {
     "title": "Implement Queue using Stacks",
     "difficulty": "Easy",
-    "status": "review",
+    "status": "mastered",
     "added_date": "2026-05-26",
-    "next_review": "2026-08-28",
-    "mastered_date": null,
-    "stage": 4,
+    "next_review": "2027-02-18",
+    "mastered_date": "2026-08-29",
+    "stage": 5,
     "retries": 1,
     "topic_tags": [
       "Stack",
@@ -1615,9 +1615,15 @@
           "complexity": null,
           "lesson": null
         }
+      },
+      {
+        "date": "2026-08-29",
+        "rating": "easy",
+        "stage_before": 4,
+        "stage_after": 5
       }
     ],
-    "last_rating": "good",
+    "last_rating": "easy",
     "verified": true
   },
   "p0234_palindrome_linked_list": {
