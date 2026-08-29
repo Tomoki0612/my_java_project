@@ -54,8 +54,8 @@ package leetcode.p0506_relative_ranks;
 
 class Solution {
     public String[] findRelativeRanks(int[] score) {
-        int tmp;
         int[] rank = score.clone();
+        int tmp;
         for (int i = 0; i < rank.length; i++) {
             for (int j = i; j < rank.length; j++) {
                 if (rank[i] < rank[j]) {
@@ -65,25 +65,22 @@ class Solution {
                 }
             }
         }
-
-        String[] str = new String[score.length];
-        for (int i = 0; i < str.length; i++) {
+        String[] result = new String[score.length];
+        for (int i = 0; i < score.length; i++) {
             for (int j = 0; j < rank.length; j++) {
                 if (score[i] == rank[j]) {
                     if (j == 0) {
-                        str[i] = "Gold Medal";
-                    } else if (j == 1){
-                        str[i] = "Silver Medal";
-                    } else if (j == 2){
-                        str[i] = "Bronze Medal";
+                        result[i] = "Gold Medal"; 
+                    } else if (j == 1) {
+                        result[i] = "Silver Medal"; 
+                    } else if (j == 2) {
+                        result[i] = "Bronze Medal";
                     } else {
-                        str[i] = Integer.toString(j + 1);
+                        result[i]= Integer.toString(j + 1);
                     }
-                    
                 }
             }
-             
         }
-        return str;
+        return result;
     }
 }
