@@ -2408,5 +2408,31 @@
     ],
     "last_rating": "easy",
     "verified": true
+  },
+  "p0005_longest_palindromic_substring": {
+    "title": "Longest Palindromic Substring",
+    "difficulty": "Medium",
+    "status": "review",
+    "added_date": "2026-08-30",
+    "next_review": "2026-08-31",
+    "mastered_date": null,
+    "stage": 0,
+    "retries": 1,
+    "topic_tags": [
+      "Two Pointers",
+      "String",
+      "Dynamic Programming",
+      "Manacher"
+    ],
+    "history": [
+      {
+        "date": "2026-08-30",
+        "rating": "again",
+        "stage_before": null,
+        "stage_after": 0
+      }
+    ],
+    "last_rating": "again",
+    "verified": false
   }
 }
