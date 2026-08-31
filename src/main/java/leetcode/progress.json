@@ -2414,10 +2414,10 @@
     "difficulty": "Medium",
     "status": "review",
     "added_date": "2026-08-30",
-    "next_review": "2026-08-31",
+    "next_review": "2026-09-01",
     "mastered_date": null,
     "stage": 0,
-    "retries": 1,
+    "retries": 2,
     "topic_tags": [
       "Two Pointers",
       "String",
@@ -2429,6 +2429,12 @@
         "date": "2026-08-30",
         "rating": "again",
         "stage_before": null,
+        "stage_after": 0
+      },
+      {
+        "date": "2026-08-31",
+        "rating": "again",
+        "stage_before": 0,
         "stage_after": 0
       }
     ],
