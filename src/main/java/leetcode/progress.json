@@ -2414,9 +2414,9 @@
     "difficulty": "Medium",
     "status": "review",
     "added_date": "2026-08-30",
-    "next_review": "2026-09-01",
+    "next_review": "2026-09-04",
     "mastered_date": null,
-    "stage": 0,
+    "stage": 1,
     "retries": 2,
     "topic_tags": [
       "Two Pointers",
@@ -2436,9 +2436,15 @@
         "rating": "again",
         "stage_before": 0,
         "stage_after": 0
+      },
+      {
+        "date": "2026-09-01",
+        "rating": "good",
+        "stage_before": 0,
+        "stage_after": 1
       }
     ],
-    "last_rating": "again",
-    "verified": false
+    "last_rating": "good",
+    "verified": true
   }
 }
