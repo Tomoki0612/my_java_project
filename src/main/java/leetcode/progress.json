@@ -2446,5 +2446,30 @@
     ],
     "last_rating": "good",
     "verified": true
+  },
+  "p0392_is_subsequence": {
+    "title": "Is Subsequence",
+    "difficulty": "Easy",
+    "status": "review",
+    "added_date": "2026-09-02",
+    "next_review": "2026-09-08",
+    "mastered_date": null,
+    "stage": 2,
+    "retries": 0,
+    "topic_tags": [
+      "Two Pointers",
+      "String",
+      "Dynamic Programming"
+    ],
+    "history": [
+      {
+        "date": "2026-09-02",
+        "rating": "easy",
+        "stage_before": null,
+        "stage_after": 2
+      }
+    ],
+    "last_rating": "easy",
+    "verified": true
   }
 }
