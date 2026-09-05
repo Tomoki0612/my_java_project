@@ -2414,9 +2414,9 @@
     "difficulty": "Medium",
     "status": "review",
     "added_date": "2026-08-30",
-    "next_review": "2026-09-04",
+    "next_review": "2026-09-24",
     "mastered_date": null,
-    "stage": 1,
+    "stage": 3,
     "retries": 2,
     "topic_tags": [
       "Two Pointers",
@@ -2442,9 +2442,15 @@
         "rating": "good",
         "stage_before": 0,
         "stage_after": 1
+      },
+      {
+        "date": "2026-09-05",
+        "rating": "easy",
+        "stage_before": 1,
+        "stage_after": 3
       }
     ],
-    "last_rating": "good",
+    "last_rating": "easy",
     "verified": true
   },
   "p0392_is_subsequence": {
