@@ -3,8 +3,9 @@
  * Difficulty: Easy
  * https://leetcode.com/problems/binary-tree-paths/
  *
- * Given the `root` of a binary tree, return all root-to-leaf paths in any
- * order.
+ * You are given the `root` of a binary tree.
+ *
+ * Return all root-to-leaf paths in any order.
  *
  * A leaf is a node with no children.
  *
@@ -30,8 +31,10 @@
  */
 package leetcode.p0257_binary_tree_paths;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import leetcode.common.TreeNode;
-import java.util.*;
 
 /**
  * Definition for a binary tree node.
@@ -51,24 +54,23 @@ import java.util.*;
 class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> list = new ArrayList<>();
-        String path = "";
-        dfs(root, list, path);
+        String paths = "";
+        dfs(root, list, paths);
         return list;
     }
 
-    private void dfs(TreeNode node, List<String> list, String path){
-        path += node.val;
-
+    private void dfs(TreeNode node, List<String> list ,String paths){
+        paths += node.val;
         if (node.left == null && node.right == null) {
-            list.add(path);
+            list.add(paths);
         }
 
         if (node.left != null) {
-            dfs(node.left, list, path + "->");
+            dfs(node.left, list, paths + "->");
         }
 
         if (node.right != null) {
-            dfs(node.right, list, path + "->");
+            dfs(node.right, list, paths + "->");
         }
     }
 }

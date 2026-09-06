@@ -1696,11 +1696,11 @@
   "p0257_binary_tree_paths": {
     "title": "Binary Tree Paths",
     "difficulty": "Easy",
-    "status": "review",
+    "status": "mastered",
     "added_date": "2026-06-04",
-    "next_review": "2026-09-06",
-    "mastered_date": null,
-    "stage": 4,
+    "next_review": "2027-02-26",
+    "mastered_date": "2026-09-06",
+    "stage": 5,
     "retries": 1,
     "topic_tags": [
       "String",
@@ -1779,6 +1779,13 @@
           "complexity": null,
           "lesson": null
         }
+      },
+      {
+        "date": "2026-09-06",
+        "recorded_at": "2026-09-06T17:06:11.429877+09:00",
+        "rating": "good",
+        "stage_before": 4,
+        "stage_after": 5
       }
     ],
     "last_rating": "good",
