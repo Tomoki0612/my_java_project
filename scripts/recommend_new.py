@@ -8,7 +8,8 @@ from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from new_problem import graphql_request
-from progress_lib import load_progress
+from progress_lib import attempt_sort_key, load_progress, recent_attempts
+from next_action import format_one_line, pick_next
 from problem_pattern_lib import (
     CORE_PATTERNS,
     entry_patterns,
@@ -124,8 +125,8 @@ def recent_topic_counts(progress, limit=8):
         history = entry.get("history") or []
         if not history:
             continue
-        latest = max(history, key=lambda item: item.get("date", ""))
-        recent.append((latest.get("date", ""), entry_patterns(entry)))
+        latest = recent_attempts([entry], limit=1)[0]
+        recent.append((attempt_sort_key(latest), entry_patterns(entry)))
 
     counts = Counter()
     for _, tags in sorted(recent, key=lambda item: item[0], reverse=True)[:limit]:
@@ -227,6 +228,10 @@ def main():
     args = parser.parse_args()
 
     progress, _ = load_progress()
+    action = pick_next(progress)
+    if action is None:
+        print(format_one_line(action))
+        return
     print_in_progress_warning(in_progress_entries(progress))
 
     topics = weak_topics(progress, args.topics)

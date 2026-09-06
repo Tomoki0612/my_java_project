@@ -21,6 +21,7 @@ from progress_lib import (
     find_key,
     load_progress,
     normalize_rating,
+    recent_attempts,
     save_progress,
 )
 
@@ -34,17 +35,16 @@ def build_completion_guidance(progress, completed_was_review, today_iso=None):
             format_one_line(due[0]),
         ]
 
-    if completed_was_review:
-        return [
-            "今日の期限復習はすべて完了しました。",
-            "今日の学習は終了です。お疲れさまでした！",
-        ]
-
     action = pick_next(progress, today_iso)
     if action and action["kind"] == "in_progress":
         return [
             "取り組み中の問題が残っています。",
             format_one_line(action),
+        ]
+    if completed_was_review:
+        return [
+            "今日の期限復習はすべて完了しました。",
+            "今日の学習は終了です。お疲れさまでした！",
         ]
     return [
         "今日の新規問題1問は完了しました。",
@@ -91,19 +91,22 @@ def auto_commit_and_push(key, number, title, rating):
     added = run_git("add", "--", *paths)
     if added.returncode != 0:
         print(f"  [warn] Git stageに失敗しました: {added.stderr.strip()}")
+        run_git("restore", "--staged", "--", *paths)
         return False
 
     changed = run_git("diff", "--cached", "--name-only")
-    if changed.returncode != 0 or not changed.stdout.strip():
-        print("  [warn] commit対象の変更がありません。")
+    if changed.returncode != 0:
+        print(f"  [warn] Gitの確認に失敗しました: {changed.stderr.strip()}")
+        run_git("restore", "--staged", "--", *paths)
         return False
 
     message = f"progress: #{number} {title} ({rating})"
-    committed = run_git("commit", "-m", message)
-    if committed.returncode != 0:
-        print(f"  [warn] Git commitに失敗しました: {committed.stderr.strip()}")
-        run_git("restore", "--staged", "--", *paths)
-        return False
+    if changed.stdout.strip():
+        committed = run_git("commit", "-m", message)
+        if committed.returncode != 0:
+            print(f"  [warn] Git commitに失敗しました: {committed.stderr.strip()}")
+            run_git("restore", "--staged", "--", *paths)
+            return False
 
     pushed = run_git("push")
     if pushed.returncode != 0:
@@ -180,7 +183,22 @@ def parse_args(argv=None):
     parser.add_argument("number", type=int, help="LeetCode問題番号")
     parser.add_argument("--rating", choices=RATINGS)
     parser.add_argument("--no-test", action="store_true")
-    return parser.parse_args(argv)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--sync-only", action="store_true", help="評価を追加せず、その問題の同期だけを再試行")
+    mode.add_argument("--new-attempt", action="store_true", help="同じ日に実際に解き直した結果を追加記録")
+    args = parser.parse_args(argv)
+    if args.sync_only and args.rating:
+        parser.error("--sync-only と --rating は同時に指定できません")
+    return args
+
+
+def sync_recorded_attempt(key, number, entry, rating):
+    synced = auto_commit_and_push(key, number, entry["title"], rating)
+    if not synced:
+        print("  評価は保存済みです。同期を再試行するには:")
+        print(f"    python3 scripts/done.py {number} --sync-only")
+        print("  リモートの変更を取り込む必要がある場合は make sync を実行してください。")
+    return synced
 
 
 def collect_rating(args):
@@ -194,13 +212,27 @@ def main(argv=None):
     if not key:
         print(f"問題 #{args.number} は未登録です。先に new_problem.py で追加してください。")
         return 1
+
+    entry = progress[key]
+    latest = recent_attempts([entry], limit=1)
+    if args.sync_only or (
+        not args.new_attempt and latest and latest[0].get("date") == date.today().isoformat()
+    ):
+        if not latest:
+            print(f"問題 #{args.number} の評価はまだ記録されていません。")
+            return 1
+        rating = latest[0]["rating"]
+        print(f"#{args.number} は評価記録済み ({rating})。評価を追加せず同期します。")
+        if not args.sync_only:
+            print("  同じ日に解き直した結果を追加する場合は --new-attempt を指定してください。")
+        return 0 if sync_recorded_attempt(key, args.number, entry, rating) else 1
+
     try:
         rating = collect_rating(args)
     except ValueError as exc:
         print(exc)
         return 1
 
-    entry = progress[key]
     completed_was_review = entry.get("status") in ("review", "mastered")
 
     if rating != "again" and not args.no_test:
@@ -238,7 +270,7 @@ def main(argv=None):
     else:
         print(f"[{rating.capitalize()}] #{args.number} {title} [{difficulty}] → stage {stage}")
     print(f"  → 次回復習: {next_review} ({INTERVALS_DAYS[stage]}日を基準に調整)")
-    synced = auto_commit_and_push(key, args.number, title, rating)
+    synced = sync_recorded_attempt(key, args.number, entry, rating)
     print_completion_guidance(progress, completed_was_review)
     return 0 if synced else 1
 

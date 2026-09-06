@@ -1,15 +1,24 @@
 import unittest
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 
 from scripts.progress_lib import (
     _migrate_entry,
     apply_transition,
     choose_review_date,
     next_stage,
+    recent_attempts,
 )
 
 
 class StageTransitionTest(unittest.TestCase):
+    def test_timestamp_and_learning_date_use_the_same_local_clock(self):
+        now = datetime(2026, 1, 2, 0, 1, tzinfo=timezone(timedelta(hours=9)))
+        entry = {"stage": None, "history": []}
+        apply_transition(entry, "good", now=now)
+        attempt = entry["history"][0]
+        self.assertEqual("2026-01-02", attempt["date"])
+        self.assertEqual(now.isoformat(), attempt["recorded_at"])
+
     def test_initial_ratings_do_not_jump_to_mastered(self):
         self.assertEqual(0, next_stage(None, "again"))
         self.assertEqual(0, next_stage(None, "hard"))
@@ -53,6 +62,22 @@ class StageTransitionTest(unittest.TestCase):
 
 
 class SchedulingAndMigrationTest(unittest.TestCase):
+    def test_mixed_history_uses_time_and_preserves_legacy_append_order(self):
+        older = {"date": "2026-01-02", "rating": "good"}
+        later = {"date": "2026-01-02", "rating": "hard"}
+        timed = {
+            "date": "2026-01-02", "rating": "easy",
+            "recorded_at": "2026-01-02T10:00:00+09:00",
+        }
+        entries = [{"history": [older, later]}, {"history": [timed]}]
+        self.assertEqual([timed, later, older], recent_attempts(entries))
+        self.assertNotIn("recorded_at", older)
+
+    def test_timestamps_compare_instants_across_timezone_offsets(self):
+        first = {"date": "2026-01-02", "recorded_at": "2026-01-02T10:00:00+09:00"}
+        last = {"date": "2026-01-02", "recorded_at": "2026-01-02T02:00:00+00:00"}
+        self.assertEqual([last, first], recent_attempts([{"history": [first, last]}]))
+
     def test_flexible_schedule_chooses_least_loaded_earliest_day(self):
         progress = {
             "a": {"next_review": "2026-01-07"},

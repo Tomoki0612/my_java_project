@@ -49,7 +49,7 @@ def pick_next(progress, today_iso=None):
     if today_iso is None:
         today_iso = date.today().isoformat()
 
-    # 優先度: 期限復習（短期・長期） > 取り組み中 > 新規問題追加。
+    # 優先度: 期限復習 > 取り組み中 > 当日完了の確認 > 新規問題追加。
     due = due_review_actions(progress, today_iso)
     if due:
         return due[0]
@@ -69,6 +69,13 @@ def pick_next(progress, today_iso=None):
             "hint": f"取り組み中: #{num} {v['title']} [{v['difficulty']}] — 解答後に4段階評価",
         }
 
+    if any(
+        attempt.get("date") == today_iso
+        for entry in progress.values()
+        for attempt in entry.get("history") or []
+    ):
+        return None
+
     return {
         "kind": "recommend_new",
         "number": None,
@@ -80,7 +87,7 @@ def pick_next(progress, today_iso=None):
 
 def format_one_line(action):
     if action is None:
-        return "次のアクション: (なし)"
+        return "今日の学習は終了です。お疲れさまでした！"
     return f">>> 次: {action['hint']}\n    $ {action['command']}"
 
 

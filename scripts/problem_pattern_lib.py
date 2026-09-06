@@ -1,4 +1,10 @@
 """問題パターンの分類と習熟度集計。"""
+if __package__:
+    from .progress_lib import recent_attempts
+else:
+    from progress_lib import recent_attempts
+
+
 PATTERN_TAGS = {
     "Array/String": {"Array", "String", "Matrix", "Simulation"},
     "Hash Map/Set": {"Hash Table", "Counting"},
@@ -19,6 +25,7 @@ PATTERN_TAGS = {
 }
 
 CORE_PATTERNS = tuple(PATTERN_TAGS)
+RETRY_WINDOW = 10
 
 
 def patterns_for_tags(tags):
@@ -31,8 +38,8 @@ def entry_patterns(entry):
 
 
 def latest_attempt(entry):
-    history = entry.get("history") or []
-    return history[-1] if history else None
+    history = recent_attempts([entry], limit=1)
+    return history[0] if history else None
 
 
 def _successful(entry):
@@ -44,20 +51,18 @@ def pattern_stats(progress, pattern):
     entries = [entry for entry in progress.values() if pattern in entry_patterns(entry)]
     verified_easy = [entry for entry in entries if entry.get("difficulty") == "Easy" and _successful(entry)]
     verified_medium = [entry for entry in entries if entry.get("difficulty") == "Medium" and _successful(entry)]
-
-    recent = []
-    for entry in entries:
-        for attempt in entry.get("history") or []:
-            recent.append((attempt.get("date", ""), attempt))
-    recent_attempts = [
-        attempt for _, attempt in sorted(recent, key=lambda item: item[0], reverse=True)[:3]
-    ]
+    attempts = recent_attempts(entries, limit=RETRY_WINDOW)
+    retry_rate = (
+        sum(attempt.get("rating") == "again" for attempt in attempts) / len(attempts)
+        if attempts else None
+    )
 
     return {
         "entries": entries,
         "verified_easy": len(verified_easy),
         "verified_medium": len(verified_medium),
-        "recent": recent_attempts,
+        "recent": attempts[:3],
+        "retry_rate": retry_rate,
     }
 
 
@@ -80,10 +85,10 @@ def recommended_difficulty(progress, pattern):
 
     stats = pattern_stats(progress, pattern)
     recent_ratings = [attempt.get("rating") for attempt in stats["recent"]]
-    retries = sum(entry.get("retries", 0) or 0 for entry in stats["entries"])
-    retry_rate = retries / max(1, len(stats["entries"]))
+    retry_rate = stats["retry_rate"]
     if (
         stats["verified_medium"] >= 5
+        and retry_rate is not None
         and retry_rate <= 0.3
         and len(recent_ratings) >= 3
         and all(rating in ("good", "easy") for rating in recent_ratings)
@@ -110,12 +115,8 @@ def weakness_score(progress, pattern):
 
 def readiness_summary(progress):
     per_pattern = {pattern: pattern_stats(progress, pattern) for pattern in CORE_PATTERNS}
-    recent = []
-    for entry in progress.values():
-        for attempt in entry.get("history") or []:
-            recent.append((attempt.get("date", ""), attempt, entry.get("difficulty")))
-    recent_ten = sorted(recent, key=lambda item: item[0], reverse=True)[:10]
-    good = sum(attempt.get("rating") in ("good", "easy") for _, attempt, _ in recent_ten)
+    recent_ten = recent_attempts(progress.values(), limit=10)
+    good = sum(attempt.get("rating") in ("good", "easy") for attempt in recent_ten)
     return {
         "patterns": per_pattern,
         "good_rate": (good / len(recent_ten) * 100) if recent_ten else None,

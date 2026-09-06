@@ -1,10 +1,21 @@
 import unittest
 from unittest.mock import patch
 
-from scripts.recommend_new import pick_candidates, score_candidate
+from scripts.recommend_new import pick_candidates, recent_topic_counts, score_candidate
 
 
 class RecommendationTest(unittest.TestCase):
+    def test_recent_topic_limit_uses_latest_time_within_the_day(self):
+        progress = {
+            "first": {"topic_tags": ["Array"], "history": [{
+                "date": "2026-01-02", "recorded_at": "2026-01-02T10:00:00+09:00",
+            }]},
+            "second": {"topic_tags": ["Hash Table"], "history": [{
+                "date": "2026-01-02", "recorded_at": "2026-01-02T11:00:00+09:00",
+            }]},
+        }
+        self.assertEqual({"Hash Map/Set": 1}, recent_topic_counts(progress, limit=1))
+
     def test_candidate_score_rewards_multiple_weak_patterns(self):
         question = {
             "questionFrontendId": "200",

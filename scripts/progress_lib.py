@@ -2,7 +2,7 @@
 import json
 import os
 from collections import Counter
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC_ROOT = os.path.join(PROJECT_ROOT, "src", "main", "java", "leetcode")
@@ -122,6 +122,25 @@ def find_key(progress, number):
     return None
 
 
+def attempt_sort_key(attempt):
+    """日付を主キーにし、時刻のない旧履歴は同日の新規記録より前に扱う。"""
+    recorded_at = attempt.get("recorded_at")
+    timestamp = float("-inf")
+    if recorded_at:
+        timestamp = datetime.fromisoformat(recorded_at).timestamp()
+    return attempt.get("date", ""), timestamp
+
+
+def recent_attempts(entries, limit=None):
+    """履歴を新しい順に返す。同時刻・旧履歴は各問題の追記順を尊重する。"""
+    attempts = [
+        attempt
+        for entry in entries
+        for attempt in reversed(entry.get("history") or [])
+    ]
+    return sorted(attempts, key=attempt_sort_key, reverse=True)[:limit]
+
+
 def _scheduled_counts(progress):
     return Counter(
         entry.get("next_review")
@@ -160,10 +179,13 @@ def apply_transition(
     rating=None,
     today=None,
     progress=None,
+    now=None,
 ):
     """4段階評価をエントリへ反映する。"""
+    if now is None:
+        now = datetime.now().astimezone()
     if today is None:
-        today = date.today()
+        today = now.date()
     rating = normalize_rating(rating)
 
     cur_stage = entry.get("stage")
@@ -187,6 +209,7 @@ def apply_transition(
     history = entry.setdefault("history", [])
     history.append({
         "date": today.isoformat(),
+        "recorded_at": now.isoformat(),
         "rating": rating,
         "stage_before": cur_stage,
         "stage_after": new_stage,
