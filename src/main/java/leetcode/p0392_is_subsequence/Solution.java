@@ -43,17 +43,17 @@ package leetcode.p0392_is_subsequence;
 
 class Solution {
     public boolean isSubsequence(String s, String t) {
-        int p = 0;
         if (s.length() == 0) {
             return true;
         }
+        int p = 0;
         for (int i = 0; i < t.length(); i++) {
             if (s.charAt(p) == t.charAt(i)) {
-                if (p == s.length() - 1) {
+                p++;
+                if (p == s.length()) {
                     return true;
                 }
-                p++;
-
+                continue;
             }
         }
         return false;

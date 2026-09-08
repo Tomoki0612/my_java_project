@@ -2465,9 +2465,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-09-02",
-    "next_review": "2026-09-08",
+    "next_review": "2026-11-06",
     "mastered_date": null,
-    "stage": 2,
+    "stage": 4,
     "retries": 0,
     "topic_tags": [
       "Two Pointers",
@@ -2480,6 +2480,13 @@
         "rating": "easy",
         "stage_before": null,
         "stage_after": 2
+      },
+      {
+        "date": "2026-09-08",
+        "recorded_at": "2026-09-08T20:04:02.687694+09:00",
+        "rating": "easy",
+        "stage_before": 2,
+        "stage_after": 4
       }
     ],
     "last_rating": "easy",
