@@ -2497,7 +2497,7 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-09-07",
-    "next_review": "2026-09-09",
+    "next_review": "2026-09-11",
     "mastered_date": null,
     "stage": 0,
     "retries": 2,
@@ -2522,9 +2522,16 @@
         "rating": "again",
         "stage_before": 0,
         "stage_after": 0
+      },
+      {
+        "date": "2026-09-10",
+        "recorded_at": "2026-09-10T20:19:42.339338+09:00",
+        "rating": "hard",
+        "stage_before": 0,
+        "stage_after": 0
       }
     ],
-    "last_rating": "again",
+    "last_rating": "hard",
     "verified": false
   }
 }
