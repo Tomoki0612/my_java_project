@@ -2249,10 +2249,10 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-07-22",
-    "next_review": "2026-09-10",
+    "next_review": "2026-09-13",
     "mastered_date": null,
-    "stage": 3,
-    "retries": 2,
+    "stage": 0,
+    "retries": 3,
     "topic_tags": [
       "Hash Table",
       "String"
@@ -2313,9 +2313,16 @@
         "rating": "easy",
         "stage_before": 1,
         "stage_after": 3
+      },
+      {
+        "date": "2026-09-12",
+        "recorded_at": "2026-09-12T11:11:44.351578+09:00",
+        "rating": "again",
+        "stage_before": 3,
+        "stage_after": 0
       }
     ],
-    "last_rating": "easy",
+    "last_rating": "again",
     "verified": true
   },
   "p0338_counting_bits": {
