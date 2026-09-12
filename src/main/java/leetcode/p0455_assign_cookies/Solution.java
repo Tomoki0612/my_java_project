@@ -51,27 +51,8 @@
  */
 package leetcode.p0455_assign_cookies;
 
-import java.util.Arrays;
-
 class Solution {
     public int findContentChildren(int[] g, int[] s) {
-        Arrays.sort(g);
-        Arrays.sort(s);
-        int k = 0;
-        int person = 0;
-        for (int i = 0; i < g.length; i++) {
-            while (k < s.length && g[i] > s[k]) {
-                k++;
-            }
-
-            if (s.length <= k) {
-                break;
-            }
-
-            person++;
-            k++;
-
-        }
-         return person;
+        return 0;
     }
 }
