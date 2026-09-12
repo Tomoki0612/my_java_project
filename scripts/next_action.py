@@ -1,19 +1,44 @@
 """次にやるべき1アクションを決める共通ロジック"""
 import os
 import sys
-from collections import Counter
 from datetime import date
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from progress_lib import load_progress
 
 
-def has_weak_topics(progress):
-    retries_by_topic = Counter()
-    for v in progress.values():
-        for tag in v.get("topic_tags") or []:
-            retries_by_topic[tag] += v.get("retries", 0) or 0
-    return any(retries > 0 for retries in retries_by_topic.values())
+def due_review_actions(progress, today_iso=None):
+    """期限が来ている復習を優先順に返す。"""
+    if today_iso is None:
+        today_iso = date.today().isoformat()
+
+    short_reviews = []
+    long_reviews = []
+    for k, v in progress.items():
+        nr = v.get("next_review")
+        status = v.get("status")
+        if status != "in_progress" and nr and nr <= today_iso:
+            if status == "mastered":
+                long_reviews.append((k, v))
+            else:
+                short_reviews.append((k, v))
+
+    due = [(k, v, "review") for k, v in short_reviews]
+    due += [(k, v, "long_review") for k, v in long_reviews]
+    due.sort(key=lambda x: (x[1].get("next_review", ""), x[1].get("stage", 0)))
+
+    actions = []
+    for k, v, kind in due:
+        num = int(k[1:5])
+        label = "長期復習" if kind == "long_review" else "復習"
+        actions.append({
+            "kind": kind,
+            "number": num,
+            "title": v["title"],
+            "command": f"python3 scripts/review.py {num}",
+            "hint": f"{label}: #{num} {v['title']} [{v['difficulty']}] stage {v.get('stage', 0)}",
+        })
+    return actions
 
 
 def pick_next(progress, today_iso=None):
@@ -24,34 +49,15 @@ def pick_next(progress, today_iso=None):
     if today_iso is None:
         today_iso = date.today().isoformat()
 
-    short_reviews = []
-    long_reviews = []
+    # 優先度: 期限復習 > 取り組み中 > 当日完了の確認 > 新規問題追加。
+    due = due_review_actions(progress, today_iso)
+    if due:
+        return due[0]
+
     in_prog = []
     for k, v in progress.items():
-        nr = v.get("next_review")
-        status = v.get("status")
-        if status == "in_progress":
+        if v.get("status") == "in_progress":
             in_prog.append((k, v))
-        elif nr and nr <= today_iso:
-            if status == "mastered":
-                long_reviews.append((k, v))
-            else:
-                short_reviews.append((k, v))
-
-    # 優先度: 復習中 > 取り組み中 > 長期復習 > 新規問題追加
-    # 復習中はリトライ多い順 → next_review 古い順 で弱点優先
-    if short_reviews:
-        short_reviews.sort(key=lambda x: (-x[1].get("retries", 0), x[1].get("next_review", "")))
-        k, v = short_reviews[0]
-        num = int(k[1:5])
-        return {
-            "kind": "review",
-            "number": num,
-            "title": v["title"],
-            "command": f"python3 scripts/review.py {num}",
-            "hint": f"復習: #{num} {v['title']} [{v['difficulty']}] stage {v.get('stage', 0)}",
-        }
-
     if in_prog:
         k, v = in_prog[0]
         num = int(k[1:5])
@@ -60,42 +66,28 @@ def pick_next(progress, today_iso=None):
             "number": num,
             "title": v["title"],
             "command": f"python3 scripts/done.py {num}",
-            "hint": f"取り組み中: #{num} {v['title']} [{v['difficulty']}] — 解けたら done / 詰まったら done --helped",
+            "hint": f"取り組み中: #{num} {v['title']} [{v['difficulty']}] — 解答後に4段階評価",
         }
 
-    if long_reviews:
-        long_reviews.sort(key=lambda x: x[1].get("next_review", ""))
-        k, v = long_reviews[0]
-        num = int(k[1:5])
-        return {
-            "kind": "long_review",
-            "number": num,
-            "title": v["title"],
-            "command": f"python3 scripts/review.py {num}",
-            "hint": f"長期復習: #{num} {v['title']} [{v['difficulty']}] (前回習得 {v.get('mastered_date', '?')})",
-        }
-
-    if has_weak_topics(progress):
-        return {
-            "kind": "recommend_new",
-            "number": None,
-            "title": None,
-            "command": "python3 scripts/recommend_new.py",
-            "hint": "弱点トピックから今日の1問を決めましょう",
-        }
+    if any(
+        attempt.get("date") == today_iso
+        for entry in progress.values()
+        for attempt in entry.get("history") or []
+    ):
+        return None
 
     return {
-        "kind": "new_problem",
+        "kind": "recommend_new",
         "number": None,
         "title": None,
-        "command": "python3 scripts/new_problem.py <番号>",
-        "hint": "新しい問題を追加しましょう",
+        "command": "python3 scripts/recommend_new.py",
+        "hint": "問題パターン別の実力から今日の1問を決めましょう",
     }
 
 
 def format_one_line(action):
     if action is None:
-        return "次のアクション: (なし)"
+        return "今日の学習は終了です。お疲れさまでした！"
     return f">>> 次: {action['hint']}\n    $ {action['command']}"
 
 

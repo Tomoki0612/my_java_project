@@ -42,6 +42,11 @@ package leetcode.p0231_power_of_two;
 
 class Solution {
     public boolean isPowerOfTwo(int n) {
-        return ((n & (n - 1)) == 0 && n > 0);
+        if (n <= 0) {
+            return false;
+        }
+        if ((n & (n - 1)) == 0) {
+            return true;
+        } else return false;
     }
 }

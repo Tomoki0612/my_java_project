@@ -53,31 +53,34 @@
  */
 package leetcode.p0228_summary_ranges;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public List<String> summaryRanges(int[] nums) {
-        List<String> result = new ArrayList<>();
-        int k = 0;
+        List<String> list = new ArrayList<>();
         if (nums.length == 0) {
-            return result;
+            return list;
         }
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] != nums[i - 1] + 1) {
-                if (k == i - 1) {
-                    result.add(Integer.toString(nums[k]));
+        
+        int k = 0;
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i + 1] != nums[i] + 1) {
+                if (nums[k] == nums[i]) {
+                    list.add(Integer.toString(nums[k]));
                 } else {
-                    result.add(Integer.toString(nums[k]) + "->" + Integer.toString(nums[i - 1]));
+                    list.add(Integer.toString(nums[k]) + "->" + Integer.toString(nums[i]));
                 }
-                k = i;
+                k = i + 1;
             }
         }
 
         if (k == nums.length - 1) {
-            result.add(Integer.toString(nums[k]));
+            list.add(Integer.toString(nums[k]));
         } else {
-            result.add(Integer.toString(nums[k]) + "->" + Integer.toString(nums[nums.length - 1]));
+            list.add(Integer.toString(nums[k]) + "->" + Integer.toString(nums[nums.length - 1]));
         }
-        return result;
+        return list;
+
     }
 }
