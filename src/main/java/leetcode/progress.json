@@ -2511,9 +2511,9 @@
     "difficulty": "Easy",
     "status": "review",
     "added_date": "2026-09-07",
-    "next_review": "2026-09-13",
+    "next_review": "2026-09-20",
     "mastered_date": null,
-    "stage": 0,
+    "stage": 1,
     "retries": 3,
     "topic_tags": [
       "Array",
@@ -2550,9 +2550,16 @@
         "rating": "again",
         "stage_before": 0,
         "stage_after": 0
+      },
+      {
+        "date": "2026-09-17",
+        "recorded_at": "2026-09-17T19:47:18.188990+09:00",
+        "rating": "good",
+        "stage_before": 0,
+        "stage_after": 1
       }
     ],
-    "last_rating": "again",
-    "verified": false
+    "last_rating": "good",
+    "verified": true
   }
 }
