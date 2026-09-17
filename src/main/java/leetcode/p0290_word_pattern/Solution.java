@@ -61,8 +61,43 @@
  */
 package leetcode.p0290_word_pattern;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution {
     public boolean wordPattern(String pattern, String s) {
-        return false;
+        ArrayList<String> words = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == ' ') {
+                words.add(sb.toString());
+                sb = new StringBuilder();
+            } else {
+                sb.append(s.charAt(i));
+            }
+        }
+
+        words.add(sb.toString());
+
+        if (pattern.length() != words.size()) {
+            return false;
+        }
+
+        Map<Character, String> map = new HashMap<>();
+        for (int i = 0; i < pattern.length(); i++) {
+            if (map.containsKey(pattern.charAt(i))) {
+                if (!map.get(pattern.charAt(i)).equals(words.get(i))) {
+                    return  false;
+                }
+            } else {
+                if (map.containsValue(words.get(i))) {
+                    return false;
+                } else {
+                    map.put(pattern.charAt(i), words.get(i));
+                }
+            }
+        }
+        return true;
     }
 }

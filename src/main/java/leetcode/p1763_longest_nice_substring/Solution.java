@@ -51,21 +51,22 @@ import java.util.Set;
 class Solution {
     public String longestNiceSubstring(String s) {
         String ans = "";
+        Boolean nice = true;
         for (int i = 0; i < s.length() - 1; i++) {
             Set<Character> set = new HashSet<>();
             for (int j = i; j < s.length(); j++) {
+                nice = true;
                 set.add(s.charAt(j));
-                boolean nice = true;              
                 for (Character c : set) {
                     if (!set.contains(Character.toUpperCase(c)) || !set.contains(Character.toLowerCase(c))) {
-                        nice = false; 
-                    }
+                        nice = false;
+                    } 
                 }
-                if (nice && ans.length() < j - i + 1) {
-                    ans = s.substring(i, j + 1);
+                
+                if (nice && j - i + 1 > ans.length()) {
+                    ans = s.substring(i , j + 1);
                 }
             }
-
         }
         return ans;
     }

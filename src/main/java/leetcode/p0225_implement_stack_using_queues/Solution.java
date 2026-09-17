@@ -67,37 +67,35 @@ import java.util.Deque;
 
 class MyStack {
 
-    private Deque<Integer> q;
+    private Deque<Integer> q1;
+    private Deque<Integer> q2;
 
     public MyStack() {
-        q = new ArrayDeque<>();
+        q1 = new ArrayDeque<>();
+        q2 = new ArrayDeque<>();
     }
     
     public void push(int x) {
-        q.add(x);
-        for (int i = 0; i < q.size() - 1; i++) {
-            q.add(q.poll());
+        while (!q1.isEmpty()) {
+            q2.add(q1.poll());
+        }
+
+        q1.add(x);
+
+        while (!q2.isEmpty()) {
+            q1.add(q2.poll());
         }
     }
     
     public int pop() {
-        return q.poll();
+        return q1.poll();
     }
     
     public int top() {
-        return q.peek();
+        return q1.peek();
     }
     
     public boolean empty() {
-        return q.isEmpty();
+        return q1.isEmpty();
     }
 }
-
-/**
- * Your MyStack object will be instantiated and called as such:
- * MyStack obj = new MyStack();
- * obj.push(x);
- * int param_2 = obj.pop();
- * int param_3 = obj.top();
- * boolean param_4 = obj.empty();
- */

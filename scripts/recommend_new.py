@@ -8,7 +8,15 @@ from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from new_problem import graphql_request
-from progress_lib import load_progress
+from progress_lib import attempt_sort_key, load_progress, recent_attempts
+from next_action import format_one_line, pick_next
+from problem_pattern_lib import (
+    CORE_PATTERNS,
+    entry_patterns,
+    patterns_for_tags,
+    recommended_difficulty,
+    weakness_score,
+)
 
 QUESTION_LIST_QUERY = """
 query($skip: Int!, $limit: Int!, $filters: QuestionListFilterInput) {
@@ -32,6 +40,25 @@ query($skip: Int!, $limit: Int!, $filters: QuestionListFilterInput) {
   }
 }
 """
+
+PATTERN_QUERY_TAG = {
+    "Array/String": "Array",
+    "Hash Map/Set": "Hash Table",
+    "Two Pointers": "Two Pointers",
+    "Sliding Window": "Sliding Window",
+    "Stack/Queue": "Stack",
+    "Linked List": "Linked List",
+    "Binary Search": "Binary Search",
+    "Prefix Sum/Intervals": "Prefix Sum",
+    "Tree/BST": "Tree",
+    "Heap": "Heap (Priority Queue)",
+    "Graph BFS/DFS": "Graph",
+    "Topological Sort": "Topological Sort",
+    "Union Find": "Union Find",
+    "Recursion/Backtracking": "Backtracking",
+    "Dynamic Programming": "Dynamic Programming",
+    "Greedy": "Greedy",
+}
 
 
 def topic_slug(name):
@@ -68,53 +95,28 @@ def print_in_progress_warning(entries):
     for key, entry in entries:
         number = problem_number(key)
         print(f"  #{number} {entry['title']} [{entry['difficulty']}]")
-        print(f"     done: python3 scripts/done.py {number}")
-        print(f"     helped: python3 scripts/done.py {number} --helped")
+        print(f"     評価を記録: python3 scripts/done.py {number}")
     print("  新規追加より先に、まず上の問題を終わらせるのがおすすめです。")
     print()
 
 
 def weak_topics(progress, limit):
-    retries_by_topic = Counter()
-    count_by_topic = Counter()
-    for entry in progress.values():
-        for tag in entry.get("topic_tags") or []:
-            count_by_topic[tag] += 1
-            retries_by_topic[tag] += entry.get("retries", 0) or 0
-
-    weak = [
-        (tag, retries_by_topic[tag], count_by_topic[tag])
-        for tag in retries_by_topic
-        if retries_by_topic[tag] > 0
-    ]
-    weak.sort(key=lambda x: (-x[1], x[0]))
+    weak = []
+    for pattern in CORE_PATTERNS:
+        entries = [entry for entry in progress.values() if pattern in entry_patterns(entry)]
+        weak.append((pattern, weakness_score(progress, pattern), len(entries)))
+    weak.sort(key=lambda item: (-item[1], item[0]))
     return weak[:limit]
 
 
 def weak_topic_scores(topics):
     scores = {}
-    total = sum(retries for _, retries, _ in topics) or 1
-    for rank, (tag, retries, _) in enumerate(topics):
+    total = sum(max(1, weakness) for _, weakness, _ in topics) or 1
+    for rank, (tag, weakness, _) in enumerate(topics):
         rank_bonus = (len(topics) - rank) * 12
-        retry_bonus = round((retries / total) * 40, 1)
+        retry_bonus = round((max(1, weakness) / total) * 40, 1)
         scores[tag] = rank_bonus + retry_bonus
     return scores
-
-
-def topic_entries(progress, tag):
-    return [
-        entry for entry in progress.values()
-        if tag in (entry.get("topic_tags") or [])
-    ]
-
-
-def recent_topic_results(entries, limit=5):
-    history = []
-    for entry in entries:
-        for item in entry.get("history") or []:
-            history.append(item)
-    history.sort(key=lambda item: item.get("date", ""), reverse=True)
-    return history[:limit]
 
 
 def recent_topic_counts(progress, limit=8):
@@ -123,43 +125,14 @@ def recent_topic_counts(progress, limit=8):
         history = entry.get("history") or []
         if not history:
             continue
-        latest = max(history, key=lambda item: item.get("date", ""))
-        recent.append((latest.get("date", ""), entry.get("topic_tags") or []))
+        latest = recent_attempts([entry], limit=1)[0]
+        recent.append((attempt_sort_key(latest), entry_patterns(entry)))
 
     counts = Counter()
-    for _, tags in sorted(recent, reverse=True)[:limit]:
+    for _, tags in sorted(recent, key=lambda item: item[0], reverse=True)[:limit]:
         for tag in tags:
             counts[tag] += 1
     return counts
-
-
-def choose_difficulty(entries):
-    mastered = Counter(
-        entry.get("difficulty")
-        for entry in entries
-        if entry.get("status") == "mastered"
-    )
-    retries = sum(entry.get("retries", 0) or 0 for entry in entries)
-    retry_rate = retries / max(1, len(entries))
-
-    easy_mastered = mastered.get("Easy", 0)
-    medium_mastered = mastered.get("Medium", 0)
-    recent = recent_topic_results(entries)
-    recent_done_count = sum(1 for item in recent if item.get("result") == "done")
-
-    if any(item.get("result") == "helped" for item in recent):
-        return "easy", "直近でhelpedがあり、基礎固めを優先"
-
-    if medium_mastered >= 5 and retry_rate <= 0.3 and recent_done_count >= 3:
-        return "hard", "Mediumを十分習得済みで、直近も安定している"
-
-    if easy_mastered >= 8 and retry_rate <= 0.8:
-        return "medium", "Easyを十分こなしていて、次は少し負荷を上げたい"
-
-    if easy_mastered >= 5 and retry_rate <= 0.5:
-        return "medium", "Easyの基礎量があり、リトライ率も低め"
-
-    return "easy", "リトライ率が高め、または基礎量がまだ少ない"
 
 
 def fetch_candidates(tag, difficulty, limit):
@@ -204,7 +177,7 @@ def low_number_penalty(number):
 
 def score_candidate(q, source_tag, source_index, weak_scores, recent_counts):
     number = int(q["questionFrontendId"])
-    tags = question_tags(q)
+    tags = patterns_for_tags(question_tags(q))
     matched = [tag for tag in tags if tag in weak_scores]
     weak_score = sum(weak_scores[tag] for tag in matched)
     fresh_bonus = sum(6 for tag in matched if recent_counts.get(tag, 0) == 0)
@@ -255,13 +228,13 @@ def main():
     args = parser.parse_args()
 
     progress, _ = load_progress()
+    action = pick_next(progress)
+    if action is None:
+        print(format_one_line(action))
+        return
     print_in_progress_warning(in_progress_entries(progress))
 
     topics = weak_topics(progress, args.topics)
-    if not topics:
-        print("弱点トピックがまだありません。まずは復習で --helped の記録を貯めてください。")
-        print("通常の新規追加: python3 scripts/new_problem.py <番号>")
-        return
 
     registered = registered_numbers(progress)
     weak_scores = weak_topic_scores(topics)
@@ -271,18 +244,19 @@ def main():
     recommendations = []
     scored_candidates = []
     already_shown = set()
-    for tag, retries, solved_count in topics:
+    for tag, weakness, solved_count in topics:
         if args.difficulty == "auto":
-            difficulty, reason = choose_difficulty(topic_entries(progress, tag))
+            difficulty, reason = recommended_difficulty(progress, tag)
         else:
             difficulty, reason = args.difficulty, "手動指定"
 
         try:
-            candidates = pick_candidates(tag, registered, already_shown, args.per_topic, difficulty)
+            query_tag = PATTERN_QUERY_TAG[tag]
+            candidates = pick_candidates(query_tag, registered, already_shown, args.per_topic, difficulty)
         except Exception as exc:
             recommendations.append({
                 "tag": tag,
-                "retries": retries,
+                "retries": weakness,
                 "solved_count": solved_count,
                 "difficulty": difficulty,
                 "reason": reason,
@@ -300,7 +274,7 @@ def main():
 
         recommendations.append({
             "tag": tag,
-            "retries": retries,
+            "retries": weakness,
             "solved_count": solved_count,
             "difficulty": difficulty,
             "reason": reason,
@@ -329,7 +303,7 @@ def main():
     print("候補一覧")
     print()
     for rec in recommendations:
-        print(f"{rec['tag']}  (累計 {rec['retries']} retries / 該当 {rec['solved_count']}問)")
+        print(f"{rec['tag']}  (弱点score {rec['retries']} / 該当 {rec['solved_count']}問)")
         print(f"  推奨難易度: {rec['difficulty'].capitalize()} - {rec['reason']}")
         if rec["error"]:
             print(f"  候補取得に失敗: {rec['error']}")

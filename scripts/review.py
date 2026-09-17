@@ -8,6 +8,7 @@ Usage:
 import sys
 import os
 import shutil
+from datetime import date
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from progress_lib import (
@@ -15,6 +16,16 @@ from progress_lib import (
     load_progress, save_progress, find_key,
 )
 from new_problem import fetch_problem, build_solution
+
+
+def print_previous_attempt(entry):
+    history = entry.get("history") or []
+    if not history:
+        print("前回記録: なし（既存データのため今回から確認）")
+        return
+    attempt = history[-1]
+    print("前回の評価")
+    print(f"  評価: {attempt.get('rating', '?')}")
 
 
 def main():
@@ -38,6 +49,9 @@ def main():
     if dirty:
         save_progress(progress)
 
+    print_previous_attempt(entry)
+    print()
+
     dir_path = os.path.join(SRC_ROOT, key)
     solution_path = os.path.join(dir_path, "Solution.java")
 
@@ -45,16 +59,23 @@ def main():
         print(f"Solution.java が見つかりません: {solution_path}")
         sys.exit(1)
 
-    from datetime import date
     backup_dir = os.path.join(PROJECT_ROOT, "backups", key)
     os.makedirs(backup_dir, exist_ok=True)
     backup_path = os.path.join(backup_dir, f"{date.today().isoformat()}.java")
+    suffix = 2
+    while os.path.exists(backup_path):
+        backup_path = os.path.join(backup_dir, f"{date.today().isoformat()}-{suffix}.java")
+        suffix += 1
     shutil.copy2(solution_path, backup_path)
-    print(f"バックアップ: backups/{key}/{date.today().isoformat()}.java")
+    print(f"バックアップ: {os.path.relpath(backup_path, PROJECT_ROOT)}")
 
     slug = key[6:].replace("_", "-")
     print(f"問題情報を取得中: {slug} ...")
-    problem = fetch_problem(slug)
+    try:
+        problem = fetch_problem(slug)
+    except Exception as exc:
+        print(f"問題情報の取得に失敗しました: {slug}: {exc}")
+        sys.exit(1)
     if not problem:
         print(f"問題情報の取得に失敗しました: {slug}")
         sys.exit(1)
@@ -65,7 +86,7 @@ def main():
 
     print(f"リセット完了: #{number} {entry['title']} [{entry['difficulty']}]")
     print(f"  解けたら     → python3 scripts/done.py {number}")
-    print(f"  詰まったら   → python3 scripts/done.py {number} --helped")
+    print(f"  詰まったら   → python3 scripts/done.py {number} --rating again")
 
 
 if __name__ == "__main__":

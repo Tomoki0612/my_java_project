@@ -1,6 +1,6 @@
 /*
  * Count Complete Tree Nodes
- * Difficulty: Easy
+ * Difficulty: Medium
  * https://leetcode.com/problems/count-complete-tree-nodes/
  *
  * Given the `root` of a complete binary tree, return the number of the nodes
@@ -64,33 +64,31 @@ class Solution {
         if (root == null) {
             return 0;
         }
+        
+        int lh = leftHeight(root.left);
+        int rh = rightHeight(root.right);
 
-        int lh = leftHeight(root);
-        int rh = rightHeight(root);
         if (lh == rh) {
-            return (1 << lh) - 1;
+            return (2 << lh) - 1;
+        } else {
+            return(1 + countNodes(root.left) + countNodes(root.right));
         }
-
-        if (lh != rh) {
-            return 1 + countNodes(root.left) + countNodes(root.right);
-        }
-        return 0;
     }
 
     private int leftHeight(TreeNode node) {
         int count = 0;
         while (node != null) {
-            count++;
             node = node.left;
+            count++;
         }
         return count;
     }
 
-    private int rightHeight(TreeNode node){
+    private int rightHeight(TreeNode node) {
         int count = 0;
         while (node != null) {
-            count++;
             node = node.right;
+            count++;
         }
         return count;
     }

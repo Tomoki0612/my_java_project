@@ -1,7 +1,8 @@
 package leetcode.p0202_happy_number;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 // Happy Number [Easy]
 class SolutionTest {
